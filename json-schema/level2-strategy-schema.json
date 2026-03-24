@@ -1,0 +1,271 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trylevel2.com/schemas/level2/strategy.json",
+  "title": "Level2 Trading Strategy",
+  "description": "Schema for a Level2 automated trading strategy created through the visual no-code strategy builder. Defines the structure of strategy definitions including entry and exit conditions, risk management rules, position configuration, and instrument settings.",
+  "type": "object",
+  "required": ["name", "instrument", "definition"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the strategy"
+    },
+    "userId": {
+      "type": "string",
+      "description": "The identifier of the user who owns this strategy"
+    },
+    "name": {
+      "type": "string",
+      "description": "A human-readable name for the trading strategy",
+      "maxLength": 200,
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "A description of the strategy's purpose and trading logic",
+      "maxLength": 2000
+    },
+    "instrument": {
+      "type": "string",
+      "description": "The primary ticker symbol this strategy trades (e.g., AAPL, MSFT)",
+      "minLength": 1
+    },
+    "instrumentType": {
+      "type": "string",
+      "description": "The type of financial instrument being traded",
+      "enum": ["stock", "option", "future"]
+    },
+    "timeframe": {
+      "type": "string",
+      "description": "The primary chart timeframe the strategy operates on",
+      "enum": ["1m", "5m", "15m", "30m", "1h", "4h", "1d"]
+    },
+    "status": {
+      "type": "string",
+      "description": "The current lifecycle status of the strategy",
+      "enum": ["draft", "active", "deployed", "inactive"]
+    },
+    "definition": {
+      "$ref": "#/$defs/StrategyDefinition"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the strategy was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the strategy was last modified"
+    },
+    "deployedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the strategy was last deployed for live trading"
+    }
+  },
+  "$defs": {
+    "StrategyDefinition": {
+      "type": "object",
+      "description": "The core strategy definition containing entry conditions, exit conditions, risk management, and position configuration built using the Level2 visual drag-and-drop interface.",
+      "properties": {
+        "entryConditions": {
+          "type": "array",
+          "description": "Ordered list of conditions that must be satisfied to trigger a trade entry",
+          "items": {
+            "$ref": "#/$defs/StrategyCondition"
+          }
+        },
+        "exitConditions": {
+          "type": "array",
+          "description": "Ordered list of conditions that trigger closing an open position",
+          "items": {
+            "$ref": "#/$defs/StrategyCondition"
+          }
+        },
+        "riskManagement": {
+          "$ref": "#/$defs/RiskManagement"
+        },
+        "position": {
+          "$ref": "#/$defs/PositionConfig"
+        }
+      }
+    },
+    "StrategyCondition": {
+      "type": "object",
+      "description": "A single condition in the strategy logic, representing a comparison between a technical indicator or price value and a target value or another indicator.",
+      "required": ["indicator", "operator"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for this condition within the strategy"
+        },
+        "indicator": {
+          "type": "string",
+          "description": "The technical indicator or data source (e.g., SMA, EMA, RSI, MACD, BollingerBands, Price, Volume). Level2 supports 104 technical indicators.",
+          "minLength": 1
+        },
+        "parameters": {
+          "type": "object",
+          "description": "Configuration parameters for the indicator, such as period length, source field, or standard deviation multiplier",
+          "additionalProperties": true
+        },
+        "operator": {
+          "type": "string",
+          "description": "The comparison operator that defines the relationship between the indicator value and the compare value",
+          "enum": ["crosses_above", "crosses_below", "greater_than", "less_than", "equals"]
+        },
+        "compareValue": {
+          "description": "The target value or indicator configuration to compare against. Can be a numeric threshold, a string reference, or a nested indicator object.",
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        },
+        "logicalOperator": {
+          "type": "string",
+          "description": "Defines how this condition combines with the next condition in the sequence",
+          "enum": ["AND", "OR"]
+        }
+      }
+    },
+    "RiskManagement": {
+      "type": "object",
+      "description": "Risk management settings that control loss limits and profit targets for the strategy.",
+      "properties": {
+        "stopLoss": {
+          "type": "number",
+          "description": "Stop loss value as a percentage or absolute price distance",
+          "minimum": 0
+        },
+        "stopLossType": {
+          "type": "string",
+          "description": "Whether the stop loss value is a percentage of entry price or an absolute price distance",
+          "enum": ["percentage", "absolute"]
+        },
+        "takeProfit": {
+          "type": "number",
+          "description": "Take profit value as a percentage or absolute price distance",
+          "minimum": 0
+        },
+        "takeProfitType": {
+          "type": "string",
+          "description": "Whether the take profit value is a percentage or an absolute price distance",
+          "enum": ["percentage", "absolute"]
+        },
+        "trailingStop": {
+          "type": "number",
+          "description": "Trailing stop distance as a percentage that follows the price in the profitable direction",
+          "minimum": 0
+        },
+        "maxPositions": {
+          "type": "integer",
+          "description": "Maximum number of concurrent open positions allowed",
+          "minimum": 1
+        }
+      }
+    },
+    "PositionConfig": {
+      "type": "object",
+      "description": "Configuration for trade entry sizing, direction, and order type.",
+      "properties": {
+        "side": {
+          "type": "string",
+          "description": "The allowed trade direction for the strategy",
+          "enum": ["long", "short", "both"]
+        },
+        "orderType": {
+          "type": "string",
+          "description": "The order type used when entering positions",
+          "enum": ["market", "limit", "stop"]
+        },
+        "quantity": {
+          "type": "number",
+          "description": "The trade size per entry",
+          "minimum": 0,
+          "exclusiveMinimum": true
+        },
+        "quantityType": {
+          "type": "string",
+          "description": "The unit for the quantity value",
+          "enum": ["shares", "contracts", "dollars"]
+        }
+      }
+    },
+    "BacktestResult": {
+      "type": "object",
+      "description": "Results from running a backtest on a strategy against historical market data.",
+      "properties": {
+        "strategyId": {
+          "type": "string",
+          "description": "The identifier of the strategy that was backtested"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The start date of the backtest period"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The end date of the backtest period"
+        },
+        "initialCapital": {
+          "type": "number",
+          "description": "The starting capital amount in USD",
+          "minimum": 0
+        },
+        "finalCapital": {
+          "type": "number",
+          "description": "The ending capital amount after all trades"
+        },
+        "totalReturn": {
+          "type": "number",
+          "description": "Total return as a decimal (e.g., 0.15 for 15%)"
+        },
+        "totalTrades": {
+          "type": "integer",
+          "description": "Total number of completed trades",
+          "minimum": 0
+        },
+        "winningTrades": {
+          "type": "integer",
+          "description": "Number of trades that were profitable",
+          "minimum": 0
+        },
+        "losingTrades": {
+          "type": "integer",
+          "description": "Number of trades that resulted in a loss",
+          "minimum": 0
+        },
+        "winRate": {
+          "type": "number",
+          "description": "Percentage of winning trades as a decimal between 0 and 1",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "maxDrawdown": {
+          "type": "number",
+          "description": "Maximum peak-to-trough decline as a decimal"
+        },
+        "sharpeRatio": {
+          "type": "number",
+          "description": "Risk-adjusted return metric (Sharpe ratio)"
+        },
+        "profitFactor": {
+          "type": "number",
+          "description": "Ratio of gross profits to gross losses",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

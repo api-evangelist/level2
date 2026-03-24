@@ -1,0 +1,488 @@
+openapi: 3.1.0
+info:
+  title: Level2 Strategy Builder API
+  description: >-
+    The Level2 Strategy Builder API provides programmatic access to market data,
+    technical analysis, and trading strategy capabilities offered by the Level2
+    platform (by Bytemine Technologies Ltd.). It includes endpoints for
+    retrieving candlestick pattern detection, ticker trend analysis, historical
+    OHLC (Open-High-Low-Close) data, similar stock discovery, and company
+    fundamental summaries. These endpoints power the Level2 visual no-code
+    strategy builder used by over 50,000 traders to create, backtest, and deploy
+    automated trading strategies without writing code.
+  version: '1.0.0'
+  contact:
+    name: Level2 Support
+    url: https://www.trylevel2.com
+  termsOfService: https://www.trylevel2.com/terms-and-conditions
+externalDocs:
+  description: Level2 API Documentation
+  url: https://guide.bytemine.io/technical-documentation/api-documentation
+servers:
+  - url: https://app.bytemine.io/api
+    description: Primary API Server
+  - url: https://valhalla.bytemine.workers.dev
+    description: Market Data Server
+tags:
+  - name: Technical Analysis
+    description: >-
+      Endpoints for detecting candlestick patterns and analyzing ticker trends
+      using technical indicators.
+  - name: Market Data
+    description: >-
+      Endpoints for retrieving historical OHLC price data for financial
+      instruments across global exchanges.
+  - name: Discovery
+    description: >-
+      Endpoints for discovering similar stocks and retrieving company
+      fundamental summaries.
+security:
+  - apiKeyPath: []
+paths:
+  /checkForCandlestick/{api_key}/{ticker}/{timeframe}:
+    get:
+      operationId: checkForCandlestick
+      summary: Check for candlestick patterns
+      description: >-
+        Detects and returns candlestick patterns identified for a given ticker
+        symbol at the specified timeframe. The endpoint analyzes recent price
+        action and identifies recognized candlestick formations such as doji,
+        hammer, engulfing, and other standard patterns used in technical
+        analysis.
+      tags:
+        - Technical Analysis
+      parameters:
+        - $ref: '#/components/parameters/apiKey'
+        - $ref: '#/components/parameters/ticker'
+        - $ref: '#/components/parameters/timeframe'
+      responses:
+        '200':
+          description: Candlestick patterns detected successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandlestickPatternResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+        - url: https://app.bytemine.io/api
+          description: Primary API Server
+  /getTickerTrend/{api_key}/{ticker}/{timeframe}:
+    get:
+      operationId: getTickerTrend
+      summary: Get ticker trend analysis
+      description: >-
+        Retrieves the current trend analysis for a given ticker symbol at the
+        specified timeframe. Returns trend direction, strength indicators, and
+        supporting technical analysis data that can be used to inform trading
+        strategy decisions within the Level2 platform.
+      tags:
+        - Technical Analysis
+      parameters:
+        - $ref: '#/components/parameters/apiKey'
+        - $ref: '#/components/parameters/ticker'
+        - $ref: '#/components/parameters/timeframe'
+      responses:
+        '200':
+          description: Trend analysis retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TickerTrendResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+        - url: https://app.bytemine.io/api
+          description: Primary API Server
+  /olhc/{api_key}/{ticker}/{timeframe}/{range}:
+    get:
+      operationId: getOHLCData
+      summary: Get OHLC historical data
+      description: >-
+        Retrieves historical Open-High-Low-Close (OHLC) price data for a given
+        ticker symbol at the specified timeframe and date range. This data is
+        used for charting, backtesting strategies, and performing technical
+        analysis. Level2 provides access to over 200,000 stocks and financial
+        instruments from 75 global exchanges.
+      tags:
+        - Market Data
+      parameters:
+        - $ref: '#/components/parameters/apiKey'
+        - $ref: '#/components/parameters/ticker'
+        - $ref: '#/components/parameters/timeframe'
+        - $ref: '#/components/parameters/range'
+      responses:
+        '200':
+          description: OHLC data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OHLCDataResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+        - url: https://valhalla.bytemine.workers.dev
+          description: Market Data Server
+  /similar/{api_key}/{ticker}:
+    get:
+      operationId: getSimilarStocks
+      summary: Get similar stocks
+      description: >-
+        Returns a list of stocks that are similar to the specified ticker based
+        on sector, market capitalization, trading patterns, and other
+        fundamental and technical characteristics. Useful for portfolio
+        diversification analysis and discovering related trading opportunities.
+      tags:
+        - Discovery
+      parameters:
+        - $ref: '#/components/parameters/apiKey'
+        - $ref: '#/components/parameters/ticker'
+      responses:
+        '200':
+          description: Similar stocks retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimilarStocksResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+        - url: https://valhalla.bytemine.workers.dev
+          description: Market Data Server
+  /summary/{api_key}/{ticker}:
+    get:
+      operationId: getCompanySummary
+      summary: Get company summary
+      description: >-
+        Retrieves a comprehensive fundamental summary for the specified ticker
+        symbol, including company description, sector classification, market
+        capitalization, key financial metrics, and other relevant business
+        information. This data supports informed strategy creation and stock
+        screening within the Level2 platform.
+      tags:
+        - Discovery
+      parameters:
+        - $ref: '#/components/parameters/apiKey'
+        - $ref: '#/components/parameters/ticker'
+      responses:
+        '200':
+          description: Company summary retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanySummaryResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+        - url: https://valhalla.bytemine.workers.dev
+          description: Market Data Server
+components:
+  securitySchemes:
+    apiKeyPath:
+      type: apiKey
+      in: query
+      name: api_key
+      description: >-
+        API key passed as a path parameter in the URL. Obtain your API key from
+        the Level2 platform dashboard.
+  parameters:
+    apiKey:
+      name: api_key
+      in: path
+      required: true
+      description: >-
+        Your Level2 API key used to authenticate requests. Obtain this from your
+        Level2 account dashboard.
+      schema:
+        type: string
+    ticker:
+      name: ticker
+      in: path
+      required: true
+      description: >-
+        The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2
+        supports over 200,000 instruments from 75 global exchanges.
+      schema:
+        type: string
+        example: AAPL
+    timeframe:
+      name: timeframe
+      in: path
+      required: true
+      description: >-
+        The chart timeframe for the analysis or data retrieval. Common values
+        include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing
+        minutes, hours, days, weeks, and months respectively.
+      schema:
+        type: string
+        enum:
+          - 1m
+          - 5m
+          - 15m
+          - 30m
+          - 1h
+          - 4h
+          - 1d
+          - 1w
+          - 1M
+    range:
+      name: range
+      in: path
+      required: true
+      description: >-
+        The historical date range for OHLC data retrieval. Specifies how far
+        back to fetch data (e.g., 1d, 5d, 1mo, 3mo, 6mo, 1y, 5y, max).
+      schema:
+        type: string
+        enum:
+          - 1d
+          - 5d
+          - 1mo
+          - 3mo
+          - 6mo
+          - 1y
+          - 2y
+          - 5y
+          - max
+  schemas:
+    CandlestickPatternResponse:
+      type: object
+      description: >-
+        Response containing detected candlestick patterns for the requested
+        ticker and timeframe.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        timeframe:
+          type: string
+          description: The timeframe analyzed
+        patterns:
+          type: array
+          description: List of detected candlestick patterns
+          items:
+            $ref: '#/components/schemas/CandlestickPattern'
+    CandlestickPattern:
+      type: object
+      description: A detected candlestick pattern with its properties.
+      properties:
+        name:
+          type: string
+          description: >-
+            The name of the candlestick pattern (e.g., Doji, Hammer, Engulfing)
+        type:
+          type: string
+          description: Whether the pattern is bullish, bearish, or neutral
+          enum:
+            - bullish
+            - bearish
+            - neutral
+        confidence:
+          type: number
+          format: float
+          description: Confidence score of the pattern detection between 0 and 1
+          minimum: 0
+          maximum: 1
+    TickerTrendResponse:
+      type: object
+      description: >-
+        Response containing trend analysis data for the requested ticker and
+        timeframe.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        timeframe:
+          type: string
+          description: The timeframe analyzed
+        trend:
+          type: string
+          description: The overall trend direction
+          enum:
+            - bullish
+            - bearish
+            - neutral
+        strength:
+          type: number
+          format: float
+          description: Trend strength indicator between 0 and 1
+          minimum: 0
+          maximum: 1
+        indicators:
+          type: object
+          description: Supporting technical indicator values
+          additionalProperties: true
+    OHLCDataResponse:
+      type: object
+      description: >-
+        Response containing historical OHLC price data for the requested ticker,
+        timeframe, and range.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        timeframe:
+          type: string
+          description: The timeframe of each candle
+        data:
+          type: array
+          description: Array of OHLC candle data points
+          items:
+            $ref: '#/components/schemas/OHLCCandle'
+    OHLCCandle:
+      type: object
+      description: A single OHLC candle data point.
+      required:
+        - timestamp
+        - open
+        - high
+        - low
+        - close
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp for this candle period
+        open:
+          type: number
+          format: float
+          description: The opening price for the period
+        high:
+          type: number
+          format: float
+          description: The highest price during the period
+        low:
+          type: number
+          format: float
+          description: The lowest price during the period
+        close:
+          type: number
+          format: float
+          description: The closing price for the period
+        volume:
+          type: integer
+          description: The trading volume during the period
+    SimilarStocksResponse:
+      type: object
+      description: >-
+        Response containing a list of stocks similar to the requested ticker.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        similar:
+          type: array
+          description: List of similar stock tickers with relevance information
+          items:
+            $ref: '#/components/schemas/SimilarStock'
+    SimilarStock:
+      type: object
+      description: A stock that is similar to the queried ticker.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol of the similar stock
+        name:
+          type: string
+          description: The company name of the similar stock
+        similarity:
+          type: number
+          format: float
+          description: Similarity score between 0 and 1
+          minimum: 0
+          maximum: 1
+    CompanySummaryResponse:
+      type: object
+      description: >-
+        Response containing fundamental company information for the requested
+        ticker symbol.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        name:
+          type: string
+          description: The full company name
+        description:
+          type: string
+          description: A summary description of the company and its business
+        sector:
+          type: string
+          description: The business sector classification
+        industry:
+          type: string
+          description: The specific industry classification
+        marketCap:
+          type: number
+          format: float
+          description: The current market capitalization in USD
+        exchange:
+          type: string
+          description: The stock exchange where the ticker is listed
+        country:
+          type: string
+          description: The country where the company is headquartered
+        website:
+          type: string
+          format: uri
+          description: The company website URL
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message describing the issue
+        code:
+          type: integer
+          description: The HTTP status code associated with the error

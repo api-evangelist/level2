@@ -1,0 +1,185 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "level2": "https://trylevel2.com/ns/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "fibo": "https://spec.edmcouncil.org/fibo/ontology/",
+
+    "TradingStrategy": {
+      "@id": "level2:TradingStrategy",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "instrument": "level2:instrument",
+        "instrumentType": "level2:instrumentType",
+        "timeframe": "level2:timeframe",
+        "status": "level2:strategyStatus",
+        "definition": "level2:strategyDefinition",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "deployedAt": {
+          "@id": "level2:deployedAt",
+          "@type": "xsd:dateTime"
+        },
+        "entryConditions": {
+          "@id": "level2:entryConditions",
+          "@container": "@set"
+        },
+        "exitConditions": {
+          "@id": "level2:exitConditions",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "StrategyCondition": {
+      "@id": "level2:StrategyCondition",
+      "@context": {
+        "indicator": "level2:indicator",
+        "operator": "level2:operator",
+        "compareValue": "level2:compareValue",
+        "logicalOperator": "level2:logicalOperator",
+        "parameters": "level2:conditionParameters"
+      }
+    },
+
+    "BacktestResult": {
+      "@id": "level2:BacktestResult",
+      "@context": {
+        "strategyId": {
+          "@id": "level2:strategyReference",
+          "@type": "@id"
+        },
+        "startDate": {
+          "@id": "level2:backtestStartDate",
+          "@type": "xsd:date"
+        },
+        "endDate": {
+          "@id": "level2:backtestEndDate",
+          "@type": "xsd:date"
+        },
+        "initialCapital": {
+          "@id": "level2:initialCapital",
+          "@type": "xsd:decimal"
+        },
+        "finalCapital": {
+          "@id": "level2:finalCapital",
+          "@type": "xsd:decimal"
+        },
+        "totalReturn": {
+          "@id": "level2:totalReturn",
+          "@type": "xsd:decimal"
+        },
+        "totalTrades": {
+          "@id": "level2:totalTrades",
+          "@type": "xsd:integer"
+        },
+        "winRate": {
+          "@id": "level2:winRate",
+          "@type": "xsd:decimal"
+        },
+        "maxDrawdown": {
+          "@id": "level2:maxDrawdown",
+          "@type": "xsd:decimal"
+        },
+        "sharpeRatio": {
+          "@id": "level2:sharpeRatio",
+          "@type": "xsd:decimal"
+        },
+        "profitFactor": {
+          "@id": "level2:profitFactor",
+          "@type": "xsd:decimal"
+        }
+      }
+    },
+
+    "FinancialInstrument": {
+      "@id": "level2:FinancialInstrument",
+      "@context": {
+        "ticker": "level2:tickerSymbol",
+        "name": "schema:name",
+        "description": "schema:description",
+        "sector": "level2:sector",
+        "industry": "level2:industry",
+        "exchange": "level2:exchange",
+        "country": "schema:addressCountry",
+        "marketCap": {
+          "@id": "level2:marketCapitalization",
+          "@type": "xsd:decimal"
+        },
+        "website": {
+          "@id": "schema:url",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "OHLCCandle": {
+      "@id": "level2:OHLCCandle",
+      "@context": {
+        "timestamp": {
+          "@id": "dcterms:date",
+          "@type": "xsd:dateTime"
+        },
+        "open": {
+          "@id": "level2:openPrice",
+          "@type": "xsd:decimal"
+        },
+        "high": {
+          "@id": "level2:highPrice",
+          "@type": "xsd:decimal"
+        },
+        "low": {
+          "@id": "level2:lowPrice",
+          "@type": "xsd:decimal"
+        },
+        "close": {
+          "@id": "level2:closePrice",
+          "@type": "xsd:decimal"
+        },
+        "volume": {
+          "@id": "level2:tradingVolume",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "CandlestickPattern": {
+      "@id": "level2:CandlestickPattern",
+      "@context": {
+        "name": "schema:name",
+        "type": "level2:patternSignal",
+        "confidence": {
+          "@id": "level2:confidence",
+          "@type": "xsd:decimal"
+        }
+      }
+    },
+
+    "BrokerUser": {
+      "@id": "level2:BrokerUser",
+      "@context": {
+        "externalId": "level2:externalIdentifier",
+        "email": "schema:email",
+        "displayName": "schema:name",
+        "status": "level2:accountStatus",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}
