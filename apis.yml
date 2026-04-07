@@ -1,18 +1,16 @@
 aid: level2
-url: 
-  https://raw.githubusercontent.com/api-evangelist/level2/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/level2/refs/heads/main/apis.yml
 modified: '2026-03-24'
 apis:
   - aid: level2:strategy-builder-api
     name: Level2 Strategy Builder API
     tags:
-      - Trading
       - Automation
+      - Backtesting
       - No-Code
       - Strategies
-      - Backtesting
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Trading
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://learn.trylevel2.com/docs/overview
     properties:
@@ -30,13 +28,12 @@ apis:
   - aid: level2:tradestation-integration-api
     name: Level2 TradeStation Integration API
     tags:
-      - Trading
-      - Brokerage
-      - TradeStation
-      - Execution
       - Automation
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Brokerage
+      - Execution
+      - TradeStation
+      - Trading
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://www.trylevel2.com/
     properties:

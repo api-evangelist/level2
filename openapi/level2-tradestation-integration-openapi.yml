@@ -23,15 +23,15 @@ servers:
   - url: https://api.trylevel2.com/v1
     description: Production Server
 tags:
+  - name: Backtesting
+    description: >-
+      Endpoints for running backtests on strategies against historical market
+      data to validate performance before live deployment.
   - name: Strategies
     description: >-
       Endpoints for managing user trading strategies, including creation,
       retrieval, updating, deployment, and deletion of automated trading
       strategies built with the Level2 visual strategy builder.
-  - name: Backtesting
-    description: >-
-      Endpoints for running backtests on strategies against historical market
-      data to validate performance before live deployment.
   - name: Users
     description: >-
       Endpoints for managing broker user accounts and their association with

@@ -24,18 +24,18 @@ servers:
   - url: https://valhalla.bytemine.workers.dev
     description: Market Data Server
 tags:
-  - name: Technical Analysis
-    description: >-
-      Endpoints for detecting candlestick patterns and analyzing ticker trends
-      using technical indicators.
-  - name: Market Data
-    description: >-
-      Endpoints for retrieving historical OHLC price data for financial
-      instruments across global exchanges.
   - name: Discovery
     description: >-
       Endpoints for discovering similar stocks and retrieving company
       fundamental summaries.
+  - name: Market Data
+    description: >-
+      Endpoints for retrieving historical OHLC price data for financial
+      instruments across global exchanges.
+  - name: Technical Analysis
+    description: >-
+      Endpoints for detecting candlestick patterns and analyzing ticker trends
+      using technical indicators.
 security:
   - apiKeyPath: []
 paths:
