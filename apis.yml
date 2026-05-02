@@ -1,6 +1,6 @@
 aid: level2
 url: https://raw.githubusercontent.com/api-evangelist/level2/refs/heads/main/apis.yml
-modified: '2026-03-24'
+modified: '2026-04-28'
 apis:
   - aid: level2:strategy-builder-api
     name: Level2 Strategy Builder API
