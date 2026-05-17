@@ -50,7 +50,7 @@ apis:
 common:
   - type: Website
     url: https://www.trylevel2.com
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/level2-context.jsonld
   - type: JSONSchema
     url: json-schema/level2-strategy-schema.json
