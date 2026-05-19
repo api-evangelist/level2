@@ -1,0 +1,292 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Level2 TradeStation Integration API — Strategies
+  description: 'Level2 TradeStation Integration API — Strategies. 7 operations. Lead operation: List user strategies. Self-contained
+    Naftiko capability covering one Level2 business surface.'
+  tags:
+  - Level2
+  - Strategies
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LEVEL2_API_KEY: LEVEL2_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tradestation-integration-strategies
+    baseUri: https://api.trylevel2.com/v1
+    description: Level2 TradeStation Integration API — Strategies business capability. Self-contained, no shared references.
+    resources:
+    - name: broker-users-userId-strategies
+      path: /broker/users/{userId}/strategies
+      operations:
+      - name: listuserstrategies
+        method: GET
+        description: List user strategies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter strategies by their current status.
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of strategies to return per page.
+        - name: offset
+          in: query
+          type: integer
+          description: Number of strategies to skip for pagination.
+      - name: createuserstrategy
+        method: POST
+        description: Create a user strategy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: broker-users-userId-strategies-strategyId
+      path: /broker/users/{userId}/strategies/{strategyId}
+      operations:
+      - name: getuserstrategy
+        method: GET
+        description: Get a user strategy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateuserstrategy
+        method: PUT
+        description: Update a user strategy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteuserstrategy
+        method: DELETE
+        description: Delete a user strategy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: broker-users-userId-strategies-strategyId-deploy
+      path: /broker/users/{userId}/strategies/{strategyId}/deploy
+      operations:
+      - name: deployuserstrategy
+        method: POST
+        description: Deploy a user strategy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: broker-users-userId-strategies-strategyId-stop
+      path: /broker/users/{userId}/strategies/{strategyId}/stop
+      operations:
+      - name: stopuserstrategy
+        method: POST
+        description: Stop a deployed strategy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.LEVEL2_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tradestation-integration-strategies-rest
+    port: 8080
+    description: REST adapter for Level2 TradeStation Integration API — Strategies. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/broker/users/{userid}/strategies
+      name: broker-users-userid-strategies
+      description: REST surface for broker-users-userId-strategies.
+      operations:
+      - method: GET
+        name: listuserstrategies
+        description: List user strategies
+        call: tradestation-integration-strategies.listuserstrategies
+        with:
+          status: rest.status
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createuserstrategy
+        description: Create a user strategy
+        call: tradestation-integration-strategies.createuserstrategy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/broker/users/{userid}/strategies/{strategyid}
+      name: broker-users-userid-strategies-strategyid
+      description: REST surface for broker-users-userId-strategies-strategyId.
+      operations:
+      - method: GET
+        name: getuserstrategy
+        description: Get a user strategy
+        call: tradestation-integration-strategies.getuserstrategy
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateuserstrategy
+        description: Update a user strategy
+        call: tradestation-integration-strategies.updateuserstrategy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteuserstrategy
+        description: Delete a user strategy
+        call: tradestation-integration-strategies.deleteuserstrategy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/broker/users/{userid}/strategies/{strategyid}/deploy
+      name: broker-users-userid-strategies-strategyid-deploy
+      description: REST surface for broker-users-userId-strategies-strategyId-deploy.
+      operations:
+      - method: POST
+        name: deployuserstrategy
+        description: Deploy a user strategy
+        call: tradestation-integration-strategies.deployuserstrategy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/broker/users/{userid}/strategies/{strategyid}/stop
+      name: broker-users-userid-strategies-strategyid-stop
+      description: REST surface for broker-users-userId-strategies-strategyId-stop.
+      operations:
+      - method: POST
+        name: stopuserstrategy
+        description: Stop a deployed strategy
+        call: tradestation-integration-strategies.stopuserstrategy
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tradestation-integration-strategies-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Level2 TradeStation Integration API — Strategies. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-user-strategies
+      description: List user strategies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tradestation-integration-strategies.listuserstrategies
+      with:
+        status: tools.status
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-user-strategy
+      description: Create a user strategy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tradestation-integration-strategies.createuserstrategy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user-strategy
+      description: Get a user strategy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tradestation-integration-strategies.getuserstrategy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-user-strategy
+      description: Update a user strategy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: tradestation-integration-strategies.updateuserstrategy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-user-strategy
+      description: Delete a user strategy
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: tradestation-integration-strategies.deleteuserstrategy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deploy-user-strategy
+      description: Deploy a user strategy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tradestation-integration-strategies.deployuserstrategy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: stop-deployed-strategy
+      description: Stop a deployed strategy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tradestation-integration-strategies.stopuserstrategy
+      outputParameters:
+      - type: object
+        mapping: $.

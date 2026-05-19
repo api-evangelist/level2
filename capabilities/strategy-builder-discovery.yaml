@@ -1,0 +1,104 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Level2 Strategy Builder API — Discovery
+  description: 'Level2 Strategy Builder API — Discovery. 2 operations. Lead operation: Get similar stocks. Self-contained
+    Naftiko capability covering one Level2 business surface.'
+  tags:
+  - Level2
+  - Discovery
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LEVEL2_API_KEY: LEVEL2_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strategy-builder-discovery
+    baseUri: https://app.bytemine.io/api
+    description: Level2 Strategy Builder API — Discovery business capability. Self-contained, no shared references.
+    resources:
+    - name: similar-api_key-ticker
+      path: /similar/{api_key}/{ticker}
+      operations:
+      - name: getsimilarstocks
+        method: GET
+        description: Get similar stocks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: summary-api_key-ticker
+      path: /summary/{api_key}/{ticker}
+      operations:
+      - name: getcompanysummary
+        method: GET
+        description: Get company summary
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.LEVEL2_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: strategy-builder-discovery-rest
+    port: 8080
+    description: REST adapter for Level2 Strategy Builder API — Discovery. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/similar/{api-key}/{ticker}
+      name: similar-api-key-ticker
+      description: REST surface for similar-api_key-ticker.
+      operations:
+      - method: GET
+        name: getsimilarstocks
+        description: Get similar stocks
+        call: strategy-builder-discovery.getsimilarstocks
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/summary/{api-key}/{ticker}
+      name: summary-api-key-ticker
+      description: REST surface for summary-api_key-ticker.
+      operations:
+      - method: GET
+        name: getcompanysummary
+        description: Get company summary
+        call: strategy-builder-discovery.getcompanysummary
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strategy-builder-discovery-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Level2 Strategy Builder API — Discovery. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-similar-stocks
+      description: Get similar stocks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strategy-builder-discovery.getsimilarstocks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-company-summary
+      description: Get company summary
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strategy-builder-discovery.getcompanysummary
+      outputParameters:
+      - type: object
+        mapping: $.

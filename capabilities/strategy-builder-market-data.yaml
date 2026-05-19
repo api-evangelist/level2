@@ -1,0 +1,72 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Level2 Strategy Builder API — Market Data
+  description: 'Level2 Strategy Builder API — Market Data. 1 operations. Lead operation: Get OHLC historical data. Self-contained
+    Naftiko capability covering one Level2 business surface.'
+  tags:
+  - Level2
+  - Market Data
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LEVEL2_API_KEY: LEVEL2_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: strategy-builder-market-data
+    baseUri: https://app.bytemine.io/api
+    description: Level2 Strategy Builder API — Market Data business capability. Self-contained, no shared references.
+    resources:
+    - name: olhc-api_key-ticker-timeframe-range
+      path: /olhc/{api_key}/{ticker}/{timeframe}/{range}
+      operations:
+      - name: getohlcdata
+        method: GET
+        description: Get OHLC historical data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.LEVEL2_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: strategy-builder-market-data-rest
+    port: 8080
+    description: REST adapter for Level2 Strategy Builder API — Market Data. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/olhc/{api-key}/{ticker}/{timeframe}/{range}
+      name: olhc-api-key-ticker-timeframe-range
+      description: REST surface for olhc-api_key-ticker-timeframe-range.
+      operations:
+      - method: GET
+        name: getohlcdata
+        description: Get OHLC historical data
+        call: strategy-builder-market-data.getohlcdata
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: strategy-builder-market-data-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Level2 Strategy Builder API — Market Data. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-ohlc-historical-data
+      description: Get OHLC historical data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: strategy-builder-market-data.getohlcdata
+      outputParameters:
+      - type: object
+        mapping: $.

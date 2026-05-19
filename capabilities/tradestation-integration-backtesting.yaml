@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Level2 TradeStation Integration API — Backtesting
+  description: 'Level2 TradeStation Integration API — Backtesting. 1 operations. Lead operation: Backtest a user strategy.
+    Self-contained Naftiko capability covering one Level2 business surface.'
+  tags:
+  - Level2
+  - Backtesting
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LEVEL2_API_KEY: LEVEL2_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tradestation-integration-backtesting
+    baseUri: https://api.trylevel2.com/v1
+    description: Level2 TradeStation Integration API — Backtesting business capability. Self-contained, no shared references.
+    resources:
+    - name: broker-users-userId-strategies-strategyId-backtest
+      path: /broker/users/{userId}/strategies/{strategyId}/backtest
+      operations:
+      - name: backtestuserstrategy
+        method: POST
+        description: Backtest a user strategy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LEVEL2_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tradestation-integration-backtesting-rest
+    port: 8080
+    description: REST adapter for Level2 TradeStation Integration API — Backtesting. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/broker/users/{userid}/strategies/{strategyid}/backtest
+      name: broker-users-userid-strategies-strategyid-backtest
+      description: REST surface for broker-users-userId-strategies-strategyId-backtest.
+      operations:
+      - method: POST
+        name: backtestuserstrategy
+        description: Backtest a user strategy
+        call: tradestation-integration-backtesting.backtestuserstrategy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tradestation-integration-backtesting-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Level2 TradeStation Integration API — Backtesting. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: backtest-user-strategy
+      description: Backtest a user strategy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: tradestation-integration-backtesting.backtestuserstrategy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
