@@ -1,0 +1,296 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Level2 TradeStation Integration API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a broker user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trylevel2.com/v1/broker/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user account within the Level2 platform associated with the broker's integration. This links a broker customer to the Level2 strategy builder, enabling them to create and manage automated trading strategies."
+        },
+        {
+          "info": {
+            "name": "Get a broker user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trylevel2.com/v1/broker/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the broker user on the Level2 platform."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific broker user account on the Level2 platform, including their account status and associated configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Strategies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List user strategies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trylevel2.com/v1/broker/users/:userId/strategies",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the broker user on the Level2 platform."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter strategies by their current status."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of strategies to return per page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of strategies to skip for pagination."
+              }
+            ]
+          },
+          "docs": "Retrieves all trading strategies associated with the specified broker user. Returns both active and inactive strategies created through the Level2 visual strategy builder."
+        },
+        {
+          "info": {
+            "name": "Create a user strategy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trylevel2.com/v1/broker/users/:userId/strategies",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the broker user on the Level2 platform."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new trading strategy for the specified broker user. The strategy is initialized in draft status and can be configured with trading rules, conditions, and parameters using the strategy definition format from the Level2 visual builder."
+        },
+        {
+          "info": {
+            "name": "Get a user strategy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trylevel2.com/v1/broker/users/:userId/strategies/:strategyId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the broker user on the Level2 platform."
+              },
+              {
+                "name": "strategyId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the trading strategy."
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific trading strategy including its configuration, status, performance metrics, and deployment state."
+        },
+        {
+          "info": {
+            "name": "Update a user strategy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.trylevel2.com/v1/broker/users/:userId/strategies/:strategyId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the broker user on the Level2 platform."
+              },
+              {
+                "name": "strategyId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the trading strategy."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing trading strategy for the specified user. This endpoint can modify the strategy definition, parameters, and metadata. It can also be used to soft-delete or restore a strategy by updating its status."
+        },
+        {
+          "info": {
+            "name": "Delete a user strategy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.trylevel2.com/v1/broker/users/:userId/strategies/:strategyId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the broker user on the Level2 platform."
+              },
+              {
+                "name": "strategyId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the trading strategy."
+              }
+            ]
+          },
+          "docs": "Deletes or soft-deletes a user's trading strategy. Once deleted, the strategy is deactivated and any live deployments are stopped. Depending on configuration, the strategy may be recoverable through an update operation."
+        },
+        {
+          "info": {
+            "name": "Deploy a user strategy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trylevel2.com/v1/broker/users/:userId/strategies/:strategyId/deploy",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the broker user on the Level2 platform."
+              },
+              {
+                "name": "strategyId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the trading strategy."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deploys a trading strategy for live execution through the user's connected TradeStation brokerage account. The strategy must be in an active or draft state and have a valid configuration. Once deployed, the strategy will monitor market conditions and execute trades automatically based on its defined rules."
+        },
+        {
+          "info": {
+            "name": "Stop a deployed strategy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trylevel2.com/v1/broker/users/:userId/strategies/:strategyId/stop",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the broker user on the Level2 platform."
+              },
+              {
+                "name": "strategyId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the trading strategy."
+              }
+            ]
+          },
+          "docs": "Stops a currently deployed trading strategy, halting all automated trade execution. The strategy returns to an active state and can be redeployed later. Any open positions created by the strategy are not automatically closed."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Backtesting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Backtest a user strategy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trylevel2.com/v1/broker/users/:userId/strategies/:strategyId/backtest",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the broker user on the Level2 platform."
+              },
+              {
+                "name": "strategyId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the trading strategy."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Runs a backtest on the specified strategy against historical market data for the configured instruments and date range. Returns performance metrics including profit and loss, win rate, maximum drawdown, Sharpe ratio, and trade-by-trade results. Backtesting enables traders to validate strategy effectiveness before deploying with real capital."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

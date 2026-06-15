@@ -1,0 +1,2935 @@
+{
+  "item": [
+    {
+      "id": "c58a9ede-09ba-43df-a31b-ab74c772d4a0",
+      "name": "Backtesting",
+      "description": {
+        "content": "Endpoints for running backtests on strategies against historical market data to validate performance before live deployment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "41be3e4b-f957-4074-9cc9-7632694e254a",
+          "name": "Backtest a user strategy",
+          "request": {
+            "name": "Backtest a user strategy",
+            "description": {
+              "content": "Runs a backtest on the specified strategy against historical market data for the configured instruments and date range. Returns performance metrics including profit and loss, win rate, maximum drawdown, Sharpe ratio, and trade-by-trade results. Backtesting enables traders to validate strategy effectiveness before deploying with real capital.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broker",
+                "users",
+                ":userId",
+                "strategies",
+                ":strategyId",
+                "backtest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "strategyId",
+                  "description": "(Required) The unique identifier of the trading strategy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"initialCapital\": 100000,\n  \"commissionPerTrade\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76bc71b9-72b3-4a01-9b7a-972e13785210",
+              "name": "Backtest completed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "backtest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"initialCapital\": 100000,\n  \"commissionPerTrade\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"strategyId\": \"string\",\n  \"startDate\": \"1980-12-07\",\n  \"endDate\": \"1979-06-14\",\n  \"initialCapital\": 9206.292385388504,\n  \"finalCapital\": 9033.019787522884,\n  \"totalReturn\": 258.56727456221915,\n  \"totalTrades\": 8212,\n  \"winningTrades\": 9213,\n  \"losingTrades\": 6012,\n  \"winRate\": 0.08680074290290862,\n  \"maxDrawdown\": 8514.41078053727,\n  \"sharpeRatio\": 66.02418050484448,\n  \"profitFactor\": 6298.174771055247,\n  \"trades\": [\n    {\n      \"entryDate\": \"2021-04-25T09:58:21.820Z\",\n      \"exitDate\": \"2019-03-05T04:51:29.619Z\",\n      \"side\": \"short\",\n      \"entryPrice\": 6875.200902733069,\n      \"exitPrice\": 672.9928958750353,\n      \"quantity\": 5201.315252736569,\n      \"pnl\": 2328.586028552337,\n      \"returnPct\": 160.44735293605393,\n      \"exitReason\": \"exit_condition\"\n    },\n    {\n      \"entryDate\": \"2000-03-27T20:16:50.508Z\",\n      \"exitDate\": \"2002-07-12T11:07:13.016Z\",\n      \"side\": \"long\",\n      \"entryPrice\": 3543.5681205843207,\n      \"exitPrice\": 5206.966357784215,\n      \"quantity\": 1949.5131128837506,\n      \"pnl\": 9997.674762963898,\n      \"returnPct\": 8941.05228032617,\n      \"exitReason\": \"stop_loss\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf003007-7882-41e1-82b1-83a43bcf35bc",
+              "name": "Invalid backtest parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "backtest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"initialCapital\": 100000,\n  \"commissionPerTrade\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a7aea62-ca5a-4476-84bd-83458fd54d04",
+              "name": "Unauthorized - invalid or missing bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "backtest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"initialCapital\": 100000,\n  \"commissionPerTrade\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67ffd6ed-e1f2-4c62-9083-de9cb055e224",
+              "name": "Strategy or user not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "backtest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"initialCapital\": 100000,\n  \"commissionPerTrade\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "33628939-6700-44a8-b52a-6e151e9c45f3",
+      "name": "Strategies",
+      "description": {
+        "content": "Endpoints for managing user trading strategies, including creation, retrieval, updating, deployment, and deletion of automated trading strategies built with the Level2 visual strategy builder.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7afe492d-954d-458c-8b69-65ef41640803",
+          "name": "List user strategies",
+          "request": {
+            "name": "List user strategies",
+            "description": {
+              "content": "Retrieves all trading strategies associated with the specified broker user. Returns both active and inactive strategies created through the Level2 visual strategy builder.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broker",
+                "users",
+                ":userId",
+                "strategies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter strategies by their current status."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of strategies to return per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of strategies to skip for pagination."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6eb07a8-babc-4408-a815-a59231219e51",
+              "name": "Strategies retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"strategies\": [\n    {\n      \"id\": \"string\",\n      \"userId\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"instrument\": \"string\",\n      \"instrumentType\": \"future\",\n      \"timeframe\": \"string\",\n      \"status\": \"draft\",\n      \"definition\": {\n        \"entryConditions\": [\n          {\n            \"id\": \"string\",\n            \"indicator\": \"string\",\n            \"parameters\": {\n              \"key_0\": 9859\n            },\n            \"operator\": \"crosses_below\",\n            \"compareValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"logicalOperator\": \"AND\"\n          },\n          {\n            \"id\": \"string\",\n            \"indicator\": \"string\",\n            \"parameters\": {\n              \"key_0\": true,\n              \"key_1\": \"string\",\n              \"key_2\": 1582\n            },\n            \"operator\": \"crosses_below\",\n            \"compareValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"logicalOperator\": \"OR\"\n          }\n        ],\n        \"exitConditions\": [\n          {\n            \"id\": \"string\",\n            \"indicator\": \"string\",\n            \"parameters\": {\n              \"key_0\": \"string\",\n              \"key_1\": 8169.663287034984,\n              \"key_2\": true,\n              \"key_3\": \"string\"\n            },\n            \"operator\": \"crosses_above\",\n            \"compareValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"logicalOperator\": \"AND\"\n          },\n          {\n            \"id\": \"string\",\n            \"indicator\": \"string\",\n            \"parameters\": {\n              \"key_0\": \"string\",\n              \"key_1\": 4317\n            },\n            \"operator\": \"crosses_above\",\n            \"compareValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"logicalOperator\": \"OR\"\n          }\n        ],\n        \"riskManagement\": {\n          \"stopLoss\": 1170.1143171860174,\n          \"stopLossType\": \"percentage\",\n          \"takeProfit\": 2331.0725352975246,\n          \"takeProfitType\": \"absolute\",\n          \"trailingStop\": 5430.4613176044795,\n          \"maxPositions\": 3731\n        },\n        \"position\": {\n          \"side\": \"short\",\n          \"orderType\": \"limit\",\n          \"quantity\": 1469.2378876166922,\n          \"quantityType\": \"shares\"\n        }\n      },\n      \"createdAt\": \"1972-04-04T23:49:52.477Z\",\n      \"updatedAt\": \"1967-08-09T18:31:16.629Z\",\n      \"deployedAt\": \"1972-05-15T21:06:27.807Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"userId\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"instrument\": \"string\",\n      \"instrumentType\": \"stock\",\n      \"timeframe\": \"string\",\n      \"status\": \"deployed\",\n      \"definition\": {\n        \"entryConditions\": [\n          {\n            \"id\": \"string\",\n            \"indicator\": \"string\",\n            \"parameters\": {\n              \"key_0\": \"string\",\n              \"key_1\": false\n            },\n            \"operator\": \"less_than\",\n            \"compareValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"logicalOperator\": \"AND\"\n          },\n          {\n            \"id\": \"string\",\n            \"indicator\": \"string\",\n            \"parameters\": {\n              \"key_0\": \"string\",\n              \"key_1\": 4125\n            },\n            \"operator\": \"equals\",\n            \"compareValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"logicalOperator\": \"OR\"\n          }\n        ],\n        \"exitConditions\": [\n          {\n            \"id\": \"string\",\n            \"indicator\": \"string\",\n            \"parameters\": {\n              \"key_0\": 2521\n            },\n            \"operator\": \"greater_than\",\n            \"compareValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"logicalOperator\": \"AND\"\n          },\n          {\n            \"id\": \"string\",\n            \"indicator\": \"string\",\n            \"parameters\": {\n              \"key_0\": false,\n              \"key_1\": 8797.654884088957,\n              \"key_2\": 5658.224890514375,\n              \"key_3\": 1613.6687220600122\n            },\n            \"operator\": \"equals\",\n            \"compareValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"logicalOperator\": \"AND\"\n          }\n        ],\n        \"riskManagement\": {\n          \"stopLoss\": 6690.901982458327,\n          \"stopLossType\": \"absolute\",\n          \"takeProfit\": 7560.665164446311,\n          \"takeProfitType\": \"absolute\",\n          \"trailingStop\": 4305.060366541283,\n          \"maxPositions\": 8706\n        },\n        \"position\": {\n          \"side\": \"short\",\n          \"orderType\": \"market\",\n          \"quantity\": 7078.097773036244,\n          \"quantityType\": \"shares\"\n        }\n      },\n      \"createdAt\": \"1990-01-09T10:52:18.119Z\",\n      \"updatedAt\": \"2021-07-31T07:05:26.139Z\",\n      \"deployedAt\": \"2013-08-07T11:39:50.185Z\"\n    }\n  ],\n  \"total\": 5433,\n  \"limit\": 1334,\n  \"offset\": 4397\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6cd14bae-1c5f-405b-bcf0-46d77179fa87",
+              "name": "Unauthorized - invalid or missing bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b109776c-3306-4692-ad92-90bcf0fbdee9",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "833d9d6e-5b00-4dbd-9308-0bef767d6053",
+          "name": "Create a user strategy",
+          "request": {
+            "name": "Create a user strategy",
+            "description": {
+              "content": "Creates a new trading strategy for the specified broker user. The strategy is initialized in draft status and can be configured with trading rules, conditions, and parameters using the strategy definition format from the Level2 visual builder.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broker",
+                "users",
+                ":userId",
+                "strategies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"instrument\": \"<string>\",\n  \"description\": \"<string>\",\n  \"instrumentType\": \"<string>\",\n  \"timeframe\": \"<string>\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 6611\n        },\n        \"operator\": \"<string>\",\n        \"compareValue\": \"<number>\",\n        \"logicalOperator\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": 9990.521903631223\n        },\n        \"operator\": \"<string>\",\n        \"compareValue\": \"<number>\",\n        \"logicalOperator\": \"<string>\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": \"string\"\n        },\n        \"operator\": \"<string>\",\n        \"compareValue\": \"<number>\",\n        \"logicalOperator\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 5569,\n          \"key_1\": 3653\n        },\n        \"operator\": \"<string>\",\n        \"compareValue\": \"<number>\",\n        \"logicalOperator\": \"<string>\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": \"<float>\",\n      \"stopLossType\": \"<string>\",\n      \"takeProfit\": \"<float>\",\n      \"takeProfitType\": \"<string>\",\n      \"trailingStop\": \"<float>\",\n      \"maxPositions\": \"<integer>\"\n    },\n    \"position\": {\n      \"side\": \"<string>\",\n      \"orderType\": \"<string>\",\n      \"quantity\": \"<float>\",\n      \"quantityType\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2ae7ee42-8fcf-4007-aaa0-aedd9715d678",
+              "name": "Strategy created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"instrument\": \"AAPL\",\n  \"description\": \"<string>\",\n  \"instrumentType\": \"<string>\",\n  \"timeframe\": \"<string>\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1891\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 9531.85964905238,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 7727.256810035978\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 7107.438466220575,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 3978,\n          \"key_1\": false\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 5432.769767207611,\n        \"logicalOperator\": \"AND\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1856.3105597074725,\n          \"key_1\": true,\n          \"key_2\": 4075.5341174376313\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 289.15993968142374,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 3749.8346948507156,\n      \"stopLossType\": \"percentage\",\n      \"takeProfit\": 329.72361414175253,\n      \"takeProfitType\": \"percentage\",\n      \"trailingStop\": 538.0664037522076,\n      \"maxPositions\": 9398\n    },\n    \"position\": {\n      \"side\": \"long\",\n      \"orderType\": \"limit\",\n      \"quantity\": 5503.223663277863,\n      \"quantityType\": \"contracts\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"instrument\": \"string\",\n  \"instrumentType\": \"option\",\n  \"timeframe\": \"string\",\n  \"status\": \"inactive\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 604\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 2707.802116807603,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 4844,\n          \"key_1\": false,\n          \"key_2\": 6227.886720710275\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 1231.064867196372,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 192,\n          \"key_1\": \"string\",\n          \"key_2\": 3211.3001194077174,\n          \"key_3\": 8523\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 5374.617835266027,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\"\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 85.96393210892006,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 6925.988350679218,\n      \"stopLossType\": \"absolute\",\n      \"takeProfit\": 4504.732634052882,\n      \"takeProfitType\": \"percentage\",\n      \"trailingStop\": 1315.587137630917,\n      \"maxPositions\": 6937\n    },\n    \"position\": {\n      \"side\": \"both\",\n      \"orderType\": \"stop\",\n      \"quantity\": 3080.724915864215,\n      \"quantityType\": \"shares\"\n    }\n  },\n  \"createdAt\": \"1985-06-07T13:30:50.820Z\",\n  \"updatedAt\": \"1980-10-04T15:17:36.554Z\",\n  \"deployedAt\": \"1957-04-16T14:04:55.044Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f84d3cf-ab41-4ab3-9f87-0ee0687be08e",
+              "name": "Invalid strategy definition",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"instrument\": \"AAPL\",\n  \"description\": \"<string>\",\n  \"instrumentType\": \"<string>\",\n  \"timeframe\": \"<string>\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1891\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 9531.85964905238,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 7727.256810035978\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 7107.438466220575,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 3978,\n          \"key_1\": false\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 5432.769767207611,\n        \"logicalOperator\": \"AND\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1856.3105597074725,\n          \"key_1\": true,\n          \"key_2\": 4075.5341174376313\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 289.15993968142374,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 3749.8346948507156,\n      \"stopLossType\": \"percentage\",\n      \"takeProfit\": 329.72361414175253,\n      \"takeProfitType\": \"percentage\",\n      \"trailingStop\": 538.0664037522076,\n      \"maxPositions\": 9398\n    },\n    \"position\": {\n      \"side\": \"long\",\n      \"orderType\": \"limit\",\n      \"quantity\": 5503.223663277863,\n      \"quantityType\": \"contracts\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46137713-e527-4a2c-96d1-85e5f55b933b",
+              "name": "Unauthorized - invalid or missing bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"instrument\": \"AAPL\",\n  \"description\": \"<string>\",\n  \"instrumentType\": \"<string>\",\n  \"timeframe\": \"<string>\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1891\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 9531.85964905238,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 7727.256810035978\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 7107.438466220575,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 3978,\n          \"key_1\": false\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 5432.769767207611,\n        \"logicalOperator\": \"AND\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1856.3105597074725,\n          \"key_1\": true,\n          \"key_2\": 4075.5341174376313\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 289.15993968142374,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 3749.8346948507156,\n      \"stopLossType\": \"percentage\",\n      \"takeProfit\": 329.72361414175253,\n      \"takeProfitType\": \"percentage\",\n      \"trailingStop\": 538.0664037522076,\n      \"maxPositions\": 9398\n    },\n    \"position\": {\n      \"side\": \"long\",\n      \"orderType\": \"limit\",\n      \"quantity\": 5503.223663277863,\n      \"quantityType\": \"contracts\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "412faeb8-115e-4b3f-bcef-b125d3189270",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"instrument\": \"AAPL\",\n  \"description\": \"<string>\",\n  \"instrumentType\": \"<string>\",\n  \"timeframe\": \"<string>\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1891\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 9531.85964905238,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 7727.256810035978\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 7107.438466220575,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 3978,\n          \"key_1\": false\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 5432.769767207611,\n        \"logicalOperator\": \"AND\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1856.3105597074725,\n          \"key_1\": true,\n          \"key_2\": 4075.5341174376313\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 289.15993968142374,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 3749.8346948507156,\n      \"stopLossType\": \"percentage\",\n      \"takeProfit\": 329.72361414175253,\n      \"takeProfitType\": \"percentage\",\n      \"trailingStop\": 538.0664037522076,\n      \"maxPositions\": 9398\n    },\n    \"position\": {\n      \"side\": \"long\",\n      \"orderType\": \"limit\",\n      \"quantity\": 5503.223663277863,\n      \"quantityType\": \"contracts\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b7546e3-a136-4c80-8837-0be7f3df6f95",
+          "name": "Get a user strategy",
+          "request": {
+            "name": "Get a user strategy",
+            "description": {
+              "content": "Retrieves the full details of a specific trading strategy including its configuration, status, performance metrics, and deployment state.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broker",
+                "users",
+                ":userId",
+                "strategies",
+                ":strategyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "strategyId",
+                  "description": "(Required) The unique identifier of the trading strategy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "462b47f1-e7ba-4c61-9427-02599199c8cb",
+              "name": "Strategy retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"instrument\": \"string\",\n  \"instrumentType\": \"option\",\n  \"timeframe\": \"string\",\n  \"status\": \"inactive\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 604\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 2707.802116807603,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 4844,\n          \"key_1\": false,\n          \"key_2\": 6227.886720710275\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 1231.064867196372,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 192,\n          \"key_1\": \"string\",\n          \"key_2\": 3211.3001194077174,\n          \"key_3\": 8523\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 5374.617835266027,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\"\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 85.96393210892006,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 6925.988350679218,\n      \"stopLossType\": \"absolute\",\n      \"takeProfit\": 4504.732634052882,\n      \"takeProfitType\": \"percentage\",\n      \"trailingStop\": 1315.587137630917,\n      \"maxPositions\": 6937\n    },\n    \"position\": {\n      \"side\": \"both\",\n      \"orderType\": \"stop\",\n      \"quantity\": 3080.724915864215,\n      \"quantityType\": \"shares\"\n    }\n  },\n  \"createdAt\": \"1985-06-07T13:30:50.820Z\",\n  \"updatedAt\": \"1980-10-04T15:17:36.554Z\",\n  \"deployedAt\": \"1957-04-16T14:04:55.044Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c576c4b3-7f5c-4ede-bb88-e482f22a9af5",
+              "name": "Unauthorized - invalid or missing bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43b9389c-2b8a-4fbe-b778-c275839168cd",
+              "name": "Strategy or user not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88cff3da-a3c6-4e81-be3e-28c4c2a66401",
+          "name": "Update a user strategy",
+          "request": {
+            "name": "Update a user strategy",
+            "description": {
+              "content": "Updates an existing trading strategy for the specified user. This endpoint can modify the strategy definition, parameters, and metadata. It can also be used to soft-delete or restore a strategy by updating its status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broker",
+                "users",
+                ":userId",
+                "strategies",
+                ":strategyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "strategyId",
+                  "description": "(Required) The unique identifier of the trading strategy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"instrument\": \"<string>\",\n  \"instrumentType\": \"<string>\",\n  \"timeframe\": \"<string>\",\n  \"status\": \"<string>\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": true,\n          \"key_1\": 2613\n        },\n        \"operator\": \"<string>\",\n        \"compareValue\": \"<number>\",\n        \"logicalOperator\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 2814\n        },\n        \"operator\": \"<string>\",\n        \"compareValue\": \"<number>\",\n        \"logicalOperator\": \"<string>\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 2809,\n          \"key_1\": 8073\n        },\n        \"operator\": \"<string>\",\n        \"compareValue\": \"<number>\",\n        \"logicalOperator\": \"<string>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": 1073.1565642833696,\n          \"key_2\": 7827\n        },\n        \"operator\": \"<string>\",\n        \"compareValue\": \"<number>\",\n        \"logicalOperator\": \"<string>\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": \"<float>\",\n      \"stopLossType\": \"<string>\",\n      \"takeProfit\": \"<float>\",\n      \"takeProfitType\": \"<string>\",\n      \"trailingStop\": \"<float>\",\n      \"maxPositions\": \"<integer>\"\n    },\n    \"position\": {\n      \"side\": \"<string>\",\n      \"orderType\": \"<string>\",\n      \"quantity\": \"<float>\",\n      \"quantityType\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "868768bc-dbbf-4650-be95-05f9bb95432a",
+              "name": "Strategy updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"instrument\": \"<string>\",\n  \"instrumentType\": \"<string>\",\n  \"timeframe\": \"<string>\",\n  \"status\": \"<string>\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1484\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 1562.9762594956896,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 7334\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 2194.2606788089015,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": 5960.808031943229,\n          \"key_2\": 8324\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 5961.321292539158,\n        \"logicalOperator\": \"AND\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": 9864\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 9999.715824903018,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 5304.183233520608,\n      \"stopLossType\": \"percentage\",\n      \"takeProfit\": 7877.251446799704,\n      \"takeProfitType\": \"absolute\",\n      \"trailingStop\": 6539.441482878652,\n      \"maxPositions\": 996\n    },\n    \"position\": {\n      \"side\": \"short\",\n      \"orderType\": \"market\",\n      \"quantity\": 7590.0964188547505,\n      \"quantityType\": \"dollars\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"instrument\": \"string\",\n  \"instrumentType\": \"option\",\n  \"timeframe\": \"string\",\n  \"status\": \"inactive\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 604\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 2707.802116807603,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 4844,\n          \"key_1\": false,\n          \"key_2\": 6227.886720710275\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 1231.064867196372,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 192,\n          \"key_1\": \"string\",\n          \"key_2\": 3211.3001194077174,\n          \"key_3\": 8523\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 5374.617835266027,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\"\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 85.96393210892006,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 6925.988350679218,\n      \"stopLossType\": \"absolute\",\n      \"takeProfit\": 4504.732634052882,\n      \"takeProfitType\": \"percentage\",\n      \"trailingStop\": 1315.587137630917,\n      \"maxPositions\": 6937\n    },\n    \"position\": {\n      \"side\": \"both\",\n      \"orderType\": \"stop\",\n      \"quantity\": 3080.724915864215,\n      \"quantityType\": \"shares\"\n    }\n  },\n  \"createdAt\": \"1985-06-07T13:30:50.820Z\",\n  \"updatedAt\": \"1980-10-04T15:17:36.554Z\",\n  \"deployedAt\": \"1957-04-16T14:04:55.044Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0913bfa-ebbb-4b27-831d-faf0d7349351",
+              "name": "Invalid strategy definition",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"instrument\": \"<string>\",\n  \"instrumentType\": \"<string>\",\n  \"timeframe\": \"<string>\",\n  \"status\": \"<string>\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1484\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 1562.9762594956896,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 7334\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 2194.2606788089015,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": 5960.808031943229,\n          \"key_2\": 8324\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 5961.321292539158,\n        \"logicalOperator\": \"AND\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": 9864\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 9999.715824903018,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 5304.183233520608,\n      \"stopLossType\": \"percentage\",\n      \"takeProfit\": 7877.251446799704,\n      \"takeProfitType\": \"absolute\",\n      \"trailingStop\": 6539.441482878652,\n      \"maxPositions\": 996\n    },\n    \"position\": {\n      \"side\": \"short\",\n      \"orderType\": \"market\",\n      \"quantity\": 7590.0964188547505,\n      \"quantityType\": \"dollars\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a1df256-616f-4f03-bb9e-fdd1163670d1",
+              "name": "Unauthorized - invalid or missing bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"instrument\": \"<string>\",\n  \"instrumentType\": \"<string>\",\n  \"timeframe\": \"<string>\",\n  \"status\": \"<string>\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1484\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 1562.9762594956896,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 7334\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 2194.2606788089015,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": 5960.808031943229,\n          \"key_2\": 8324\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 5961.321292539158,\n        \"logicalOperator\": \"AND\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": 9864\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 9999.715824903018,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 5304.183233520608,\n      \"stopLossType\": \"percentage\",\n      \"takeProfit\": 7877.251446799704,\n      \"takeProfitType\": \"absolute\",\n      \"trailingStop\": 6539.441482878652,\n      \"maxPositions\": 996\n    },\n    \"position\": {\n      \"side\": \"short\",\n      \"orderType\": \"market\",\n      \"quantity\": 7590.0964188547505,\n      \"quantityType\": \"dollars\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f256653c-97c1-4256-b8fb-ac5e9960e72c",
+              "name": "Strategy or user not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"instrument\": \"<string>\",\n  \"instrumentType\": \"<string>\",\n  \"timeframe\": \"<string>\",\n  \"status\": \"<string>\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 1484\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 1562.9762594956896,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 7334\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 2194.2606788089015,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": 5960.808031943229,\n          \"key_2\": 8324\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 5961.321292539158,\n        \"logicalOperator\": \"AND\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": 9864\n        },\n        \"operator\": \"greater_than\",\n        \"compareValue\": 9999.715824903018,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 5304.183233520608,\n      \"stopLossType\": \"percentage\",\n      \"takeProfit\": 7877.251446799704,\n      \"takeProfitType\": \"absolute\",\n      \"trailingStop\": 6539.441482878652,\n      \"maxPositions\": 996\n    },\n    \"position\": {\n      \"side\": \"short\",\n      \"orderType\": \"market\",\n      \"quantity\": 7590.0964188547505,\n      \"quantityType\": \"dollars\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d7c3c16-0607-4be3-bd66-54d2ee08bc3f",
+          "name": "Delete a user strategy",
+          "request": {
+            "name": "Delete a user strategy",
+            "description": {
+              "content": "Deletes or soft-deletes a user's trading strategy. Once deleted, the strategy is deactivated and any live deployments are stopped. Depending on configuration, the strategy may be recoverable through an update operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broker",
+                "users",
+                ":userId",
+                "strategies",
+                ":strategyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "strategyId",
+                  "description": "(Required) The unique identifier of the trading strategy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9535c291-0643-4168-a656-87232d58601a",
+              "name": "Strategy deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"instrument\": \"string\",\n  \"instrumentType\": \"option\",\n  \"timeframe\": \"string\",\n  \"status\": \"inactive\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 604\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 2707.802116807603,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 4844,\n          \"key_1\": false,\n          \"key_2\": 6227.886720710275\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 1231.064867196372,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 192,\n          \"key_1\": \"string\",\n          \"key_2\": 3211.3001194077174,\n          \"key_3\": 8523\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 5374.617835266027,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\"\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 85.96393210892006,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 6925.988350679218,\n      \"stopLossType\": \"absolute\",\n      \"takeProfit\": 4504.732634052882,\n      \"takeProfitType\": \"percentage\",\n      \"trailingStop\": 1315.587137630917,\n      \"maxPositions\": 6937\n    },\n    \"position\": {\n      \"side\": \"both\",\n      \"orderType\": \"stop\",\n      \"quantity\": 3080.724915864215,\n      \"quantityType\": \"shares\"\n    }\n  },\n  \"createdAt\": \"1985-06-07T13:30:50.820Z\",\n  \"updatedAt\": \"1980-10-04T15:17:36.554Z\",\n  \"deployedAt\": \"1957-04-16T14:04:55.044Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40472357-8e2f-4ace-8e77-a05815dde473",
+              "name": "Unauthorized - invalid or missing bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3dae7cf5-e7b9-48a7-bd9b-6a6a0e2c8f55",
+              "name": "Strategy or user not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2df2da6e-999a-4585-b73c-92312da4a8c2",
+          "name": "Deploy a user strategy",
+          "request": {
+            "name": "Deploy a user strategy",
+            "description": {
+              "content": "Deploys a trading strategy for live execution through the user's connected TradeStation brokerage account. The strategy must be in an active or draft state and have a valid configuration. Once deployed, the strategy will monitor market conditions and execute trades automatically based on its defined rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broker",
+                "users",
+                ":userId",
+                "strategies",
+                ":strategyId",
+                "deploy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "strategyId",
+                  "description": "(Required) The unique identifier of the trading strategy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paperTrading\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b7931316-f040-4b74-82c1-9410c035d954",
+              "name": "Strategy deployed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "deploy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paperTrading\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"instrument\": \"string\",\n  \"instrumentType\": \"option\",\n  \"timeframe\": \"string\",\n  \"status\": \"inactive\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 604\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 2707.802116807603,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 4844,\n          \"key_1\": false,\n          \"key_2\": 6227.886720710275\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 1231.064867196372,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 192,\n          \"key_1\": \"string\",\n          \"key_2\": 3211.3001194077174,\n          \"key_3\": 8523\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 5374.617835266027,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\"\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 85.96393210892006,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 6925.988350679218,\n      \"stopLossType\": \"absolute\",\n      \"takeProfit\": 4504.732634052882,\n      \"takeProfitType\": \"percentage\",\n      \"trailingStop\": 1315.587137630917,\n      \"maxPositions\": 6937\n    },\n    \"position\": {\n      \"side\": \"both\",\n      \"orderType\": \"stop\",\n      \"quantity\": 3080.724915864215,\n      \"quantityType\": \"shares\"\n    }\n  },\n  \"createdAt\": \"1985-06-07T13:30:50.820Z\",\n  \"updatedAt\": \"1980-10-04T15:17:36.554Z\",\n  \"deployedAt\": \"1957-04-16T14:04:55.044Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f6f3290-c7e4-4b13-8ac1-68929d7d0b04",
+              "name": "Strategy cannot be deployed in its current state",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "deploy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paperTrading\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "199585fc-841d-414c-8bdc-f07d2bf8f790",
+              "name": "Unauthorized - invalid or missing bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "deploy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paperTrading\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87994445-bf57-4773-bfd9-7c8daf1e6965",
+              "name": "Strategy or user not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "deploy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paperTrading\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7d398ad-cb48-445f-8c94-423e2b780392",
+          "name": "Stop a deployed strategy",
+          "request": {
+            "name": "Stop a deployed strategy",
+            "description": {
+              "content": "Stops a currently deployed trading strategy, halting all automated trade execution. The strategy returns to an active state and can be redeployed later. Any open positions created by the strategy are not automatically closed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broker",
+                "users",
+                ":userId",
+                "strategies",
+                ":strategyId",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "strategyId",
+                  "description": "(Required) The unique identifier of the trading strategy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ff2cf08d-c204-4b37-9821-bfdd5f3cf0fe",
+              "name": "Strategy stopped successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"userId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"instrument\": \"string\",\n  \"instrumentType\": \"option\",\n  \"timeframe\": \"string\",\n  \"status\": \"inactive\",\n  \"definition\": {\n    \"entryConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 604\n        },\n        \"operator\": \"crosses_above\",\n        \"compareValue\": 2707.802116807603,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 4844,\n          \"key_1\": false,\n          \"key_2\": 6227.886720710275\n        },\n        \"operator\": \"less_than\",\n        \"compareValue\": 1231.064867196372,\n        \"logicalOperator\": \"OR\"\n      }\n    ],\n    \"exitConditions\": [\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": 192,\n          \"key_1\": \"string\",\n          \"key_2\": 3211.3001194077174,\n          \"key_3\": 8523\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 5374.617835266027,\n        \"logicalOperator\": \"OR\"\n      },\n      {\n        \"id\": \"string\",\n        \"indicator\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\"\n        },\n        \"operator\": \"crosses_below\",\n        \"compareValue\": 85.96393210892006,\n        \"logicalOperator\": \"AND\"\n      }\n    ],\n    \"riskManagement\": {\n      \"stopLoss\": 6925.988350679218,\n      \"stopLossType\": \"absolute\",\n      \"takeProfit\": 4504.732634052882,\n      \"takeProfitType\": \"percentage\",\n      \"trailingStop\": 1315.587137630917,\n      \"maxPositions\": 6937\n    },\n    \"position\": {\n      \"side\": \"both\",\n      \"orderType\": \"stop\",\n      \"quantity\": 3080.724915864215,\n      \"quantityType\": \"shares\"\n    }\n  },\n  \"createdAt\": \"1985-06-07T13:30:50.820Z\",\n  \"updatedAt\": \"1980-10-04T15:17:36.554Z\",\n  \"deployedAt\": \"1957-04-16T14:04:55.044Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd1b55af-ddb0-44b7-b425-f35669154bc4",
+              "name": "Strategy is not currently deployed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3af33b4e-47de-47e0-ad14-2ae3f6339dbf",
+              "name": "Unauthorized - invalid or missing bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc0aba9a-08bc-4477-a379-ba2929d6f790",
+              "name": "Strategy or user not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0a340fc3-0820-455b-aea0-c25888ac0d3b",
+      "name": "Users",
+      "description": {
+        "content": "Endpoints for managing broker user accounts and their association with the Level2 platform.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e360add3-2ccf-4cf5-bc31-82b72f050e8e",
+          "name": "Create a broker user",
+          "request": {
+            "name": "Create a broker user",
+            "description": {
+              "content": "Creates a new user account within the Level2 platform associated with the broker's integration. This links a broker customer to the Level2 strategy builder, enabling them to create and manage automated trading strategies.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broker",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalId\": \"<string>\",\n  \"email\": \"<email>\",\n  \"displayName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1d8b3858-9754-432b-a850-6da0de029e88",
+              "name": "User created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalId\": \"<string>\",\n  \"email\": \"<email>\",\n  \"displayName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"externalId\": \"string\",\n  \"email\": \"WfM4zfrQz-4LUHt@jVogpSmbumAaKHmXcWL.gvg\",\n  \"displayName\": \"string\",\n  \"status\": \"inactive\",\n  \"createdAt\": \"2010-08-29T03:13:49.295Z\",\n  \"updatedAt\": \"1948-04-21T17:28:52.670Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49582e90-a06c-4491-b51c-0b932ae084be",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalId\": \"<string>\",\n  \"email\": \"<email>\",\n  \"displayName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e10b1b17-25ca-4a16-83c6-0e6ac3c35b9a",
+              "name": "Unauthorized - invalid or missing bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalId\": \"<string>\",\n  \"email\": \"<email>\",\n  \"displayName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e2e560a-7d6e-416c-b05d-fec9e6dc4f39",
+              "name": "Conflict - user already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalId\": \"<string>\",\n  \"email\": \"<email>\",\n  \"displayName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba491eec-85ae-4cd4-8438-2be039b1f554",
+          "name": "Get a broker user",
+          "request": {
+            "name": "Get a broker user",
+            "description": {
+              "content": "Retrieves the details of a specific broker user account on the Level2 platform, including their account status and associated configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broker",
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12af9342-e0ba-4f68-8944-ffc4516d5306",
+              "name": "User details retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"externalId\": \"string\",\n  \"email\": \"WfM4zfrQz-4LUHt@jVogpSmbumAaKHmXcWL.gvg\",\n  \"displayName\": \"string\",\n  \"status\": \"inactive\",\n  \"createdAt\": \"2010-08-29T03:13:49.295Z\",\n  \"updatedAt\": \"1948-04-21T17:28:52.670Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e3c8b1f-c1af-4e1f-a241-4d65864d5dff",
+              "name": "Unauthorized - invalid or missing bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5dddfe4c-f269-49f8-b4fb-b05e9a9067ad",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 8580,\n    \"key_1\": 5720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.trylevel2.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0f0db1fc-9320-4c9e-869a-793a96918da3",
+    "name": "Level2 TradeStation Integration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Level2 TradeStation Integration API enables broker partners to embed the Level2 visual strategy builder into their trading platforms and manage user strategies programmatically. This API connects the Level2 no-code strategy builder with TradeStation Securities brokerage accounts, allowing traders to create automated strategies using a drag-and-drop interface and execute them in real time through their TradeStation accounts. The API supports strategy lifecycle management including creation, retrieval, updating, deployment, and deletion of user strategies, as well as backtesting against historical market data.\n\nContact Support:\n Name: Level2 Broker Support",
+      "type": "text/plain"
+    }
+  }
+}
