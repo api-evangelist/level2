@@ -10,7 +10,7 @@ apis:
       - No-Code
       - Strategies
       - Trading
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://learn.trylevel2.com/docs/overview
     properties:
@@ -32,7 +32,7 @@ apis:
       - Execution
       - TradeStation
       - Trading
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://www.trylevel2.com/
     properties:
