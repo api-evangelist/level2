@@ -1,0 +1,26 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/level2-strategy-builder-openapi.yml, openapi/level2-tradestation-integration-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - query
+schemes:
+- name: apiKeyPath
+  type: apiKey
+  in: query
+  parameter: api_key
+  description: API key passed as a path parameter in the URL. Obtain your API key from the Level2
+    platform dashboard.
+  sources:
+  - openapi/level2-strategy-builder-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Bearer token authentication for broker API access. Tokens are issued to broker
+    partners during the integration onboarding process.
+  sources:
+  - openapi/level2-tradestation-integration-openapi.yml
