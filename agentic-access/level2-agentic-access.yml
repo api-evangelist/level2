@@ -1,0 +1,212 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/level2-strategy-builder-openapi.yml, openapi/level2-tradestation-integration-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 15
+  by_action_class:
+    connected: 8
+    acting: 7
+  by_consequence:
+    read: 8
+    write: 5
+    physical: 1
+    safety-critical: 1
+  human_in_the_loop_required: 1
+operations:
+- path: /checkForCandlestick/{api_key}/{ticker}/{timeframe}
+  method: get
+  operationId: checkForCandlestick
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /getTickerTrend/{api_key}/{ticker}/{timeframe}
+  method: get
+  operationId: getTickerTrend
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /olhc/{api_key}/{ticker}/{timeframe}/{range}
+  method: get
+  operationId: getOHLCData
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /similar/{api_key}/{ticker}
+  method: get
+  operationId: getSimilarStocks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /summary/{api_key}/{ticker}
+  method: get
+  operationId: getCompanySummary
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /broker/users
+  method: post
+  operationId: createBrokerUser
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /broker/users/{userId}
+  method: get
+  operationId: getBrokerUser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /broker/users/{userId}/strategies
+  method: get
+  operationId: listUserStrategies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /broker/users/{userId}/strategies
+  method: post
+  operationId: createUserStrategy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /broker/users/{userId}/strategies/{strategyId}
+  method: get
+  operationId: getUserStrategy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /broker/users/{userId}/strategies/{strategyId}
+  method: put
+  operationId: updateUserStrategy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /broker/users/{userId}/strategies/{strategyId}
+  method: delete
+  operationId: deleteUserStrategy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /broker/users/{userId}/strategies/{strategyId}/deploy
+  method: post
+  operationId: deployUserStrategy
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /broker/users/{userId}/strategies/{strategyId}/stop
+  method: post
+  operationId: stopUserStrategy
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /broker/users/{userId}/strategies/{strategyId}/backtest
+  method: post
+  operationId: backtestUserStrategy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required

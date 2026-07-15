@@ -46,6 +46,8 @@ apis:
       using Level2's drag-and-drop interface and execute them in real time through their TradeStation brokerage
       accounts.
 common:
+  - type: AgenticAccess
+    url: agentic-access/level2-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/level2-vulnerability-disclosure.yml
   - type: DomainSecurity
