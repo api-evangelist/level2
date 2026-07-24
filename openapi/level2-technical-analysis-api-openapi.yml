@@ -1,0 +1,202 @@
+openapi: 3.1.0
+info:
+  title: Level2 Strategy Builder Backtesting Technical Analysis API
+  description: The Level2 Strategy Builder API provides programmatic access to market data, technical analysis, and trading strategy capabilities offered by the Level2 platform (by Bytemine Technologies Ltd.). It includes endpoints for retrieving candlestick pattern detection, ticker trend analysis, historical OHLC (Open-High-Low-Close) data, similar stock discovery, and company fundamental summaries. These endpoints power the Level2 visual no-code strategy builder used by over 50,000 traders to create, backtest, and deploy automated trading strategies without writing code.
+  version: 1.0.0
+  contact:
+    name: Level2 Support
+    url: https://www.trylevel2.com
+  termsOfService: https://www.trylevel2.com/terms-and-conditions
+servers:
+- url: https://app.bytemine.io/api
+  description: Primary API Server
+- url: https://valhalla.bytemine.workers.dev
+  description: Market Data Server
+security:
+- apiKeyPath: []
+tags:
+- name: Technical Analysis
+  description: Endpoints for detecting candlestick patterns and analyzing ticker trends using technical indicators.
+paths:
+  /checkForCandlestick/{api_key}/{ticker}/{timeframe}:
+    get:
+      operationId: checkForCandlestick
+      summary: Check for candlestick patterns
+      description: Detects and returns candlestick patterns identified for a given ticker symbol at the specified timeframe. The endpoint analyzes recent price action and identifies recognized candlestick formations such as doji, hammer, engulfing, and other standard patterns used in technical analysis.
+      tags:
+      - Technical Analysis
+      parameters:
+      - $ref: '#/components/parameters/apiKey'
+      - $ref: '#/components/parameters/ticker'
+      - $ref: '#/components/parameters/timeframe'
+      responses:
+        '200':
+          description: Candlestick patterns detected successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandlestickPatternResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://app.bytemine.io/api
+        description: Primary API Server
+  /getTickerTrend/{api_key}/{ticker}/{timeframe}:
+    get:
+      operationId: getTickerTrend
+      summary: Get ticker trend analysis
+      description: Retrieves the current trend analysis for a given ticker symbol at the specified timeframe. Returns trend direction, strength indicators, and supporting technical analysis data that can be used to inform trading strategy decisions within the Level2 platform.
+      tags:
+      - Technical Analysis
+      parameters:
+      - $ref: '#/components/parameters/apiKey'
+      - $ref: '#/components/parameters/ticker'
+      - $ref: '#/components/parameters/timeframe'
+      responses:
+        '200':
+          description: Trend analysis retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TickerTrendResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://app.bytemine.io/api
+        description: Primary API Server
+components:
+  schemas:
+    CandlestickPatternResponse:
+      type: object
+      description: Response containing detected candlestick patterns for the requested ticker and timeframe.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        timeframe:
+          type: string
+          description: The timeframe analyzed
+        patterns:
+          type: array
+          description: List of detected candlestick patterns
+          items:
+            $ref: '#/components/schemas/CandlestickPattern'
+    TickerTrendResponse:
+      type: object
+      description: Response containing trend analysis data for the requested ticker and timeframe.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        timeframe:
+          type: string
+          description: The timeframe analyzed
+        trend:
+          type: string
+          description: The overall trend direction
+          enum:
+          - bullish
+          - bearish
+          - neutral
+        strength:
+          type: number
+          format: float
+          description: Trend strength indicator between 0 and 1
+          minimum: 0
+          maximum: 1
+        indicators:
+          type: object
+          description: Supporting technical indicator values
+          additionalProperties: true
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message describing the issue
+        code:
+          type: integer
+          description: The HTTP status code associated with the error
+    CandlestickPattern:
+      type: object
+      description: A detected candlestick pattern with its properties.
+      properties:
+        name:
+          type: string
+          description: The name of the candlestick pattern (e.g., Doji, Hammer, Engulfing)
+        type:
+          type: string
+          description: Whether the pattern is bullish, bearish, or neutral
+          enum:
+          - bullish
+          - bearish
+          - neutral
+        confidence:
+          type: number
+          format: float
+          description: Confidence score of the pattern detection between 0 and 1
+          minimum: 0
+          maximum: 1
+  parameters:
+    apiKey:
+      name: api_key
+      in: path
+      required: true
+      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
+      schema:
+        type: string
+    ticker:
+      name: ticker
+      in: path
+      required: true
+      description: The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges.
+      schema:
+        type: string
+        example: AAPL
+    timeframe:
+      name: timeframe
+      in: path
+      required: true
+      description: The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively.
+      schema:
+        type: string
+        enum:
+        - 1m
+        - 5m
+        - 15m
+        - 30m
+        - 1h
+        - 4h
+        - 1d
+        - 1w
+        - 1M
+  securitySchemes:
+    apiKeyPath:
+      type: apiKey
+      in: query
+      name: api_key
+      description: API key passed as a path parameter in the URL. Obtain your API key from the Level2 platform dashboard.
+externalDocs:
+  description: Level2 API Documentation
+  url: https://guide.bytemine.io/technical-documentation/api-documentation

@@ -1,0 +1,182 @@
+openapi: 3.1.0
+info:
+  title: Level2 Strategy Builder Backtesting Discovery API
+  description: The Level2 Strategy Builder API provides programmatic access to market data, technical analysis, and trading strategy capabilities offered by the Level2 platform (by Bytemine Technologies Ltd.). It includes endpoints for retrieving candlestick pattern detection, ticker trend analysis, historical OHLC (Open-High-Low-Close) data, similar stock discovery, and company fundamental summaries. These endpoints power the Level2 visual no-code strategy builder used by over 50,000 traders to create, backtest, and deploy automated trading strategies without writing code.
+  version: 1.0.0
+  contact:
+    name: Level2 Support
+    url: https://www.trylevel2.com
+  termsOfService: https://www.trylevel2.com/terms-and-conditions
+servers:
+- url: https://app.bytemine.io/api
+  description: Primary API Server
+- url: https://valhalla.bytemine.workers.dev
+  description: Market Data Server
+security:
+- apiKeyPath: []
+tags:
+- name: Discovery
+  description: Endpoints for discovering similar stocks and retrieving company fundamental summaries.
+paths:
+  /similar/{api_key}/{ticker}:
+    get:
+      operationId: getSimilarStocks
+      summary: Get similar stocks
+      description: Returns a list of stocks that are similar to the specified ticker based on sector, market capitalization, trading patterns, and other fundamental and technical characteristics. Useful for portfolio diversification analysis and discovering related trading opportunities.
+      tags:
+      - Discovery
+      parameters:
+      - $ref: '#/components/parameters/apiKey'
+      - $ref: '#/components/parameters/ticker'
+      responses:
+        '200':
+          description: Similar stocks retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimilarStocksResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://valhalla.bytemine.workers.dev
+        description: Market Data Server
+  /summary/{api_key}/{ticker}:
+    get:
+      operationId: getCompanySummary
+      summary: Get company summary
+      description: Retrieves a comprehensive fundamental summary for the specified ticker symbol, including company description, sector classification, market capitalization, key financial metrics, and other relevant business information. This data supports informed strategy creation and stock screening within the Level2 platform.
+      tags:
+      - Discovery
+      parameters:
+      - $ref: '#/components/parameters/apiKey'
+      - $ref: '#/components/parameters/ticker'
+      responses:
+        '200':
+          description: Company summary retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanySummaryResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://valhalla.bytemine.workers.dev
+        description: Market Data Server
+components:
+  parameters:
+    apiKey:
+      name: api_key
+      in: path
+      required: true
+      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
+      schema:
+        type: string
+    ticker:
+      name: ticker
+      in: path
+      required: true
+      description: The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges.
+      schema:
+        type: string
+        example: AAPL
+  schemas:
+    SimilarStocksResponse:
+      type: object
+      description: Response containing a list of stocks similar to the requested ticker.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        similar:
+          type: array
+          description: List of similar stock tickers with relevance information
+          items:
+            $ref: '#/components/schemas/SimilarStock'
+    CompanySummaryResponse:
+      type: object
+      description: Response containing fundamental company information for the requested ticker symbol.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        name:
+          type: string
+          description: The full company name
+        description:
+          type: string
+          description: A summary description of the company and its business
+        sector:
+          type: string
+          description: The business sector classification
+        industry:
+          type: string
+          description: The specific industry classification
+        marketCap:
+          type: number
+          format: float
+          description: The current market capitalization in USD
+        exchange:
+          type: string
+          description: The stock exchange where the ticker is listed
+        country:
+          type: string
+          description: The country where the company is headquartered
+        website:
+          type: string
+          format: uri
+          description: The company website URL
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message describing the issue
+        code:
+          type: integer
+          description: The HTTP status code associated with the error
+    SimilarStock:
+      type: object
+      description: A stock that is similar to the queried ticker.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol of the similar stock
+        name:
+          type: string
+          description: The company name of the similar stock
+        similarity:
+          type: number
+          format: float
+          description: Similarity score between 0 and 1
+          minimum: 0
+          maximum: 1
+  securitySchemes:
+    apiKeyPath:
+      type: apiKey
+      in: query
+      name: api_key
+      description: API key passed as a path parameter in the URL. Obtain your API key from the Level2 platform dashboard.
+externalDocs:
+  description: Level2 API Documentation
+  url: https://guide.bytemine.io/technical-documentation/api-documentation

@@ -1,0 +1,234 @@
+openapi: 3.1.0
+info:
+  title: Level2 Strategy Builder Backtesting API
+  description: The Level2 Strategy Builder API provides programmatic access to market data, technical analysis, and trading strategy capabilities offered by the Level2 platform (by Bytemine Technologies Ltd.). It includes endpoints for retrieving candlestick pattern detection, ticker trend analysis, historical OHLC (Open-High-Low-Close) data, similar stock discovery, and company fundamental summaries. These endpoints power the Level2 visual no-code strategy builder used by over 50,000 traders to create, backtest, and deploy automated trading strategies without writing code.
+  version: 1.0.0
+  contact:
+    name: Level2 Support
+    url: https://www.trylevel2.com
+  termsOfService: https://www.trylevel2.com/terms-and-conditions
+servers:
+- url: https://app.bytemine.io/api
+  description: Primary API Server
+- url: https://valhalla.bytemine.workers.dev
+  description: Market Data Server
+security:
+- apiKeyPath: []
+tags:
+- name: Backtesting
+  description: Endpoints for running backtests on strategies against historical market data to validate performance before live deployment.
+paths:
+  /broker/users/{userId}/strategies/{strategyId}/backtest:
+    post:
+      operationId: backtestUserStrategy
+      summary: Backtest a user strategy
+      description: Runs a backtest on the specified strategy against historical market data for the configured instruments and date range. Returns performance metrics including profit and loss, win rate, maximum drawdown, Sharpe ratio, and trade-by-trade results. Backtesting enables traders to validate strategy effectiveness before deploying with real capital.
+      tags:
+      - Backtesting
+      parameters:
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/strategyId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BacktestRequest'
+      responses:
+        '200':
+          description: Backtest completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BacktestResponse'
+        '400':
+          description: Invalid backtest parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid or missing bearer token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Strategy or user not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    BacktestResponse:
+      type: object
+      description: Response containing the results of a strategy backtest including performance metrics and trade history.
+      properties:
+        strategyId:
+          type: string
+          description: The strategy that was backtested
+        startDate:
+          type: string
+          format: date
+          description: The start date of the backtest period
+        endDate:
+          type: string
+          format: date
+          description: The end date of the backtest period
+        initialCapital:
+          type: number
+          format: float
+          description: The starting capital used in the backtest
+        finalCapital:
+          type: number
+          format: float
+          description: The ending capital after the backtest
+        totalReturn:
+          type: number
+          format: float
+          description: Total return as a decimal (e.g., 0.15 for 15%)
+        totalTrades:
+          type: integer
+          description: Total number of trades executed during the backtest
+        winningTrades:
+          type: integer
+          description: Number of profitable trades
+        losingTrades:
+          type: integer
+          description: Number of losing trades
+        winRate:
+          type: number
+          format: float
+          description: Win rate as a decimal between 0 and 1
+          minimum: 0
+          maximum: 1
+        maxDrawdown:
+          type: number
+          format: float
+          description: Maximum drawdown as a decimal
+        sharpeRatio:
+          type: number
+          format: float
+          description: Sharpe ratio of the strategy returns
+        profitFactor:
+          type: number
+          format: float
+          description: Ratio of gross profits to gross losses
+        trades:
+          type: array
+          description: Detailed list of individual trades executed
+          items:
+            $ref: '#/components/schemas/BacktestTrade'
+    BacktestTrade:
+      type: object
+      description: A single trade executed during a backtest.
+      properties:
+        entryDate:
+          type: string
+          format: date-time
+          description: Timestamp when the trade was entered
+        exitDate:
+          type: string
+          format: date-time
+          description: Timestamp when the trade was exited
+        side:
+          type: string
+          description: The trade direction
+          enum:
+          - long
+          - short
+        entryPrice:
+          type: number
+          format: float
+          description: The price at which the trade was entered
+        exitPrice:
+          type: number
+          format: float
+          description: The price at which the trade was exited
+        quantity:
+          type: number
+          format: float
+          description: The number of shares or contracts traded
+        pnl:
+          type: number
+          format: float
+          description: The profit or loss for this trade in USD
+        returnPct:
+          type: number
+          format: float
+          description: The return percentage for this trade
+        exitReason:
+          type: string
+          description: The reason the trade was exited
+          enum:
+          - take_profit
+          - stop_loss
+          - trailing_stop
+          - exit_condition
+          - end_of_backtest
+    ErrorResponse:
+      type: object
+      description: Standard error response for broker API requests.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: A machine-readable error code
+        details:
+          type: object
+          description: Additional error details when available
+          additionalProperties: true
+    BacktestRequest:
+      type: object
+      description: Request body specifying the parameters for a strategy backtest run.
+      required:
+      - startDate
+      - endDate
+      properties:
+        startDate:
+          type: string
+          format: date
+          description: The start date for the backtest period
+        endDate:
+          type: string
+          format: date
+          description: The end date for the backtest period
+        initialCapital:
+          type: number
+          format: float
+          description: The starting capital amount for the backtest in USD
+          default: 100000
+          minimum: 0
+        commissionPerTrade:
+          type: number
+          format: float
+          description: Commission cost per trade in USD
+          default: 0
+          minimum: 0
+  parameters:
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the broker user on the Level2 platform.
+      schema:
+        type: string
+    strategyId:
+      name: strategyId
+      in: path
+      required: true
+      description: The unique identifier of the trading strategy.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyPath:
+      type: apiKey
+      in: query
+      name: api_key
+      description: API key passed as a path parameter in the URL. Obtain your API key from the Level2 platform dashboard.
+externalDocs:
+  description: Level2 API Documentation
+  url: https://guide.bytemine.io/technical-documentation/api-documentation

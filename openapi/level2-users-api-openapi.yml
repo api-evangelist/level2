@@ -1,0 +1,168 @@
+openapi: 3.1.0
+info:
+  title: Level2 Strategy Builder Backtesting Users API
+  description: The Level2 Strategy Builder API provides programmatic access to market data, technical analysis, and trading strategy capabilities offered by the Level2 platform (by Bytemine Technologies Ltd.). It includes endpoints for retrieving candlestick pattern detection, ticker trend analysis, historical OHLC (Open-High-Low-Close) data, similar stock discovery, and company fundamental summaries. These endpoints power the Level2 visual no-code strategy builder used by over 50,000 traders to create, backtest, and deploy automated trading strategies without writing code.
+  version: 1.0.0
+  contact:
+    name: Level2 Support
+    url: https://www.trylevel2.com
+  termsOfService: https://www.trylevel2.com/terms-and-conditions
+servers:
+- url: https://app.bytemine.io/api
+  description: Primary API Server
+- url: https://valhalla.bytemine.workers.dev
+  description: Market Data Server
+security:
+- apiKeyPath: []
+tags:
+- name: Users
+  description: Endpoints for managing broker user accounts and their association with the Level2 platform.
+paths:
+  /broker/users:
+    post:
+      operationId: createBrokerUser
+      summary: Create a broker user
+      description: Creates a new user account within the Level2 platform associated with the broker's integration. This links a broker customer to the Level2 strategy builder, enabling them to create and manage automated trading strategies.
+      tags:
+      - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized - invalid or missing bearer token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict - user already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /broker/users/{userId}:
+    get:
+      operationId: getBrokerUser
+      summary: Get a broker user
+      description: Retrieves the details of a specific broker user account on the Level2 platform, including their account status and associated configuration.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: User details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: Unauthorized - invalid or missing bearer token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  parameters:
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the broker user on the Level2 platform.
+      schema:
+        type: string
+  schemas:
+    CreateUserRequest:
+      type: object
+      description: Request body for creating a new broker user account.
+      required:
+      - externalId
+      properties:
+        externalId:
+          type: string
+          description: The broker's external identifier for this user, used to link the Level2 account to the broker's customer record.
+        email:
+          type: string
+          format: email
+          description: The user's email address
+        displayName:
+          type: string
+          description: The user's display name shown in the Level2 interface
+          maxLength: 100
+    ErrorResponse:
+      type: object
+      description: Standard error response for broker API requests.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: A machine-readable error code
+        details:
+          type: object
+          description: Additional error details when available
+          additionalProperties: true
+    UserResponse:
+      type: object
+      description: Response containing user account details.
+      properties:
+        id:
+          type: string
+          description: The unique Level2 user identifier
+        externalId:
+          type: string
+          description: The broker's external identifier for this user
+        email:
+          type: string
+          format: email
+          description: The user's email address
+        displayName:
+          type: string
+          description: The user's display name
+        status:
+          type: string
+          description: The current account status
+          enum:
+          - active
+          - inactive
+          - suspended
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the user account was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the user account was last updated
+  securitySchemes:
+    apiKeyPath:
+      type: apiKey
+      in: query
+      name: api_key
+      description: API key passed as a path parameter in the URL. Obtain your API key from the Level2 platform dashboard.
+externalDocs:
+  description: Level2 API Documentation
+  url: https://guide.bytemine.io/technical-documentation/api-documentation
