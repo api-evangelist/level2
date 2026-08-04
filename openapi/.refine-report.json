@@ -1,0 +1,24 @@
+{
+  "provider": "level2",
+  "sources": [
+    "level2-backtesting-api-openapi.yml",
+    "level2-discovery-api-openapi.yml",
+    "level2-market-data-api-openapi.yml",
+    "level2-strategies-api-openapi.yml",
+    "level2-technical-analysis-api-openapi.yml",
+    "level2-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "level2-backtesting-api-openapi.yml",
+    "level2-discovery-api-openapi.yml",
+    "level2-market-data-api-openapi.yml",
+    "level2-strategies-api-openapi.yml",
+    "level2-technical-analysis-api-openapi.yml",
+    "level2-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
