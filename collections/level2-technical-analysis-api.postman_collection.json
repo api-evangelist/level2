@@ -1,0 +1,591 @@
+{
+  "item": [
+    {
+      "id": "2ea17ecf-8c62-408b-b29a-6aa37caffa84",
+      "name": "Technical Analysis",
+      "description": {
+        "content": "Endpoints for detecting candlestick patterns and analyzing ticker trends using technical indicators.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6fd573c7-74ab-4385-9013-643dac5d66c7",
+          "name": "Check for candlestick patterns",
+          "request": {
+            "name": "Check for candlestick patterns",
+            "description": {
+              "content": "Detects and returns candlestick patterns identified for a given ticker symbol at the specified timeframe. The endpoint analyzes recent price action and identifies recognized candlestick formations such as doji, hammer, engulfing, and other standard patterns used in technical analysis.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "api",
+                "checkForCandlestick",
+                ":api_key",
+                ":ticker",
+                ":timeframe"
+              ],
+              "host": [
+                "app",
+                "bytemine",
+                "io"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "api_key",
+                  "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ticker",
+                  "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeframe",
+                  "description": "(Required) The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ef15a0c-ed20-4203-be7d-7908d16806f3",
+              "name": "Candlestick patterns detected successfully",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "checkForCandlestick",
+                    ":api_key",
+                    ":ticker",
+                    ":timeframe"
+                  ],
+                  "host": [
+                    "app",
+                    "bytemine",
+                    "io"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeframe",
+                      "description": "(Required) The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"timeframe\": \"string\",\n  \"patterns\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"bearish\",\n      \"confidence\": 0.9543966611075584\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"bearish\",\n      \"confidence\": 0.3347492657318669\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a83bde93-ae0e-47e7-88ee-b3eba63e5cdf",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "checkForCandlestick",
+                    ":api_key",
+                    ":ticker",
+                    ":timeframe"
+                  ],
+                  "host": [
+                    "app",
+                    "bytemine",
+                    "io"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeframe",
+                      "description": "(Required) The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 1653\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "328e95f1-f659-4182-a0e1-d2fbf34955fe",
+              "name": "Unauthorized - invalid API key",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "checkForCandlestick",
+                    ":api_key",
+                    ":ticker",
+                    ":timeframe"
+                  ],
+                  "host": [
+                    "app",
+                    "bytemine",
+                    "io"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeframe",
+                      "description": "(Required) The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 1653\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8388fb04-0f7b-446b-bec3-6a2bdee47ad7",
+          "name": "Get ticker trend analysis",
+          "request": {
+            "name": "Get ticker trend analysis",
+            "description": {
+              "content": "Retrieves the current trend analysis for a given ticker symbol at the specified timeframe. Returns trend direction, strength indicators, and supporting technical analysis data that can be used to inform trading strategy decisions within the Level2 platform.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "api",
+                "getTickerTrend",
+                ":api_key",
+                ":ticker",
+                ":timeframe"
+              ],
+              "host": [
+                "app",
+                "bytemine",
+                "io"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "api_key",
+                  "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ticker",
+                  "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeframe",
+                  "description": "(Required) The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09f119a5-6eea-4e23-af15-297f59da4718",
+              "name": "Trend analysis retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "getTickerTrend",
+                    ":api_key",
+                    ":ticker",
+                    ":timeframe"
+                  ],
+                  "host": [
+                    "app",
+                    "bytemine",
+                    "io"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeframe",
+                      "description": "(Required) The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"timeframe\": \"string\",\n  \"trend\": \"bullish\",\n  \"strength\": 0.49917643370914977,\n  \"indicators\": {\n    \"key_0\": 2651.1256735215625,\n    \"key_1\": true,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2f2ad82-70b6-40e4-a390-e134af2a703a",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "getTickerTrend",
+                    ":api_key",
+                    ":ticker",
+                    ":timeframe"
+                  ],
+                  "host": [
+                    "app",
+                    "bytemine",
+                    "io"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeframe",
+                      "description": "(Required) The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 1653\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccd3fb4b-fa22-4e0e-9cf0-ed74eea6a01e",
+              "name": "Unauthorized - invalid API key",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "getTickerTrend",
+                    ":api_key",
+                    ":ticker",
+                    ":timeframe"
+                  ],
+                  "host": [
+                    "app",
+                    "bytemine",
+                    "io"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeframe",
+                      "description": "(Required) The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 1653\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.bytemine.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ea9061e7-10cb-4886-a6ff-68b17d272934",
+    "name": "Level2 Strategy Builder Backtesting Technical Analysis API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Level2 Strategy Builder API provides programmatic access to market data, technical analysis, and trading strategy capabilities offered by the Level2 platform (by Bytemine Technologies Ltd.). It includes endpoints for retrieving candlestick pattern detection, ticker trend analysis, historical OHLC (Open-High-Low-Close) data, similar stock discovery, and company fundamental summaries. These endpoints power the Level2 visual no-code strategy builder used by over 50,000 traders to create, backtest, and deploy automated trading strategies without writing code.\n\nContact Support:\n Name: Level2 Support",
+      "type": "text/plain"
+    }
+  }
+}

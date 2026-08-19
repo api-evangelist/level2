@@ -1,0 +1,389 @@
+{
+  "item": [
+    {
+      "id": "828f1ac9-7a7a-48a0-878a-41fd50e5a90b",
+      "name": "Backtesting",
+      "description": {
+        "content": "Endpoints for running backtests on strategies against historical market data to validate performance before live deployment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc774b58-bd70-4790-94e9-078593108cbb",
+          "name": "Backtest a user strategy",
+          "request": {
+            "name": "Backtest a user strategy",
+            "description": {
+              "content": "Runs a backtest on the specified strategy against historical market data for the configured instruments and date range. Returns performance metrics including profit and loss, win rate, maximum drawdown, Sharpe ratio, and trade-by-trade results. Backtesting enables traders to validate strategy effectiveness before deploying with real capital.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "broker",
+                "users",
+                ":userId",
+                "strategies",
+                ":strategyId",
+                "backtest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "strategyId",
+                  "description": "(Required) The unique identifier of the trading strategy."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"initialCapital\": 100000,\n  \"commissionPerTrade\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "121b4e99-7c19-40e1-b06d-f837f98197fa",
+              "name": "Backtest completed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "backtest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"initialCapital\": 100000,\n  \"commissionPerTrade\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"strategyId\": \"string\",\n  \"startDate\": \"1964-06-16\",\n  \"endDate\": \"1967-11-28\",\n  \"initialCapital\": 5800.158096026896,\n  \"finalCapital\": 3356.7280007116938,\n  \"totalReturn\": 4291.178044201141,\n  \"totalTrades\": 2621,\n  \"winningTrades\": 5269,\n  \"losingTrades\": 9237,\n  \"winRate\": 0.9749716197458622,\n  \"maxDrawdown\": 3314.0337917080897,\n  \"sharpeRatio\": 8441.757143438303,\n  \"profitFactor\": 7575.084510113298,\n  \"trades\": [\n    {\n      \"entryDate\": \"2000-12-13T13:53:32.115Z\",\n      \"exitDate\": \"1996-01-06T04:06:21.295Z\",\n      \"side\": \"short\",\n      \"entryPrice\": 1070.5111175169802,\n      \"exitPrice\": 5700.262401376227,\n      \"quantity\": 7747.8206348619715,\n      \"pnl\": 2199.469102632198,\n      \"returnPct\": 2696.385455351188,\n      \"exitReason\": \"take_profit\"\n    },\n    {\n      \"entryDate\": \"2006-09-09T15:18:13.015Z\",\n      \"exitDate\": \"1995-11-11T15:02:48.170Z\",\n      \"side\": \"long\",\n      \"entryPrice\": 776.5248569753136,\n      \"exitPrice\": 7847.964826268555,\n      \"quantity\": 8708.831394890793,\n      \"pnl\": 1182.7959675431277,\n      \"returnPct\": 2445.167050942728,\n      \"exitReason\": \"exit_condition\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7fc6298-e6fa-4429-aefa-35f033f16ab8",
+              "name": "Invalid backtest parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "backtest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"initialCapital\": 100000,\n  \"commissionPerTrade\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 9395\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "188d8891-0c19-4888-a2de-8853cbc91005",
+              "name": "Unauthorized - invalid or missing bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "backtest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"initialCapital\": 100000,\n  \"commissionPerTrade\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 9395\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7cb49af-c53c-486b-9953-76a9f22c7b24",
+              "name": "Strategy or user not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "broker",
+                    "users",
+                    ":userId",
+                    "strategies",
+                    ":strategyId",
+                    "backtest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The unique identifier of the broker user on the Level2 platform."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "strategyId",
+                      "description": "(Required) The unique identifier of the trading strategy."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"initialCapital\": 100000,\n  \"commissionPerTrade\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": \"string\",\n  \"details\": {\n    \"key_0\": 9395\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.bytemine.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "42572cc5-6c2f-4982-b1f7-a4b8bbec7e73",
+    "name": "Level2 Strategy Builder Backtesting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Level2 Strategy Builder API provides programmatic access to market data, technical analysis, and trading strategy capabilities offered by the Level2 platform (by Bytemine Technologies Ltd.). It includes endpoints for retrieving candlestick pattern detection, ticker trend analysis, historical OHLC (Open-High-Low-Close) data, similar stock discovery, and company fundamental summaries. These endpoints power the Level2 visual no-code strategy builder used by over 50,000 traders to create, backtest, and deploy automated trading strategies without writing code.\n\nContact Support:\n Name: Level2 Support",
+      "type": "text/plain"
+    }
+  }
+}

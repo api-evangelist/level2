@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Level2 Strategy Builder Backtesting Discovery API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get similar stocks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.bytemine.io/api/similar/:api_key/:ticker",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "path",
+                "description": "Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+              },
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "path",
+                "description": "The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+              }
+            ]
+          },
+          "docs": "Returns a list of stocks that are similar to the specified ticker based on sector, market capitalization, trading patterns, and other fundamental and technical characteristics. Useful for portfolio diversification analysis and discovering related trading opportunities."
+        },
+        {
+          "info": {
+            "name": "Get company summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.bytemine.io/api/summary/:api_key/:ticker",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "path",
+                "description": "Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+              },
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "path",
+                "description": "The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+              }
+            ]
+          },
+          "docs": "Retrieves a comprehensive fundamental summary for the specified ticker symbol, including company description, sector classification, market capitalization, key financial metrics, and other relevant business information. This data supports informed strategy creation and stock screening within the Level2 platform."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

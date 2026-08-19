@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Level2 Strategy Builder Backtesting Users API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a broker user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.bytemine.io/api/broker/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user account within the Level2 platform associated with the broker's integration. This links a broker customer to the Level2 strategy builder, enabling them to create and manage automated trading strategies."
+        },
+        {
+          "info": {
+            "name": "Get a broker user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.bytemine.io/api/broker/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the broker user on the Level2 platform."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific broker user account on the Level2 platform, including their account status and associated configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

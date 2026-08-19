@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Level2 Strategy Builder Backtesting Technical Analysis API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Technical Analysis",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check for candlestick patterns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.bytemine.io/api/checkForCandlestick/:api_key/:ticker/:timeframe",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "path",
+                "description": "Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+              },
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "path",
+                "description": "The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+              },
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "path",
+                "description": "The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively."
+              }
+            ]
+          },
+          "docs": "Detects and returns candlestick patterns identified for a given ticker symbol at the specified timeframe. The endpoint analyzes recent price action and identifies recognized candlestick formations such as doji, hammer, engulfing, and other standard patterns used in technical analysis."
+        },
+        {
+          "info": {
+            "name": "Get ticker trend analysis",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.bytemine.io/api/getTickerTrend/:api_key/:ticker/:timeframe",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "path",
+                "description": "Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+              },
+              {
+                "name": "ticker",
+                "value": "",
+                "type": "path",
+                "description": "The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+              },
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "path",
+                "description": "The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively."
+              }
+            ]
+          },
+          "docs": "Retrieves the current trend analysis for a given ticker symbol at the specified timeframe. Returns trend direction, strength indicators, and supporting technical analysis data that can be used to inform trading strategy decisions within the Level2 platform."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

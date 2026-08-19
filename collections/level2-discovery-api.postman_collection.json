@@ -1,0 +1,527 @@
+{
+  "item": [
+    {
+      "id": "35d9fc6a-fa0a-4431-8202-2515a45726f9",
+      "name": "Discovery",
+      "description": {
+        "content": "Endpoints for discovering similar stocks and retrieving company fundamental summaries.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cb0471cc-f244-40ad-a96e-e91ae8c5ecc2",
+          "name": "Get similar stocks",
+          "request": {
+            "name": "Get similar stocks",
+            "description": {
+              "content": "Returns a list of stocks that are similar to the specified ticker based on sector, market capitalization, trading patterns, and other fundamental and technical characteristics. Useful for portfolio diversification analysis and discovering related trading opportunities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "similar",
+                ":api_key",
+                ":ticker"
+              ],
+              "host": [
+                "valhalla",
+                "bytemine",
+                "workers",
+                "dev"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "api_key",
+                  "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ticker",
+                  "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "92247e48-ff01-4a34-9061-c2bc28c2aa64",
+              "name": "Similar stocks retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "similar",
+                    ":api_key",
+                    ":ticker"
+                  ],
+                  "host": [
+                    "valhalla",
+                    "bytemine",
+                    "workers",
+                    "dev"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"similar\": [\n    {\n      \"ticker\": \"string\",\n      \"name\": \"string\",\n      \"similarity\": 0.25588649705330235\n    },\n    {\n      \"ticker\": \"string\",\n      \"name\": \"string\",\n      \"similarity\": 0.8762765461223985\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78cbb862-97a6-481c-88a5-edd1663ef80a",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "similar",
+                    ":api_key",
+                    ":ticker"
+                  ],
+                  "host": [
+                    "valhalla",
+                    "bytemine",
+                    "workers",
+                    "dev"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4975\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "051828e4-1003-4024-9d81-1cdb7f525064",
+              "name": "Unauthorized - invalid API key",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "similar",
+                    ":api_key",
+                    ":ticker"
+                  ],
+                  "host": [
+                    "valhalla",
+                    "bytemine",
+                    "workers",
+                    "dev"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4975\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ed25c4f-af8f-462a-8c84-699f84e612a4",
+          "name": "Get company summary",
+          "request": {
+            "name": "Get company summary",
+            "description": {
+              "content": "Retrieves a comprehensive fundamental summary for the specified ticker symbol, including company description, sector classification, market capitalization, key financial metrics, and other relevant business information. This data supports informed strategy creation and stock screening within the Level2 platform.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "summary",
+                ":api_key",
+                ":ticker"
+              ],
+              "host": [
+                "valhalla",
+                "bytemine",
+                "workers",
+                "dev"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "api_key",
+                  "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ticker",
+                  "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76237e8a-6391-4d76-9a17-04be52f87124",
+              "name": "Company summary retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "summary",
+                    ":api_key",
+                    ":ticker"
+                  ],
+                  "host": [
+                    "valhalla",
+                    "bytemine",
+                    "workers",
+                    "dev"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ticker\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"sector\": \"string\",\n  \"industry\": \"string\",\n  \"marketCap\": 5138.884214949972,\n  \"exchange\": \"string\",\n  \"country\": \"string\",\n  \"website\": \"http://LoHmJSgbckhbSWCke.zpDjCvz\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d994bb55-0bbd-4549-bd48-55d79a7ae874",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "summary",
+                    ":api_key",
+                    ":ticker"
+                  ],
+                  "host": [
+                    "valhalla",
+                    "bytemine",
+                    "workers",
+                    "dev"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4975\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e22baf8c-1801-4a11-8d93-8c2edbec6908",
+              "name": "Unauthorized - invalid API key",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "summary",
+                    ":api_key",
+                    ":ticker"
+                  ],
+                  "host": [
+                    "valhalla",
+                    "bytemine",
+                    "workers",
+                    "dev"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "api_key",
+                      "description": "(Required) Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticker",
+                      "description": "(Required) The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4975\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.bytemine.io/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3ccbaf72-2ad3-421c-9a70-79d0b88364fc",
+    "name": "Level2 Strategy Builder Backtesting Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Level2 Strategy Builder API provides programmatic access to market data, technical analysis, and trading strategy capabilities offered by the Level2 platform (by Bytemine Technologies Ltd.). It includes endpoints for retrieving candlestick pattern detection, ticker trend analysis, historical OHLC (Open-High-Low-Close) data, similar stock discovery, and company fundamental summaries. These endpoints power the Level2 visual no-code strategy builder used by over 50,000 traders to create, backtest, and deploy automated trading strategies without writing code.\n\nContact Support:\n Name: Level2 Support",
+      "type": "text/plain"
+    }
+  }
+}

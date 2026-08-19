@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Level2 Strategy Builder Backtesting API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Backtesting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Backtest a user strategy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.bytemine.io/api/broker/users/:userId/strategies/:strategyId/backtest",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the broker user on the Level2 platform."
+              },
+              {
+                "name": "strategyId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the trading strategy."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Runs a backtest on the specified strategy against historical market data for the configured instruments and date range. Returns performance metrics including profit and loss, win rate, maximum drawdown, Sharpe ratio, and trade-by-trade results. Backtesting enables traders to validate strategy effectiveness before deploying with real capital."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
