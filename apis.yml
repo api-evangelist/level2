@@ -90,6 +90,8 @@ apis:
   humanURL: https://learn.trylevel2.com/docs/overview
   baseURL: https://api.example.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
