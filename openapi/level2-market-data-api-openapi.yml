@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Level2 Strategy Builder Backtesting Market Data API
+  title: Level2 Strategy Builder Market Data API
   description: The Level2 Strategy Builder API provides programmatic access to market data, technical analysis, and trading strategy capabilities offered by the Level2 platform (by Bytemine Technologies Ltd.). It includes endpoints for retrieving candlestick pattern detection, ticker trend analysis, historical OHLC (Open-High-Low-Close) data, similar stock discovery, and company fundamental summaries. These endpoints power the Level2 visual no-code strategy builder used by over 50,000 traders to create, backtest, and deploy automated trading strategies without writing code.
   version: 1.0.0
   contact:
@@ -53,73 +53,7 @@ paths:
       - url: https://valhalla.bytemine.workers.dev
         description: Market Data Server
 components:
-  schemas:
-    OHLCDataResponse:
-      type: object
-      description: Response containing historical OHLC price data for the requested ticker, timeframe, and range.
-      properties:
-        ticker:
-          type: string
-          description: The ticker symbol queried
-        timeframe:
-          type: string
-          description: The timeframe of each candle
-        data:
-          type: array
-          description: Array of OHLC candle data points
-          items:
-            $ref: '#/components/schemas/OHLCCandle'
-    ErrorResponse:
-      type: object
-      description: Standard error response returned when a request fails.
-      properties:
-        error:
-          type: string
-          description: A human-readable error message describing the issue
-        code:
-          type: integer
-          description: The HTTP status code associated with the error
-    OHLCCandle:
-      type: object
-      description: A single OHLC candle data point.
-      required:
-      - timestamp
-      - open
-      - high
-      - low
-      - close
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: The timestamp for this candle period
-        open:
-          type: number
-          format: float
-          description: The opening price for the period
-        high:
-          type: number
-          format: float
-          description: The highest price during the period
-        low:
-          type: number
-          format: float
-          description: The lowest price during the period
-        close:
-          type: number
-          format: float
-          description: The closing price for the period
-        volume:
-          type: integer
-          description: The trading volume during the period
   parameters:
-    apiKey:
-      name: api_key
-      in: path
-      required: true
-      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
-      schema:
-        type: string
     range:
       name: range
       in: path
@@ -162,6 +96,72 @@ components:
         - 1d
         - 1w
         - 1M
+    apiKey:
+      name: api_key
+      in: path
+      required: true
+      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
+      schema:
+        type: string
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message describing the issue
+        code:
+          type: integer
+          description: The HTTP status code associated with the error
+    OHLCDataResponse:
+      type: object
+      description: Response containing historical OHLC price data for the requested ticker, timeframe, and range.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        timeframe:
+          type: string
+          description: The timeframe of each candle
+        data:
+          type: array
+          description: Array of OHLC candle data points
+          items:
+            $ref: '#/components/schemas/OHLCCandle'
+    OHLCCandle:
+      type: object
+      description: A single OHLC candle data point.
+      required:
+      - timestamp
+      - open
+      - high
+      - low
+      - close
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp for this candle period
+        open:
+          type: number
+          format: float
+          description: The opening price for the period
+        high:
+          type: number
+          format: float
+          description: The highest price during the period
+        low:
+          type: number
+          format: float
+          description: The lowest price during the period
+        close:
+          type: number
+          format: float
+          description: The closing price for the period
+        volume:
+          type: integer
+          description: The trading volume during the period
   securitySchemes:
     apiKeyPath:
       type: apiKey

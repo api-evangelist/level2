@@ -1,24 +1,31 @@
 {
   "provider": "level2",
   "sources": [
-    "level2-backtesting-api-openapi.yml",
-    "level2-discovery-api-openapi.yml",
-    "level2-market-data-api-openapi.yml",
-    "level2-strategies-api-openapi.yml",
-    "level2-technical-analysis-api-openapi.yml",
-    "level2-users-api-openapi.yml"
+    "_original/level2-strategy-builder-openapi.yml",
+    "_original/level2-tradestation-integration-openapi.yml"
   ],
   "outputs": [
-    "level2-backtesting-api-openapi.yml",
     "level2-discovery-api-openapi.yml",
     "level2-market-data-api-openapi.yml",
-    "level2-strategies-api-openapi.yml",
     "level2-technical-analysis-api-openapi.yml",
+    "level2-backtesting-api-openapi.yml",
+    "level2-strategies-api-openapi.yml",
     "level2-users-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "level2-strategy-builder-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "level2-tradestation-integration-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0"
+  ],
+  "skipped": [
+    "level2-backtesting-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "level2-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "level2-market-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "level2-strategies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "level2-technical-analysis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "level2-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
