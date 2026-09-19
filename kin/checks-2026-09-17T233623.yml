@@ -2,42 +2,30 @@
 kin_checks:
   slug: level2
   schema_version: 0.22.0
-  scored_at: '2026-09-15'
-  run_ts: 2026-09-15T230249
-  note: Actionable checks only (missed + partial). earned/na are every other check
-    in rubric/scoring-0.22.0.yml; counts below let you verify that.
+  scored_at: '2026-09-17'
+  run_ts: 2026-09-17T233623
+  note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
+    apply in `na`. Everything else in rubric/scoring-0.22.0.yml was earned; counts
+    below let you verify that.
   counts:
     total: 136
-    earned: 31
-    partial: 11
-    missed: 68
-    na: 26
+    earned: 47
+    partial: 17
+    missed: 48
+    na: 24
   checks:
-  - id: description_substantive
-    status: missed
-  - id: tags_present
-    status: missed
-  - id: maintainer_present
-    status: missed
-  - id: multiple_apis
-    status: missed
   - id: well_known_published
-    status: missed
-  - id: llms_txt_published
     status: missed
   - id: apis_json_self_hosted
     status: missed
   - id: openapi_3_2
     status: missed
-    detail: 0 of 6 openapi documents pass
-  - id: openapi_3_0
-    status: missed
-    detail: 0 of 6 openapi documents pass
+    detail: 0 of 7 openapi documents pass
   - id: examples_present
     status: missed
   - id: webhooks_or_callbacks
     status: missed
-    detail: 0 of 6 openapi documents pass
+    detail: 0 of 7 openapi documents pass
   - id: asyncapi_present
     status: missed
   - id: json_schema_present
@@ -56,31 +44,23 @@ kin_checks:
     status: missed
   - id: vocabulary_published
     status: missed
-  - id: conformance_declared
-    status: missed
   - id: overlay_published
     status: missed
   - id: change_log_present
     status: missed
   - id: status_page_present
     status: missed
+  - id: rate_limits_documented
+    status: missed
+  - id: rate_limits_rich
+    status: missed
   - id: deprecation_policy
     status: missed
-  - id: security_disclosure
-    status: missed
   - id: webhooks_advertised
-    status: missed
-  - id: github_org_present
     status: missed
   - id: roadmap_present
     status: missed
   - id: examples_published
-    status: missed
-  - id: portal_present
-    status: missed
-  - id: api_reference_present
-    status: missed
-  - id: getting_started_present
     status: missed
   - id: sdk_count_1
     status: missed
@@ -88,23 +68,7 @@ kin_checks:
     status: missed
   - id: cli_present
     status: missed
-  - id: console_or_sandbox
-    status: missed
-  - id: postman_present
-    status: missed
-  - id: agent_skill_present
-    status: missed
-  - id: support_channel
-    status: missed
   - id: blog_present
-    status: missed
-  - id: pricing_link
-    status: missed
-  - id: sign_up_present
-    status: missed
-  - id: terms_of_service
-    status: missed
-  - id: privacy_policy
     status: missed
   - id: compliance_published
     status: missed
@@ -112,11 +76,9 @@ kin_checks:
     status: missed
   - id: reg_oauth_scopes
     status: missed
-  - id: reg_terms_of_service
-    status: missed
-  - id: reg_privacy_policy
-    status: missed
   - id: reg_compliance_published
+    status: missed
+  - id: reg_named_standard_conformance
     status: missed
   - id: upsert_outcome_discriminator
     status: missed
@@ -134,8 +96,6 @@ kin_checks:
     status: missed
   - id: event_surface_described
     status: missed
-  - id: agent_skills
-    status: missed
   - id: well_known_catalog
     status: missed
   - id: consent_identity
@@ -152,32 +112,54 @@ kin_checks:
     status: missed
   - id: agentic_commerce
     status: missed
+  - id: openapi_3_1
+    status: partial
+    earned: 4.29
+    detail: 6 of 7 openapi documents pass
+  - id: info_complete
+    status: partial
+    earned: 3.43
+    detail: 6 of 7 openapi documents pass
+  - id: servers_defined
+    status: partial
+    earned: 2.57
+    detail: 6 of 7 openapi documents pass
+  - id: operations_description_coverage
+    status: partial
+    earned: 5.14
+    detail: 6 of 7 openapi documents pass
+  - id: operations_tagged
+    status: partial
+    earned: 3.43
+    detail: 6 of 7 openapi documents pass
   - id: components_reuse
     status: partial
-    earned: 0.5
-    detail: 1 of 6 openapi documents pass
+    earned: 0.86
+    detail: 2 of 7 openapi documents pass
+  - id: security_schemes_defined
+    status: partial
+    earned: 3.43
+    detail: 6 of 7 openapi documents pass
+  - id: security_applied
+    status: partial
+    earned: 2.57
+    detail: 6 of 7 openapi documents pass
   - id: credentials_not_in_query
     status: partial
-    earned: 1.5
-    detail: 3 of 6 openapi documents pass
+    earned: 1.71
+    detail: 4 of 7 openapi documents pass
   - id: rules_present
     status: partial
     earned: 2.5
   - id: balanced_severities
     status: partial
     earned: 0.75
-  - id: rate_limits_documented
+  - id: conformance_declared
     status: partial
-    earned: 2.0
-  - id: rate_limits_rich
+    earned: 1.5
+  - id: agent_skill_present
     status: partial
-    earned: 1.0
-  - id: plans_present
-    status: partial
-    earned: 2.0
-  - id: plans_multiple
-    status: partial
-    earned: 1.0
+    earned: 0.75
   - id: agentic_access
     status: partial
     earned: 2.5
@@ -190,3 +172,32 @@ kin_checks:
     status: partial
     earned: 3.5
     detail: 'grade: documented'
+  - id: agent_skills
+    status: partial
+    earned: 1.25
+    detail: 'authorship: derived'
+  na:
+  - asyncapi_3_x
+  - channels_defined
+  - contract_self_operated
+  - fhir_capability_statement
+  - fhir_resource_coverage
+  - graphql_descriptions
+  - graphql_sdl_present
+  - graphql_type_depth
+  - inbound_contract_published
+  - messages_with_schema
+  - os_code_of_conduct
+  - os_contribution_guide
+  - os_releases
+  - os_security_policy
+  - reg_camara_conformance
+  - reg_certification_signal
+  - reg_consent_model
+  - reg_fapi_profile
+  - reg_mandate_verified
+  - reg_pci_sca
+  - reg_smart_configuration
+  - reg_write_surface
+  - security_schemes
+  - server_bindings
