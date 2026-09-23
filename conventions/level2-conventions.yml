@@ -1,0 +1,200 @@
+generated: '2026-09-17'
+method: derived
+source: >-
+  openapi/level2-hub-controller-openapi.json (harvested verbatim from https://hub2.trylevel2.com/openapi.json);
+  https://learn.trylevel2.com/docs/Broker/API/authentication;
+  https://learn.trylevel2.com/docs/Broker/API/base-url;
+  https://learn.trylevel2.com/broker_apis.json (provider-published Postman collection)
+description: >-
+  Cross-cutting runtime semantics for the Level2 Hub Controller API — what an agent has to know
+  before it calls anything, and what the contract does not tell it.
+base_url:
+  production: https://hub2.trylevel2.com
+  evidence: https://learn.trylevel2.com/docs/Broker/API/base-url
+  note: >-
+    The contract itself declares no servers[] block (FastAPI default), so the base URL is only
+    discoverable from the documentation page above and from the {{base_url}} variable in the
+    provider-published Postman collection.
+authentication:
+  style: http-bearer
+  token_format: JWT (HS256)
+  header: 'Authorization: Bearer <jwt>'
+  minting: >-
+    The broker partner mints the token itself with a shared secret, embedding a `domain` claim and a
+    `token_expiry` claim. Recommended and maximum validity is 180 minutes; tokens claiming longer are
+    invalidated automatically by Level2.
+  evidence: https://learn.trylevel2.com/docs/Broker/API/authentication
+  gap: >-
+    No securitySchemes block exists in the contract at all — the auth model is documented only in
+    prose and in the Postman collection headers. See authentication/level2-authentication.yml.
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  header: null
+  retention: null
+  evidence: >-
+    No Idempotency-Key (or equivalent) header appears on any of the 301 operations in
+    openapi/level2-hub-controller-openapi.json, and neither the Broker API documentation nor the
+    provider-published Postman collection mentions replay protection. Retrying a failed POST
+    /deploy_live_strategy or POST /broker/register_user is unguarded.
+  note: >-
+    Several write operations are naturally idempotent by construction because they are boolean state
+    setters rather than appends — PUT /broker/update_user_strategy?should_delete=true,
+    PUT /broker/update_user_deployment?should_delete=true and
+    PUT /broker/update_marketplace_strategy?should_publish=false converge on the same state however
+    many times they are sent. That is a property of those three operations, not a platform mechanism,
+    so coverage stays `none`.
+pagination:
+  style: page-number
+  request_params:
+    page:
+      type: integer
+      operations: 33
+    size:
+      type: integer
+      operations: 36
+  response_envelope:
+    items: array of the resource
+    total: integer
+    page: integer
+    size: integer
+    pages: integer
+  schema: '#/components/schemas/PaginatedResponse and the Page_<Resource>_ generics'
+  evidence: openapi/level2-hub-controller-openapi.json
+  note: >-
+    Applied consistently on the collection-returning broker, marketplace, deployment and order-book
+    endpoints; the remaining collection endpoints return a bare array with no paging at all.
+field_expansion:
+  supported: false
+  note: No sparse-fieldset, expand or include parameter exists in the contract.
+metadata:
+  supported: partial
+  note: >-
+    UserOut and StrategyOut each carry a free-form meta_data / strategy_data object, but there is no
+    general-purpose customer metadata convention across resources.
+request_tracing:
+  request_id_header: null
+  correlation_id: null
+  note: >-
+    No request-id is echoed in any declared response and none is documented. An agent cannot quote a
+    request identifier back to support; the only per-call telemetry offered is the broker-scoped
+    latency and slippage reporting at /broker/get_broker_user_latency_by_email and
+    /broker/get_broker_user_slippage_by_email.
+versioning:
+  in_path: false
+  in_header: false
+  note: >-
+    Unversioned host-root paths. Generational change is expressed in the operation name itself
+    (get_all_live_deployments_v2, canvas_get_logics_v2, get_symbol_data_tickers_v3,
+    save_broker_api_keys_v2). See lifecycle/level2-lifecycle.yml.
+error_envelope:
+  media_type: application/json
+  shape: '{ detail: [ { loc, msg, type } ] }'
+  status_codes_declared: [200, 422]
+  problem_json: false
+  cross_reference: errors/level2-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  note: >-
+    No rate-limit headers and no 429 response are declared or documented for the Hub Controller API.
+    The only published throttling guidance anywhere in the estate is prose in the legacy Bytemine
+    signal documentation — "make sure to not call our Endpoints without adding atleast a 1 Min Delay".
+    See rate-limits/level2-rate-limits.yml.
+  cross_reference: rate-limits/level2-rate-limits.yml
+content_types:
+  request:
+    - application/json
+    - application/x-www-form-urlencoded
+    - multipart/form-data
+  note: >-
+    Mixed by operation. POST /broker/register_user takes application/x-www-form-urlencoded, the image
+    upload endpoints take multipart/form-data, and much of the surface passes its arguments as query
+    parameters on POST and PUT rather than in a body.
+  response:
+    - application/json
+reversibility:
+  grade: documented
+  applicable: true
+  note: >-
+    Every destructive action on the strategy and deployment surface has a real, named inverse in the
+    contract, and deletion is a soft flag (StrategyOut.is_deleted) rather than a hard delete — so an
+    agent can undo what it does. What is missing everywhere is a stated WINDOW: no page in the
+    documentation says how long a soft-deleted strategy is retained, how long after undeploy a live
+    position remains recoverable, or whether an undeployed strategy can be redeployed into the same
+    broker position. No window is asserted here because the provider states none.
+  reversals:
+    - action: Deploy a strategy to live trading
+      operation: deploy_live_strategy_deploy_live_strategy_post
+      path: POST /deploy_live_strategy
+      reversal: undeploy_live_strategy_undeploy_live_strategy_post
+      reversal_path: POST /undeploy_live_strategy
+      window: not stated
+    - action: Deploy a multi-asset strategy to live trading
+      operation: deploy_live_multi_asset_strategy_deploy_live_multi_asset_strategy_post
+      path: POST /deploy_live_multi_asset_strategy
+      reversal: undeploy_live_multi_asset_strategy_undeploy_live_multi_asset_strategy_post
+      reversal_path: POST /undeploy_live_multi_asset_strategy
+      window: not stated
+    - action: Deploy a market scanner
+      operation: deploy_scanner_deploy_scanner_post
+      path: POST /deploy_scanner
+      reversal: undeploy_scanner_undeploy_scanner_post
+      reversal_path: POST /undeploy_scanner
+      window: not stated
+    - action: Deploy a notification strategy
+      operation: deploy_notification_strategy_deploy_notification_strategy_post
+      path: POST /deploy_notification_strategy
+      reversal: undeploy_notification_strategy_undeploy_notification_strategy_post
+      reversal_path: POST /undeploy_notification_strategy
+      window: not stated
+    - action: Delete a broker user's strategy
+      operation: update_user_strategy_broker_update_user_strategy_put
+      path: PUT /broker/update_user_strategy?should_delete=true
+      reversal: update_user_strategy_broker_update_user_strategy_put
+      reversal_path: PUT /broker/update_user_strategy?should_delete=false
+      window: not stated
+      note: >-
+        The same operation is its own inverse — should_delete is a boolean setter over the soft-delete
+        flag, so the restore path is the delete path with the flag inverted.
+    - action: Delete a broker user's deployment
+      operation: broker_update_user_deployment_broker_update_user_deployment_put
+      path: PUT /broker/update_user_deployment?should_delete=true
+      reversal: broker_update_user_deployment_broker_update_user_deployment_put
+      reversal_path: PUT /broker/update_user_deployment?should_delete=false
+      window: not stated
+    - action: Publish a strategy to the marketplace
+      operation: broker_update_marketplace_strategy_broker_update_marketplace_strategy_put
+      path: PUT /broker/update_marketplace_strategy?should_publish=true
+      reversal: broker_update_marketplace_strategy_broker_update_marketplace_strategy_put
+      reversal_path: PUT /broker/update_marketplace_strategy?should_publish=false
+      window: not stated
+    - action: Save broker API credentials for a user
+      operation: save_broker_api_keys_v2_save_broker_api_keys_v2_post
+      path: POST /save_broker_api_keys_v2
+      reversal: reset_user_broker_configuration_reset_user_broker_configuration_post
+      reversal_path: POST /reset_user_broker_configuration
+      window: not stated
+    - action: Like a published strategy
+      operation: like_strategy_like_strategy_post
+      path: POST /like_strategy
+      reversal: unlike_strategy_unlike_strategy_post
+      reversal_path: POST /unlike_strategy
+      window: not stated
+  irreversible:
+    - operation: delete_account_delete_account_post
+      path: POST /delete_account
+      note: No restore operation exists in the contract and no retention window is documented.
+    - operation: delete_multiple_strategies_delete_multiple_strategies_post
+      path: POST /delete_multiple_strategies
+      note: >-
+        The bulk sibling of delete_strategy. StrategyOut carries an is_deleted flag, which suggests a
+        soft delete, but no public restore operation is exposed for the end-user surface.
+dry_run_mode:
+  supported: true
+  note: >-
+    Not a request flag, but a first-class product mode: a strategy can be backtested
+    (POST /backtest_strategy) and forward-tested against live prices without a broker order
+    (virtual trading, https://learn.trylevel2.com/docs/technical/virtual-trading), which is the real
+    rehearsal path before deploy_live_strategy commits capital. See sandbox/level2-sandbox.yml.

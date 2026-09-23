@@ -1,0 +1,181 @@
+generated: '2026-09-17'
+method: probed
+source: live HTTPS probe of the named /.well-known/ path list on every host this record knows
+description: >-
+  Probe of the RFC 8615 well-known path list across every Level2 host — the registrable domain and
+  www, the live API host named by the provider's own Broker API docs (hub2.trylevel2.com), the
+  documentation host, the help centre, the application host, and the Bytemine documentation and
+  worker hosts that the legacy Strategy Builder contract names. Only /.well-known/security.txt is
+  served, and only on trylevel2.com and www.trylevel2.com.
+hosts:
+  - host: trylevel2.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: level2-security.txt
+        content_type: text/plain; charset=utf-8
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: www.trylevel2.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: level2-security.txt
+        content_type: text/plain; charset=utf-8
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: hub2.trylevel2.com
+    note: >-
+      The live Broker API host named by https://learn.trylevel2.com/docs/Broker/API/base-url. Every
+      well-known path returns the FastAPI JSON 404 body {"detail":"Not Found"} — a real 404, not an
+      SPA shell.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: learn.trylevel2.com
+    note: Documentation host (Docusaurus). All eight paths return the site 404 page.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: help.trylevel2.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: app.trylevel2.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: guide.bytemine.io
+    note: >-
+      Bytemine documentation host. Bytemine Technologies Ltd is the company behind Level2 —
+      bytemine.io serves the Level2 marketing site — and this host publishes the llms.txt saved in
+      llms/level2-llms.txt.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: valhalla.bytemine.workers.dev
+    note: >-
+      The Market Data Server named in the legacy Strategy Builder contract. Every path — including
+      the site root — answers 500 with the plain-text body "Wrong Api Call. Please check the docs at
+      https://docs.bytemine.io." (and docs.bytemine.io itself does not resolve). Recorded as a miss:
+      a 500 catch-all is not a served document.
+    documents:
+      - path: /.well-known/security.txt
+        status: 500
+      - path: /.well-known/openid-configuration
+        status: 500
+      - path: /.well-known/oauth-authorization-server
+        status: 500
+      - path: /.well-known/oauth-protected-resource
+        status: 500
+      - path: /.well-known/api-catalog
+        status: 500
+      - path: /.well-known/ai-plugin.json
+        status: 500
+      - path: /.well-known/agent-card.json
+        status: 500
+      - path: /.well-known/agent.json
+        status: 500
+summary:
+  hosts_probed: 8
+  paths_per_host: 8
+  documents_served: 1
+  served:
+    - host: trylevel2.com
+      path: /.well-known/security.txt
+    - host: www.trylevel2.com
+      path: /.well-known/security.txt

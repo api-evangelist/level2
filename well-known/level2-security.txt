@@ -1,0 +1,3 @@
+Contact: mailto:security@trylevel2.com
+Preferred-Languages: en
+Policy: https://trylevel2.com/security

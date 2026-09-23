@@ -1,0 +1,69 @@
+generated: '2026-09-17'
+method: derived
+source: >-
+  openapi/level2-hub-controller-openapi.json (harvested verbatim from https://hub2.trylevel2.com/openapi.json
+  on 2026-09-17); docs cross-checked at https://learn.trylevel2.com/docs/Broker/API/broker-api
+description: >-
+  Error catalogue for the Level2 Hub Controller API, derived from the response set the provider's own
+  contract declares. The contract is a FastAPI-generated OpenAPI 3.0.2 and it declares exactly two
+  response codes across all 301 operations: 200 Successful Response and 422 Validation Error. There
+  is no RFC 9457 application/problem+json envelope, no application error-code registry, and no
+  documented 401/403/404/429/5xx response shape — the auth failures the Broker API can obviously
+  return (an expired or unsigned JWT) are simply not described in the contract.
+format: framework-validation
+problem_json: false
+rfc9457: false
+error_code_registry: false
+envelope:
+  media_type: application/json
+  schema: HTTPValidationError
+  shape:
+    detail:
+      type: array
+      items: ValidationError
+  item_shape:
+    loc:
+      type: array
+      description: Path to the offending field, e.g. ["query", "user_email"].
+    msg:
+      type: string
+      description: Human-readable validation message.
+    type:
+      type: string
+      description: Machine-readable validation error type, e.g. value_error.missing.
+coverage:
+  operations: 301
+  operations_declaring_422: 260
+  operations_declaring_only_200: 41
+  distinct_status_codes:
+    - code: 200
+      count: 301
+      description: Successful Response
+    - code: 422
+      count: 260
+      description: Validation Error
+problem_types:
+  - id: validation-error
+    status: 422
+    title: Validation Error
+    schema: '#/components/schemas/HTTPValidationError'
+    detail: >-
+      One or more request parameters or body fields failed validation. The response body carries a
+      detail[] array naming each offending field via loc[], a human message via msg, and a machine
+      type via type.
+    remediation: >-
+      Read detail[].loc to find the failing parameter, correct it, and retry. Requests are not
+      partially applied when validation fails.
+    evidence: openapi/level2-hub-controller-openapi.json (declared on 260 of 301 operations)
+gaps:
+  - >-
+    No authentication-failure response is declared anywhere in the contract, although the Broker API
+    documentation states that JWTs older than 180 minutes are automatically invalidated — an agent
+    cannot learn from the contract what an expired token looks like on the wire.
+  - >-
+    No rate-limit (429) response is declared, and no rate-limit headers are documented.
+  - >-
+    No 5xx response is declared. The legacy Bytemine market-data worker
+    (valhalla.bytemine.workers.dev) answers unmatched routes with HTTP 500 and the plain-text body
+    "Wrong Api Call. Please check the docs at https://docs.bytemine.io." — a 500 used as a routing
+    404, and docs.bytemine.io no longer resolves.

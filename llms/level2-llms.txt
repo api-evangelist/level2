@@ -1,0 +1,19 @@
+# Bytemine Documentation
+
+## Bytemine Documentation
+
+- [Introduction](https://guide.bytemine.io/master.md): Build, backtest, and deploy trading algorithms for all major global financial instruments and asset classes from your browser. No coding required.
+- [Trading signals](https://guide.bytemine.io/quick-start-guides/trading-signals.md): This short guide explains how to navigate the Bytemine application and use our candlestick trading signal. For any questions and to find out more, contact a member of the team.
+- [Signal Builder](https://guide.bytemine.io/quick-start-guides/signal-builder.md): Bytemine is a complete tool for creating, testing, and deploying trading algorithm strategies
+- [Getting started with an SMA crossover strategy](https://guide.bytemine.io/quick-start-guides/signal-builder/getting-started-with-an-sma-crossover-strategy.md)
+- [Aroon Oscillator](https://guide.bytemine.io/aroon-oscillato.md)
+- [Bollinger Bands](https://guide.bytemine.io/bollinger-bands.md)
+- [Momentum](https://guide.bytemine.io/momentum.md)
+- [Moving Average Convergence/Divergence](https://guide.bytemine.io/moving-average-convergence-divergence.md)
+- [Moving Average Crossover](https://guide.bytemine.io/moving-average-crossover.md)
+- [Parabolic SAR](https://guide.bytemine.io/parabolic-sar.md)
+- [Rate of Change](https://guide.bytemine.io/rate-of-change.md)
+- [Relative Strength Index](https://guide.bytemine.io/relative-strength-index.md)
+- [Stochastic Oscillator](https://guide.bytemine.io/stochastic-oscillator.md)
+- [API Documentation](https://guide.bytemine.io/technical-documentation/api-documentation.md)
+- [Technical Indicators Listing](https://guide.bytemine.io/technical-documentation/technical-indicators-listing.md)

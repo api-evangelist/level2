@@ -1,0 +1,104 @@
+overlay: 1.0.0
+info:
+  title: Level2 Hub Controller — API Evangelist enhancements
+  version: 1.0.0
+extends: ../openapi/level2-hub-controller-openapi.json
+x-provenance:
+  generated: '2026-09-17'
+  method: generated
+  source: >-
+    Enhancements over the verbatim contract at https://hub2.trylevel2.com/openapi.json. Every value
+    added below is quoted from the provider's own documentation — the base URL from
+    https://learn.trylevel2.com/docs/Broker/API/base-url, the bearer/JWT scheme from
+    https://learn.trylevel2.com/docs/Broker/API/authentication and
+    https://learn.trylevel2.com/docs/Broker/API/broker-api, the contact address from
+    https://learn.trylevel2.com/docs/quick-links, and the terms URL from the Level2 footer. Nothing
+    here is invented, and the original contract is never mutated.
+  note: >-
+    The contract is FastAPI-generated and omits the four things a consumer most needs: a servers[]
+    block, a securitySchemes block, a usable info.description/contact, and tags. This overlay adds
+    exactly those.
+actions:
+  - target: $.info
+    description: >-
+      Add the description, contact and terms the provider publishes on its own documentation site but
+      does not emit into the generated contract.
+    update:
+      description: >-
+        The Level2 Hub Controller is the backend for the Level2 no-code systematic-trading platform
+        (Bytemine Technologies Ltd). It carries the end-user platform surface — strategy building on
+        the visual canvas, backtesting, live and virtual deployment, market scanners, the strategy
+        marketplace and prediction-market analytics — alongside the /broker/* surface that broker
+        partners integrate against, and an /admin/* surface. Broker partners authenticate with an
+        HS256 JWT they mint themselves with a shared secret and a token_expiry claim of at most 180
+        minutes.
+      contact:
+        name: Level2 Support
+        email: contact@trylevel2.com
+        url: https://help.trylevel2.com
+      termsOfService: https://www.trylevel2.com/terms-and-conditions
+  - target: $
+    description: >-
+      Add the production servers[] block. The contract declares none; the provider's Broker API
+      documentation names https://hub2.trylevel2.com/ as the production base URL, and the
+      provider-published Postman collection resolves its {{base_url}} variable to the same host.
+    update:
+      servers:
+        - url: https://hub2.trylevel2.com
+          description: >-
+            Production. Named at https://learn.trylevel2.com/docs/Broker/API/base-url.
+  - target: $.components
+    description: >-
+      Add the securitySchemes block the contract omits entirely. Documented at
+      https://learn.trylevel2.com/docs/Broker/API/authentication and shown as "HTTP: Bearer Auth /
+      Bearer format: JWT" on the Broker API reference page.
+    update:
+      securitySchemes:
+        bearerAuth:
+          type: http
+          scheme: bearer
+          bearerFormat: JWT
+          description: >-
+            HS256 JSON Web Token minted by the broker partner with a shared secret, carrying a
+            `domain` claim and a `token_expiry` claim. Level2 automatically invalidates tokens whose
+            validity exceeds 180 minutes.
+  - target: $
+    description: Apply the documented bearer scheme as the default security requirement.
+    update:
+      security:
+        - bearerAuth: []
+  - target: $
+    description: >-
+      Declare the tag groups the contract's own path prefixes already imply. The generated contract
+      tags only five operations (Leverate Util APIs, Unlok Util APIs) and leaves 296 untagged.
+    update:
+      tags:
+        - name: Broker
+          description: >-
+            The partner-facing surface under /broker/ — user registration and account maintenance,
+            strategy and deployment inspection, trade history, backtest details, scanners, and
+            per-user latency and slippage reporting.
+        - name: Strategies
+          description: >-
+            Building, saving, copying, categorising and sharing strategies, including the visual
+            canvas vocabulary under /canvas_*.
+        - name: Backtesting
+          description: Historical and timeframe-shifted backtests and their reports.
+        - name: Deployments
+          description: >-
+            Live, multi-asset, virtual, scanner and notification deployment lifecycle, plus order
+            books and profit-and-loss.
+        - name: Market Data
+          description: Ticker, symbol and snapshot data, forex rates, the earnings calendar and instrument suggestions.
+        - name: Prediction Markets
+          description: Event discovery, event detail, candlesticks and trending analysis for prediction markets.
+        - name: Marketplace
+          description: Publishing, filtering, searching and copying strategies on the public marketplace.
+        - name: Account
+          description: Registration, login, OTP, password reset, preferences, profile and subscription.
+        - name: Broker Connections
+          description: >-
+            OAuth callbacks and account selection for the connected brokers — cTrader, ConnectTrade,
+            Sterling, Leverate, Lightspeed and Fennel.
+        - name: Admin
+          description: The internal /admin/ surface.

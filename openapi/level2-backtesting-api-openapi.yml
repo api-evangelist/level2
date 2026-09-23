@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Level2 TradeStation Integration Backtesting API
-  description: The Level2 TradeStation Integration API enables broker partners to embed the Level2 visual strategy builder into their trading platforms and manage user strategies programmatically. This API connects the Level2 no-code strategy builder with TradeStation Securities brokerage accounts, allowing traders to create automated strategies using a drag-and-drop interface and execute them in real time through their TradeStation accounts. The API supports strategy lifecycle management including creation, retrieval, updating, deployment, and deletion of user strategies, as well as backtesting against historical market data.
+  description: The Level2 TradeStation Integration API enables broker partners to embed the Level2 visual strategy builder into their trading platforms and manage user strategies programmatically.
   version: 1.0.0
   contact:
     name: Level2 Broker Support
@@ -58,7 +58,110 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    strategyId:
+      name: strategyId
+      in: path
+      required: true
+      description: The unique identifier of the trading strategy.
+      schema:
+        type: string
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the broker user on the Level2 platform.
+      schema:
+        type: string
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response for broker API requests.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: A machine-readable error code
+        details:
+          type: object
+          description: Additional error details when available
+          additionalProperties: true
+    BacktestRequest:
+      type: object
+      description: Request body specifying the parameters for a strategy backtest run.
+      required:
+      - startDate
+      - endDate
+      properties:
+        startDate:
+          type: string
+          format: date
+          description: The start date for the backtest period
+        endDate:
+          type: string
+          format: date
+          description: The end date for the backtest period
+        initialCapital:
+          type: number
+          format: float
+          description: The starting capital amount for the backtest in USD
+          default: 100000
+          minimum: 0
+        commissionPerTrade:
+          type: number
+          format: float
+          description: Commission cost per trade in USD
+          default: 0
+          minimum: 0
+    BacktestTrade:
+      type: object
+      description: A single trade executed during a backtest.
+      properties:
+        entryDate:
+          type: string
+          format: date-time
+          description: Timestamp when the trade was entered
+        exitDate:
+          type: string
+          format: date-time
+          description: Timestamp when the trade was exited
+        side:
+          type: string
+          description: The trade direction
+          enum:
+          - long
+          - short
+        entryPrice:
+          type: number
+          format: float
+          description: The price at which the trade was entered
+        exitPrice:
+          type: number
+          format: float
+          description: The price at which the trade was exited
+        quantity:
+          type: number
+          format: float
+          description: The number of shares or contracts traded
+        pnl:
+          type: number
+          format: float
+          description: The profit or loss for this trade in USD
+        returnPct:
+          type: number
+          format: float
+          description: The return percentage for this trade
+        exitReason:
+          type: string
+          description: The reason the trade was exited
+          enum:
+          - take_profit
+          - stop_loss
+          - trailing_stop
+          - exit_condition
+          - end_of_backtest
     BacktestResponse:
       type: object
       description: Response containing the results of a strategy backtest including performance metrics and trade history.
@@ -118,109 +221,6 @@ components:
           description: Detailed list of individual trades executed
           items:
             $ref: '#/components/schemas/BacktestTrade'
-    BacktestTrade:
-      type: object
-      description: A single trade executed during a backtest.
-      properties:
-        entryDate:
-          type: string
-          format: date-time
-          description: Timestamp when the trade was entered
-        exitDate:
-          type: string
-          format: date-time
-          description: Timestamp when the trade was exited
-        side:
-          type: string
-          description: The trade direction
-          enum:
-          - long
-          - short
-        entryPrice:
-          type: number
-          format: float
-          description: The price at which the trade was entered
-        exitPrice:
-          type: number
-          format: float
-          description: The price at which the trade was exited
-        quantity:
-          type: number
-          format: float
-          description: The number of shares or contracts traded
-        pnl:
-          type: number
-          format: float
-          description: The profit or loss for this trade in USD
-        returnPct:
-          type: number
-          format: float
-          description: The return percentage for this trade
-        exitReason:
-          type: string
-          description: The reason the trade was exited
-          enum:
-          - take_profit
-          - stop_loss
-          - trailing_stop
-          - exit_condition
-          - end_of_backtest
-    ErrorResponse:
-      type: object
-      description: Standard error response for broker API requests.
-      properties:
-        error:
-          type: string
-          description: A human-readable error message
-        code:
-          type: string
-          description: A machine-readable error code
-        details:
-          type: object
-          description: Additional error details when available
-          additionalProperties: true
-    BacktestRequest:
-      type: object
-      description: Request body specifying the parameters for a strategy backtest run.
-      required:
-      - startDate
-      - endDate
-      properties:
-        startDate:
-          type: string
-          format: date
-          description: The start date for the backtest period
-        endDate:
-          type: string
-          format: date
-          description: The end date for the backtest period
-        initialCapital:
-          type: number
-          format: float
-          description: The starting capital amount for the backtest in USD
-          default: 100000
-          minimum: 0
-        commissionPerTrade:
-          type: number
-          format: float
-          description: Commission cost per trade in USD
-          default: 0
-          minimum: 0
-  parameters:
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: The unique identifier of the broker user on the Level2 platform.
-      schema:
-        type: string
-    strategyId:
-      name: strategyId
-      in: path
-      required: true
-      description: The unique identifier of the trading strategy.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

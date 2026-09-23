@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Level2 TradeStation Integration Strategies API
-  description: The Level2 TradeStation Integration API enables broker partners to embed the Level2 visual strategy builder into their trading platforms and manage user strategies programmatically. This API connects the Level2 no-code strategy builder with TradeStation Securities brokerage accounts, allowing traders to create automated strategies using a drag-and-drop interface and execute them in real time through their TradeStation accounts. The API supports strategy lifecycle management including creation, retrieval, updating, deployment, and deletion of user strategies, as well as backtesting against historical market data.
+  description: The Level2 TradeStation Integration API enables broker partners to embed the Level2 visual strategy builder into their trading platforms and manage user strategies programmatically.
   version: 1.0.0
   contact:
     name: Level2 Broker Support
@@ -286,136 +286,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    StrategyCondition:
-      type: object
-      description: A single condition in a trading strategy, representing a comparison between indicators, price values, or other market data points.
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this condition
-        indicator:
-          type: string
-          description: The technical indicator or data source for the left side of the condition (e.g., SMA, RSI, MACD, Price)
-        parameters:
-          type: object
-          description: Parameters for the indicator (e.g., period length, source field)
-          additionalProperties: true
-        operator:
-          type: string
-          description: The comparison operator
-          enum:
-          - crosses_above
-          - crosses_below
-          - greater_than
-          - less_than
-          - equals
-        compareValue:
-          description: The value or indicator to compare against (right side of condition)
-          oneOf:
-          - type: number
-          - type: string
-          - type: object
-        logicalOperator:
-          type: string
-          description: How this condition combines with the next condition in the list
-          enum:
-          - AND
-          - OR
-    UpdateStrategyRequest:
-      type: object
-      description: Request body for updating an existing trading strategy.
-      properties:
-        name:
-          type: string
-          description: Updated name for the strategy
-          maxLength: 200
-        description:
-          type: string
-          description: Updated description
-          maxLength: 2000
-        instrument:
-          type: string
-          description: Updated ticker symbol
-        instrumentType:
-          type: string
-          description: Updated instrument type
-          enum:
-          - stock
-          - option
-          - future
-        timeframe:
-          type: string
-          description: Updated chart timeframe
-          enum:
-          - 1m
-          - 5m
-          - 15m
-          - 30m
-          - 1h
-          - 4h
-          - 1d
-        status:
-          type: string
-          description: Updated strategy status. Set to inactive to soft-delete, or active to restore a soft-deleted strategy.
-          enum:
-          - active
-          - inactive
-          - draft
-        definition:
-          $ref: '#/components/schemas/StrategyDefinition'
-    ErrorResponse:
-      type: object
-      description: Standard error response for broker API requests.
-      properties:
-        error:
-          type: string
-          description: A human-readable error message
-        code:
-          type: string
-          description: A machine-readable error code
-        details:
-          type: object
-          description: Additional error details when available
-          additionalProperties: true
-    CreateStrategyRequest:
-      type: object
-      description: Request body for creating a new trading strategy. Includes the strategy metadata and its visual builder definition.
-      required:
-      - name
-      - instrument
-      properties:
-        name:
-          type: string
-          description: A human-readable name for the strategy
-          maxLength: 200
-        description:
-          type: string
-          description: A description of what the strategy does
-          maxLength: 2000
-        instrument:
-          type: string
-          description: The ticker symbol of the primary instrument this strategy trades
-          example: AAPL
-        instrumentType:
-          type: string
-          description: The type of financial instrument
-          enum:
-          - stock
-          - option
-          - future
-        timeframe:
-          type: string
-          description: The primary chart timeframe for the strategy
-          enum:
-          - 1m
-          - 5m
-          - 15m
-          - 30m
-          - 1h
-          - 4h
-          - 1d
-        definition:
-          $ref: '#/components/schemas/StrategyDefinition'
     StrategyResponse:
       type: object
       description: Response containing full strategy details including configuration, status, and performance information.
@@ -485,38 +355,59 @@ components:
           $ref: '#/components/schemas/RiskManagement'
         position:
           $ref: '#/components/schemas/PositionConfig'
-    RiskManagement:
+    CreateStrategyRequest:
       type: object
-      description: Risk management configuration for the strategy including stop loss, take profit, and trailing stop settings.
+      description: Request body for creating a new trading strategy. Includes the strategy metadata and its visual builder definition.
+      required:
+      - name
+      - instrument
       properties:
-        stopLoss:
-          type: number
-          format: float
-          description: Stop loss percentage or absolute value
-        stopLossType:
+        name:
           type: string
-          description: Whether stop loss is a percentage or absolute price
-          enum:
-          - percentage
-          - absolute
-        takeProfit:
-          type: number
-          format: float
-          description: Take profit percentage or absolute value
-        takeProfitType:
+          description: A human-readable name for the strategy
+          maxLength: 200
+        description:
           type: string
-          description: Whether take profit is a percentage or absolute price
+          description: A description of what the strategy does
+          maxLength: 2000
+        instrument:
+          type: string
+          description: The ticker symbol of the primary instrument this strategy trades
+          example: AAPL
+        instrumentType:
+          type: string
+          description: The type of financial instrument
           enum:
-          - percentage
-          - absolute
-        trailingStop:
-          type: number
-          format: float
-          description: Trailing stop distance percentage
-        maxPositions:
-          type: integer
-          description: Maximum number of concurrent open positions
-          minimum: 1
+          - stock
+          - option
+          - future
+        timeframe:
+          type: string
+          description: The primary chart timeframe for the strategy
+          enum:
+          - 1m
+          - 5m
+          - 15m
+          - 30m
+          - 1h
+          - 4h
+          - 1d
+        definition:
+          $ref: '#/components/schemas/StrategyDefinition'
+    ErrorResponse:
+      type: object
+      description: Standard error response for broker API requests.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: A machine-readable error code
+        details:
+          type: object
+          description: Additional error details when available
+          additionalProperties: true
     StrategyListResponse:
       type: object
       description: Paginated list of user strategies.
@@ -564,6 +455,80 @@ components:
           - shares
           - contracts
           - dollars
+    RiskManagement:
+      type: object
+      description: Risk management configuration for the strategy including stop loss, take profit, and trailing stop settings.
+      properties:
+        stopLoss:
+          type: number
+          format: float
+          description: Stop loss percentage or absolute value
+        stopLossType:
+          type: string
+          description: Whether stop loss is a percentage or absolute price
+          enum:
+          - percentage
+          - absolute
+        takeProfit:
+          type: number
+          format: float
+          description: Take profit percentage or absolute value
+        takeProfitType:
+          type: string
+          description: Whether take profit is a percentage or absolute price
+          enum:
+          - percentage
+          - absolute
+        trailingStop:
+          type: number
+          format: float
+          description: Trailing stop distance percentage
+        maxPositions:
+          type: integer
+          description: Maximum number of concurrent open positions
+          minimum: 1
+    UpdateStrategyRequest:
+      type: object
+      description: Request body for updating an existing trading strategy.
+      properties:
+        name:
+          type: string
+          description: Updated name for the strategy
+          maxLength: 200
+        description:
+          type: string
+          description: Updated description
+          maxLength: 2000
+        instrument:
+          type: string
+          description: Updated ticker symbol
+        instrumentType:
+          type: string
+          description: Updated instrument type
+          enum:
+          - stock
+          - option
+          - future
+        timeframe:
+          type: string
+          description: Updated chart timeframe
+          enum:
+          - 1m
+          - 5m
+          - 15m
+          - 30m
+          - 1h
+          - 4h
+          - 1d
+        status:
+          type: string
+          description: Updated strategy status. Set to inactive to soft-delete, or active to restore a soft-deleted strategy.
+          enum:
+          - active
+          - inactive
+          - draft
+        definition:
+          $ref: '#/components/schemas/StrategyDefinition'
     DeployStrategyRequest:
       type: object
       description: Optional deployment configuration for a strategy being activated for live trading.
@@ -572,19 +537,54 @@ components:
           type: boolean
           description: Whether to deploy in paper trading mode (simulated) rather than live trading. Defaults to false.
           default: false
+    StrategyCondition:
+      type: object
+      description: A single condition in a trading strategy, representing a comparison between indicators, price values, or other market data points.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for this condition
+        indicator:
+          type: string
+          description: The technical indicator or data source for the left side of the condition (e.g., SMA, RSI, MACD, Price)
+        parameters:
+          type: object
+          description: Parameters for the indicator (e.g., period length, source field)
+          additionalProperties: true
+        operator:
+          type: string
+          description: The comparison operator
+          enum:
+          - crosses_above
+          - crosses_below
+          - greater_than
+          - less_than
+          - equals
+        compareValue:
+          description: The value or indicator to compare against (right side of condition)
+          oneOf:
+          - type: number
+          - type: string
+          - type: object
+        logicalOperator:
+          type: string
+          description: How this condition combines with the next condition in the list
+          enum:
+          - AND
+          - OR
   parameters:
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: The unique identifier of the broker user on the Level2 platform.
-      schema:
-        type: string
     strategyId:
       name: strategyId
       in: path
       required: true
       description: The unique identifier of the trading strategy.
+      schema:
+        type: string
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the broker user on the Level2 platform.
       schema:
         type: string
   securitySchemes:

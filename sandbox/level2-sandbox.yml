@@ -1,0 +1,56 @@
+generated: '2026-09-17'
+method: searched
+source: >-
+  https://learn.trylevel2.com/docs/technical/virtual-trading;
+  https://learn.trylevel2.com/docs/Broker/integrating-iframe;
+  https://learn.trylevel2.com/docs/Broker/backtest;
+  openapi/level2-hub-controller-openapi.json
+description: >-
+  Level2 publishes no API sandbox in the usual sense — there is no test-mode key prefix, no separate
+  sandbox host, no test fixtures and no simulated clock, and the Broker API is exercised against
+  production with a live JWT. What it does publish is two genuine rehearsal surfaces at the product
+  level (paper trading through Alpaca, and backtesting) plus a public iframe test target for the
+  embedded UI. Recorded as what it is, not upgraded into a sandbox it is not.
+api_sandbox:
+  published: false
+  test_host: null
+  test_key_prefix: null
+  test_fixtures: []
+  time_simulation: false
+  note: >-
+    The Broker API documentation describes one base URL (https://hub2.trylevel2.com/) and one auth
+    path. The provider-published Postman collection carries a {{base_url}} and a {{local_url}}
+    variable but ships no values for either and supplies no test credentials.
+rehearsal_surfaces:
+  - name: Virtual trading (paper trading)
+    kind: product-level dry run
+    url: https://learn.trylevel2.com/docs/technical/virtual-trading
+    description: >-
+      A strategy can be deployed with virtual funds and no downside risk before it is deployed live.
+      The documented path is to connect a free Alpaca account; orders from Level2 are then executed
+      on Alpaca rather than against the trader's real broker. The docs explicitly recommend virtual
+      trading for a period before any live deployment, on the grounds that a backtest can be
+      over-optimised to historic data.
+  - name: Backtest
+    kind: historical simulation
+    url: https://learn.trylevel2.com/docs/Broker/backtest
+    operations:
+      - backtest_strategy_backtest_strategy_post
+      - backtest_on_different_timeframe_backtest_on_different_timeframe_get
+      - broker_get_recent_backtest_details_broker_get_recent_backtest_details_get
+    description: >-
+      Two documented modes. Realtime Backtest computes over 1,500 historical datapoints for a fast
+      result; Comprehensive Backtest uses more datapoints and is slower. Market data for a broker
+      integration comes from the broker's own APIs.
+  - name: Embedded UI test target
+    kind: hosted test instance
+    url: https://iframe-compat.trylevel2.com/
+    status: 200
+    description: >-
+      A publicly reachable Level2 instance the broker-integration documentation names for testing the
+      iframe embed before the broker receives its own customised iframe link. No credentials are
+      required to load it.
+test_values: []
+test_values_note: >-
+  No test cards, magic identifiers, sandbox account numbers or fixture tokens are published. Nothing
+  is invented here.

@@ -4,87 +4,45 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: level2
 providerId: level2
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the level2 API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Level2 Strategy Builder API
-      - Level2 TradeStation Integration API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Level2 Strategy Builder API
-      - Level2 TradeStation Integration API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Level2 Strategy Builder API
-      - Level2 TradeStation Integration API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Level2 Strategy Builder API
-      - Level2 TradeStation Integration API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Level2 Strategy Builder API
-      - Level2 TradeStation Integration API
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers: []
+modified: '2026-09-17'
+generated: '2026-09-17'
+method: searched
+source: >-
+  https://learn.trylevel2.com/docs/Broker/API/ (full section walked);
+  https://guide.bytemine.io/technical-documentation/api-documentation.md;
+  openapi/level2-hub-controller-openapi.json;
+  live unauthenticated response headers from https://hub2.trylevel2.com/health
+description: >-
+  Level2 publishes no numeric rate limits and returns no rate-limit headers. This file records that
+  measured absence, plus the one piece of throttling guidance the estate does publish — a prose
+  instruction in the legacy Bytemine signal documentation. The earlier version of this file carried
+  invented scaffold tiers and header names; those have been removed, because an agent reading
+  X-RateLimit-Limit here would be looking for a header this API never sends.
+limit_count: 0
+limits: []
+headers: {}
+headers_note: >-
+  No RateLimit-*, X-RateLimit-* or Retry-After header is documented anywhere, and none was observed on
+  a live unauthenticated response from https://hub2.trylevel2.com/health (HTTP 200). An agent has no
+  runtime signal of remaining headroom on this API.
+response_codes:
+  throttled: null
+  note: >-
+    No 429 response is declared on any of the 301 operations in the provider's contract. The only
+    declared failure code across the whole surface is 422.
+published_guidance:
+  - scope: legacy Bytemine signal endpoints (app.bytemine.io/api, valhalla.bytemine.workers.dev)
+    guidance: >-
+      "You can get Candlestick Patterns from our API endpoints. This can be achieved using Long
+      Polling. However, make sure to not call our Endpoints without adding atleast a 1 Min Delay."
+    interpretation: >-
+      A prose minimum inter-request interval of 60 seconds per caller, stated for the candlestick
+      signal endpoints. Not a quota, not enforced through any documented header, and stated only for
+      the legacy Bytemine surface — whose primary host (app.bytemine.io) no longer resolves.
+    source: https://guide.bytemine.io/technical-documentation/api-documentation.md
+quota_surfaces:
+  note: >-
+    Level2's entitlement caps are plan quotas on concurrent RESOURCES, not on request rate — 10
+    concurrent strategy deployments and 5 scanner deployments on Pro, 25 and 5 on Elite. Those are
+    recorded in plans/level2-plans-pricing.yml and read from
+    https://hub2.trylevel2.com/get_main_pricing_plan_details.

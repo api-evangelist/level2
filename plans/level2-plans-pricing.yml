@@ -4,144 +4,150 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: level2
 providerId: level2
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags: []
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-09-17'
+generated: '2026-09-17'
+method: probed
+source: >-
+  https://hub2.trylevel2.com/get_main_pricing_plan_details?plan=pro and ?plan=elite (the provider's own
+  machine-readable plan-catalog endpoint, unauthenticated, HTTP 200), reconciled against the published
+  price card at https://www.trylevel2.com/pricing
+description: >-
+  Level2's published subscription plans. The limits below are not read off a marketing page — they are
+  read from the platform's own pricing-catalog endpoint, which returns the concrete entitlement caps
+  (concurrent strategy deployments, scanner deployments, permitted timeframes, permitted asset
+  classes, permitted trading environments) for each paid tier. The prices come from the public price
+  card. Broker/partner API access is NOT one of these tiers — see api_access below.
+tags:
+  - Pricing
+  - Plans
+  - Subscription
+plan_count: 3
 plans:
   - id: level2-free
     name: Free
     type: freemium
-    description: Free entry tier for the level2 API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.example.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.example.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Level2 Strategy Builder API
-      - name: Level2 TradeStation Integration API
+    price: 0
+    currency: USD
+    period: month
+    price_source: https://www.trylevel2.com/pricing
+    description: >-
+      Entry tier, described on the price card as "for traders looking to explore advanced features and
+      make informed decisions with virtual trading — risk-free".
+    call_to_action: Get Started
+    catalog_entry: false
+    catalog_note: >-
+      https://hub2.trylevel2.com/get_main_pricing_plan_details?plan=free returns HTTP 400, as do every
+      other spelling tried (FREE, basic, starter, trial, lite). Only `pro` and `elite` resolve in the
+      plan catalog, so no machine-readable entitlement caps are published for the free tier and none
+      are guessed here.
+    entries: []
   - id: level2-pro
-    name: Professional
-    type: paid
-    description: Production tier for level2. Provides higher quotas, priority support, and access to the
-      broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+    name: Pro
+    type: subscription
+    price: 19.99
+    currency: USD
+    period: month
+    price_source: https://www.trylevel2.com/pricing
+    description: >-
+      "For traders ready to trade live with all features, live market data, and complete control to
+      make data-driven decisions."
+    call_to_action: Get Started
+    catalog_entry: true
+    catalog_source: https://hub2.trylevel2.com/get_main_pricing_plan_details?plan=pro
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
+      - label: Concurrent strategy deployments
+        name: maxStrategyDeployments
         type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.example.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.example.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.example.com
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Level2 Strategy Builder API
-      - name: Level2 TradeStation Integration API
-  - id: level2-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for level2. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+        metric: deployments
+        limit: 10
+      - label: Concurrent scanner deployments
+        name: maxScannerDeployments
+        type: quota
+        metric: deployments
+        limit: 5
+      - label: Backtest history window
+        name: backtest_history
+        type: quota
+        metric: days
+        limit: 180
+      - label: Trading environments
+        name: allowedEnvs
+        type: feature
+        values: [VIRTUAL, LIVE]
+      - label: Strategy timeframes
+        name: allowedTimeframes
+        type: feature
+        values: ['3m', '5m', '15m', '30m', '60m']
+      - label: Asset classes
+        name: allowedAssetClasses
+        type: feature
+        values: [US_EQUITIES, FOREX]
+      - label: Real-time concurrent strategy collaborators
+        name: collaborators
+        type: quota
+        metric: collaborators
+        limit: 50
+    key_points:
+      - 5 Timeframes (3 min > 60 min)
+      - Backtest up to 180 Days of Historical Market Data
+      - 2 Asset Classes (US Equities, Forex)
+      - 10 Concurrent Strategy Deployments
+      - 5 Scanner Deployments
+      - Access to exclusive Level2 Proprietary Indicators and Strategies
+      - 2 Trading Environments (Virtual + Live)
+      - Upto 50 Real-time Concurrent Strategy Collaborators
+      - Dedicated Technical Support
+      - We help turn your ideas into live strategies
+  - id: level2-elite
+    name: Elite
+    type: subscription
+    price: 49.99
+    currency: USD
+    period: month
+    price_source: https://www.trylevel2.com/pricing
+    description: >-
+      "For professional traders seeking seamless integration, low-latency execution and dedicated
+      support."
+    call_to_action: Schedule a Discovery Call
+    self_serve: false
+    catalog_entry: true
+    catalog_source: https://hub2.trylevel2.com/get_main_pricing_plan_details?plan=elite
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
+      - label: Concurrent strategy deployments
+        name: maxStrategyDeployments
         type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://api.example.com
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api.example.com
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Level2 Strategy Builder API
-      - name: Level2 TradeStation Integration API
-maintainers: []
+        metric: deployments
+        limit: 25
+      - label: Concurrent scanner deployments
+        name: maxScannerDeployments
+        type: quota
+        metric: deployments
+        limit: 5
+      - label: Trading environments
+        name: allowedEnvs
+        type: feature
+        values: [VIRTUAL, LIVE]
+      - label: Strategy timeframes
+        name: allowedTimeframes
+        type: feature
+        values: ['3m', '5m', '15m', '30m', '60m']
+      - label: Asset classes
+        name: allowedAssetClasses
+        type: feature
+        values: [US_EQUITIES, FOREX]
+    key_points:
+      - Low-Latency Execution
+      - Fully Managed Integration
+      - Strategy Concierge Team
+      - Personal Onboarding & Priority Support
+      - 25 Strategy Deployments
+api_access:
+  self_serve: false
+  priced: false
+  note: >-
+    None of the three subscription tiers grants Broker API access, and no API price is published. The
+    broker-facing API is sales-gated: https://learn.trylevel2.com/docs/Broker/apis states "the
+    documentation for the same can be accessed by requesting an access. Please write to us at
+    contact@trylevel2.com to request an access now", and the iframe embed is provisioned by Level2
+    per partner. The Broker API reference itself is nonetheless public and unauthenticated to read,
+    and the contract is served openly at https://hub2.trylevel2.com/openapi.json.

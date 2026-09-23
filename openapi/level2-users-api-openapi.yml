@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Level2 TradeStation Integration Users API
-  description: The Level2 TradeStation Integration API enables broker partners to embed the Level2 visual strategy builder into their trading platforms and manage user strategies programmatically. This API connects the Level2 no-code strategy builder with TradeStation Securities brokerage accounts, allowing traders to create automated strategies using a drag-and-drop interface and execute them in real time through their TradeStation accounts. The API supports strategy lifecycle management including creation, retrieval, updating, deployment, and deletion of user strategies, as well as backtesting against historical market data.
+  description: The Level2 TradeStation Integration API enables broker partners to embed the Level2 visual strategy builder into their trading platforms and manage user strategies programmatically.
   version: 1.0.0
   contact:
     name: Level2 Broker Support

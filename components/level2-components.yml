@@ -1,0 +1,65 @@
+generated: '2026-09-17'
+method: searched
+source: >-
+  https://www.trylevel2.com/widgets; https://learn.trylevel2.com/docs/Broker/integrating-iframe;
+  https://learn.trylevel2.com/docs/Broker/visual-strategy-builder
+description: >-
+  Level2's embeddable client-side surface. This is a substantial part of what the company actually
+  sells to brokers — the visual strategy builder and the analytics widgets are delivered as hosted
+  iframes rendered inside the partner's own platform, not as an npm component library. Every embed
+  URL below is quoted verbatim from the provider's own published integration snippet.
+distribution: hosted-iframe
+loader_libraries: []
+loader_note: >-
+  There is no JavaScript loader, web-component package or element library. Integration is a plain
+  <iframe> tag; the provider's own snippets set width="100%", height="600px" and a border-radius.
+families:
+  - family: Market widgets
+    url: https://www.trylevel2.com/widgets
+    description: >-
+      Four named, individually embeddable analytics widgets, each with a live preview and a
+      copy-to-clipboard integration snippet on the widgets page. A `theme` query parameter is the one
+      documented configuration option, and the page states that the embedding origin is detected.
+    configuration:
+      theme:
+        values: [dark]
+        note: The published snippets pin theme=dark; no other value is documented.
+      origin:
+        value: detected
+    components:
+      - name: Earnings Signals
+        embed: https://app.trylevel2.com/embed/earnings
+        snippet: '<iframe src="https://app.trylevel2.com/embed/earnings?theme=dark" width="100%" height="600px" title="Earnings Calendar"></iframe>'
+        description: A data-driven model for high-impact earnings events.
+      - name: Pairs Trading
+        embed: https://app.trylevel2.com/embed/pairs
+        snippet: '<iframe src="https://app.trylevel2.com/embed/pairs?theme=dark" width="100%" height="600px" title="Pairs Trading"></iframe>'
+        description: Directional strategies using one asset to predict another.
+      - name: Strategy Lab Reviews
+        embed: https://app.trylevel2.com/embed/strategy-lab
+        snippet: '<iframe src="https://app.trylevel2.com/embed/strategy-lab?theme=dark" width="100%" height="600px" title="Strategy Lab Reviews"></iframe>'
+        description: >-
+          Widely used strategies from YouTube, tested under real prop-firm evaluation conditions.
+      - name: Trending Prediction Markets
+        embed: https://app.trylevel2.com/embed/trending-events
+        snippet: '<iframe src="https://app.trylevel2.com/embed/trending-events?theme=dark" width="100%" height="600px" title="Trending Prediction Markets"></iframe>'
+        description: Real-time predictive insight and quantitative analytics on active event markets.
+        backing_operations:
+          - get_prediction_market_trending_events_get_prediction_market_trending_events_get
+          - prediction_market_events_prediction_market_events_get
+          - prediction_market_event_details_prediction_market_event_details_get
+  - family: Broker platform embed
+    url: https://learn.trylevel2.com/docs/Broker/integrating-iframe
+    description: >-
+      The whole Level2 platform — visual strategy builder, backtest screen, scanners — delivered to a
+      broker as one customised iframe. The broker is issued its own unique iframe link by Level2;
+      the documentation names https://iframe-compat.trylevel2.com/ as the public target to test the
+      embed against first.
+    components:
+      - name: Level2 platform iframe
+        embed: '<broker-specific link issued by Level2>'
+        test_embed: https://iframe-compat.trylevel2.com/
+        snippet: '<iframe src="https://iframe-compat.trylevel2.com/" width="100%" height="900" loading="lazy"></iframe>'
+        provisioning: >-
+          Not self-serve. The docs direct integrators to contact@trylevel2.com to obtain and customise
+          the link.

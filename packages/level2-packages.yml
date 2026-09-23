@@ -1,0 +1,42 @@
+generated: '2026-09-17'
+method: searched
+source: >-
+  npm registry search (level2, trylevel2, bytemine), pypi.org/pypi/{level2,bytemine,trylevel2}/json,
+  github.com/bytemine-io, https://learn.trylevel2.com/docs/Broker/getting-started and
+  https://guide.bytemine.io/technical-documentation/api-documentation.md
+description: >-
+  Level2 publishes no first-party client library in any package registry. The Broker API is consumed
+  directly over HTTPS with a JWT bearer token; the provider's own "getting started" page distributes
+  a Postman collection (collections/level2-broker-apis.postman_collection.json) instead of an SDK,
+  and the Bytemine API documentation states plainly that "we have language bindings in only Shell".
+package_count: 0
+packages: []
+registries_checked:
+  - registry: npm
+    query: level2, trylevel2, bytemine
+    endpoint: https://registry.npmjs.org/-/v1/search
+    result: >-
+      No first-party package. Every "level2*" hit belongs to unrelated projects (a GitLab-hosted
+      Level2 Ember/PDF toolchain, W3C DOM Level2 xmldom forks, ndarray-blas-level2); the single
+      "bytemine" hit is coinpayments, unrelated.
+  - registry: pypi
+    query: level2, bytemine, trylevel2
+    endpoint: https://pypi.org/pypi/<name>/json
+    result: 404 on all three.
+  - registry: github
+    query: github.com/bytemine-io
+    result: >-
+      The Level2 GitHub organisation (github.com/bytemine-io, 200, titled "Level2") publishes zero
+      public repositories, so no source-distributed client exists either. Note github.com/bytemine is
+      a DIFFERENT company (bytemine GmbH) and is not Level2.
+  - registry: docs
+    query: developer documentation SDK/CLI section
+    result: >-
+      No SDK or CLI is offered. The API documentation offers shell/curl and jQuery AJAX examples only.
+notes:
+  - >-
+    No `version:`/`published:` fields are recorded because no package exists to read them from — this
+    is a measured zero, not an unchecked field.
+  - >-
+    No `SDKs` pointer is wired into apis.yml: the sdk_count check must not be credited when the
+    provider ships no client library.

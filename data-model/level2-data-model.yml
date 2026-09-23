@@ -1,0 +1,847 @@
+generated: '2026-09-17'
+method: derived
+source: openapi/level2-hub-controller-openapi.json (harvested verbatim from https://hub2.trylevel2.com/openapi.json
+  on 2026-09-17)
+description: 'Entity-relationship graph for the Level2 Hub Controller API, derived from the $ref edges
+  and id-reference fields in components.schemas. Nothing here is invented: every entity is a named schema
+  in the provider contract and every relationship is either an explicit $ref between two schemas or an
+  <entity>_id field following the contract''s own naming convention. The contract publishes no object
+  reference or id-prefix documentation, so id shapes are recorded as declared types only.'
+summary:
+  schemas_total: 119
+  entities: 75
+  request_body_schemas: 21
+  pagination_generics: 20
+  relationships_schema_backed: 60
+  relationships_by_id_convention: 23
+identifiers:
+  note: Three identifier styles coexist. Numeric surrogate ids (StrategyOut.id, deployment_id) are the
+    primary handles on the internal surface; opaque uuid-style keys (StrategyOut.keygen, UserOut.unique_key)
+    are the handles the Broker API and the Postman collection actually pass (strategy_keygen=58d2a373-b84c-4928-99e4-8f0561c5696c);
+    and the broker surface addresses users by EMAIL rather than by id (user_email is a required parameter
+    on 13 operations). No id prefixes are used.
+  fields:
+  - field: id
+    type: integer
+    note: Surrogate key on StrategyOut and friends.
+  - field: keygen
+    type: string
+    note: UUID-style external handle for a strategy; required on StrategyOut.
+  - field: unique_key
+    type: string
+    note: External handle for a user; required on UserOut.
+  - field: user_email
+    type: string
+    note: The broker surface addresses users by email, not id.
+core_entities:
+- name: UserOut
+  fields: 11
+  required: &id020
+  - email
+  - first_name
+  - last_name
+  - unique_key
+  - is_active
+- name: UserCustomOut
+  fields: 12
+  required: &id019
+  - user
+  - preference
+  - user_id
+- name: StrategyOut
+  fields: 16
+  required: &id018
+  - id
+  - keygen
+  - backtest_type
+- name: StrategyDetailsOut
+  fields: 5
+  required: &id017
+  - strategy_details
+  - action_metrics
+  - deployment
+- name: LiveDeploymentOut
+  fields: 10
+  required: &id008
+  - created_at
+  - last_updated_at
+  - broker
+  - strategy
+- name: LiveOrderBookOut
+  fields: 15
+  required: &id009
+  - id
+- name: B2cBrokersOut
+  fields: 6
+  required: &id001 []
+- name: MarketScannerStrategyOut
+  fields: 3
+  required: &id010 []
+- name: MarketScannerUniverseOut
+  fields: 3
+  required: &id011 []
+- name: ExploreStrategyOut
+  fields: 3
+  required: &id007
+  - id
+- name: MarketplaceListOut
+  fields: 18
+  required: &id012
+  - symbol
+  - timeframe
+  - strategy_data
+  - canvas_data
+  - strategy_name
+  - strategy_description
+  - keygen
+  - latest_backtest
+  - previous_backtest
+  - previous_meta_data
+  - latest_meta_data
+  - blocks_data
+  - copiers_count
+- name: StrategyCategoryOut
+  fields: 4
+  required: &id016
+  - id
+  - label
+  - description
+  - is_valid
+- name: StrategyBacktestReportOut
+  fields: 4
+  required: &id015
+  - id
+  - report_data
+  - performance_data
+  - created_at
+- name: NotificationDeploymentOut
+  fields: 4
+  required: &id013
+  - id
+- name: ScannerDeploymentsOut
+  fields: 5
+  required: &id014
+  - created_at
+  - last_updated_at
+- name: CanvasIndicatorsOut
+  fields: 12
+  required: &id004
+  - is_segment_valid
+  - uses_volume
+  - name
+  - unique_key
+  - valid
+- name: CanvasLogicsOut
+  fields: 5
+  required: &id005
+  - inputs
+  - outputs
+  - name
+  - is_segment_valid
+- name: CanvasActionsOut
+  fields: 7
+  required: &id002
+  - inputs
+  - name
+  - is_valid
+- name: CanvasPatternsOut
+  fields: 7
+  required: &id006
+  - is_valid
+  - name
+  - short_name
+  - unique_key
+- name: CanvasDatasOut
+  fields: 6
+  required: &id003
+  - is_valid
+  - name
+  - outputs
+entities:
+- name: ActionMetricsOut
+  fields: 13
+  required: []
+- name: AdminStrategiesResponse
+  fields: 2
+  required:
+  - success
+  - strategies
+- name: AnalyticsEvent
+  fields: 6
+  required:
+  - event_name
+- name: B2cBrokersOut
+  fields: 6
+  required: *id001
+- name: B2cUserBrokerOut
+  fields: 6
+  required:
+  - broker
+  - keys_json
+- name: BrokerCustomLiveDeploymentOrderBookOut
+  fields: 18
+  required:
+  - id
+  - deployment_id
+  - strategy_id
+- name: BrokerCustomLiveDeploymentOut
+  fields: 8
+  required:
+  - created_at
+  - last_updated_at
+  - strategy
+- name: BrokerMarketScannerStrategyOut
+  fields: 7
+  required:
+  - id
+  - is_valid
+- name: BrokerStrategyCustomOut
+  fields: 12
+  required:
+  - id
+  - keygen
+- name: BrokerStrategyOut
+  fields: 13
+  required:
+  - id
+  - backtest_type
+- name: BrokerTickersOut
+  fields: 3
+  required:
+  - name
+  - symbol
+  - short_name
+- name: BrokerUserCustomOut
+  fields: 5
+  required:
+  - unique_key
+  - email
+- name: CanvasActionInputsOut
+  fields: 1
+  required: []
+- name: CanvasActionOutputsOut
+  fields: 1
+  required: []
+- name: CanvasActionParamsOut
+  fields: 9
+  required: []
+- name: CanvasActionsOut
+  fields: 7
+  required: *id002
+- name: CanvasChartPatternParamsOut
+  fields: 6
+  required: []
+- name: CanvasChartPatternsOut
+  fields: 7
+  required:
+  - is_valid
+  - name
+  - short_name
+  - unique_key
+- name: CanvasCommentsOut
+  fields: 4
+  required: []
+- name: CanvasDataOutputsOut
+  fields: 1
+  required: []
+- name: CanvasDataParamsOut
+  fields: 7
+  required:
+  - default_value
+- name: CanvasDatasOut
+  fields: 6
+  required: *id003
+- name: CanvasIndicatorOutputsOut
+  fields: 1
+  required: []
+- name: CanvasIndicatorParamsOut
+  fields: 6
+  required: []
+- name: CanvasIndicatorSourcesOut
+  fields: 6
+  required: []
+- name: CanvasIndicatorsOut
+  fields: 12
+  required: *id004
+- name: CanvasLogicInputsOut
+  fields: 1
+  required:
+  - name
+- name: CanvasLogicOutputsOut
+  fields: 1
+  required:
+  - name
+- name: CanvasLogicParamsOut
+  fields: 6
+  required: []
+- name: CanvasLogicsOut
+  fields: 5
+  required: *id005
+- name: CanvasPatternParamsOut
+  fields: 6
+  required: []
+- name: CanvasPatternsOut
+  fields: 7
+  required: *id006
+- name: ConsumerMarketplaceAuthors
+  fields: 2
+  required: []
+- name: ConsumerMarketplaceStrategies
+  fields: 5
+  required: []
+- name: ExploreStrategyFavouriteOut
+  fields: 3
+  required:
+  - id
+- name: ExploreStrategyOut
+  fields: 3
+  required: *id007
+- name: GoogleAuthRequest
+  fields: 1
+  required:
+  - idToken
+- name: LastOrderLiveDeploymentOut
+  fields: 8
+  required: []
+- name: LeaderboardOut
+  fields: 3
+  required:
+  - data
+  - trading_challenge
+  - last_updated_at
+- name: LiveActiveDeploymentsOut
+  fields: 9
+  required:
+  - deployment_meta
+  - deployment_id
+  - strategy_key
+  - strategy_name
+  - strategy_data
+  - user_id
+- name: LiveDeploymentBrokerStatsOut
+  fields: 11
+  required:
+  - created_at
+  - last_updated_at
+  - broker
+  - strategy
+- name: LiveDeploymentCustomOut
+  fields: 3
+  required:
+  - deployment_meta
+- name: LiveDeploymentOrderBookBrokerUserStats
+  fields: 10
+  required:
+  - user
+  - quantity
+  - trade_taken_at
+  - decision
+  - strategy
+- name: LiveDeploymentOrderBookOut
+  fields: 20
+  required:
+  - id
+  - deployment_id
+- name: LiveDeploymentOut
+  fields: 10
+  required: *id008
+- name: LiveDeploymentProfitLossOut
+  fields: 4
+  required: []
+- name: LiveDeploymentShortOrderBookOut
+  fields: 7
+  required:
+  - id
+  - strategy_id
+  - deployment_id
+- name: LiveExpiredOut
+  fields: 5
+  required:
+  - total
+  - page
+  - size
+  - pages
+- name: LiveOrderBookOut
+  fields: 15
+  required: *id009
+- name: MarketScannerStrategyOut
+  fields: 3
+  required: *id010
+- name: MarketScannerUniverseOut
+  fields: 3
+  required: *id011
+- name: MarketplaceListOut
+  fields: 18
+  required: *id012
+- name: NotificationDeploymentOut
+  fields: 4
+  required: *id013
+- name: OpenOrderLiveDeploymentOut
+  fields: 9
+  required: []
+- name: PaginatedStrategiesResponse
+  fields: 5
+  required:
+  - items
+  - total
+  - page
+  - size
+  - pages
+- name: RecentStrategies
+  fields: 7
+  required:
+  - id
+  - keygen
+  - strategy_name
+  - timeframe
+  - symbol
+  - last_updated_at
+- name: SaveBrokerAPIKeysRequestV2
+  fields: 5
+  required:
+  - user_id
+  - key
+  - secret
+  - broker_id
+- name: ScannerDeploymentsOut
+  fields: 5
+  required: *id014
+- name: ShowcaseOut
+  fields: 6
+  required:
+  - description
+  - link
+  - image_path
+  - is_valid
+  - label
+- name: StrategiesCustomOut
+  fields: 10
+  required:
+  - strategy
+  - block_data
+- name: StrategyBacktestReportOut
+  fields: 4
+  required: *id015
+- name: StrategyCategoryOut
+  fields: 4
+  required: *id016
+- name: StrategyDataLimitedOut
+  fields: 5
+  required:
+  - strategy_name
+  - timeframe
+  - symbol
+  - id
+  - keygen
+- name: StrategyDetailsOut
+  fields: 5
+  required: *id017
+- name: StrategyLibraryOut
+  fields: 5
+  required: []
+- name: StrategyOut
+  fields: 16
+  required: *id018
+- name: StrategyPrefCustomOut
+  fields: 3
+  required:
+  - strategy
+  - meta
+- name: StrategySelectedCustomOut
+  fields: 11
+  required:
+  - id
+  - keygen
+- name: UserCustomOut
+  fields: 12
+  required: *id019
+- name: UserDeploymentNotificationsCustomOut
+  fields: 3
+  required: []
+- name: UserIn
+  fields: 13
+  required:
+  - email
+  - password
+  - first_name
+  - last_name
+  - trading_challenge
+  - phone_number
+- name: UserOut
+  fields: 11
+  required: *id020
+- name: UserPreferenceOut
+  fields: 11
+  required: []
+- name: UserSelectedCustomOut
+  fields: 2
+  required:
+  - email
+- name: VirtualDeploymentOrderBookOut
+  fields: 13
+  required:
+  - deployment_id
+  - strategy
+relationships:
+- from: B2cUserBrokerOut
+  to: B2cBrokersOut
+  via: broker
+  kind: has_one
+- from: BrokerCustomLiveDeploymentOut
+  to: BrokerStrategyCustomOut
+  via: strategy
+  kind: has_one
+- from: BrokerMarketScannerStrategyOut
+  to: BrokerStrategyCustomOut
+  via: strategy
+  kind: has_one
+- from: BrokerStrategyCustomOut
+  to: StrategyCategoryOut
+  via: strategy_category
+  kind: has_one
+- from: BrokerStrategyOut
+  to: StrategyCategoryOut
+  via: strategy_category
+  kind: has_one
+- from: CanvasActionsOut
+  to: CanvasActionInputsOut
+  via: inputs
+  kind: has_many
+- from: CanvasActionsOut
+  to: CanvasActionParamsOut
+  via: params
+  kind: has_many
+- from: CanvasActionsOut
+  to: CanvasActionOutputsOut
+  via: outputs
+  kind: has_many
+- from: CanvasChartPatternsOut
+  to: CanvasChartPatternParamsOut
+  via: params
+  kind: has_many
+- from: CanvasCommentsOut
+  to: UserOut
+  via: user
+  kind: has_one
+- from: CanvasDatasOut
+  to: CanvasDataOutputsOut
+  via: outputs
+  kind: has_many
+- from: CanvasDatasOut
+  to: CanvasDataParamsOut
+  via: params
+  kind: has_many
+- from: CanvasIndicatorsOut
+  to: CanvasIndicatorOutputsOut
+  via: outputs
+  kind: has_many
+- from: CanvasIndicatorsOut
+  to: CanvasIndicatorParamsOut
+  via: params
+  kind: has_many
+- from: CanvasIndicatorsOut
+  to: CanvasIndicatorSourcesOut
+  via: sources
+  kind: has_many
+- from: CanvasLogicsOut
+  to: CanvasLogicInputsOut
+  via: inputs
+  kind: has_many
+- from: CanvasLogicsOut
+  to: CanvasLogicParamsOut
+  via: params
+  kind: has_many
+- from: CanvasLogicsOut
+  to: CanvasLogicOutputsOut
+  via: outputs
+  kind: has_many
+- from: CanvasPatternsOut
+  to: CanvasPatternParamsOut
+  via: params
+  kind: has_many
+- from: ConsumerMarketplaceAuthors
+  to: UserOut
+  via: user
+  kind: has_one
+- from: ConsumerMarketplaceStrategies
+  to: UserOut
+  via: user
+  kind: has_one
+- from: ConsumerMarketplaceStrategies
+  to: StrategySelectedCustomOut
+  via: strategy
+  kind: has_one
+- from: ExploreStrategyFavouriteOut
+  to: UserOut
+  via: user
+  kind: has_one
+- from: ExploreStrategyFavouriteOut
+  to: ExploreStrategyOut
+  via: explore_strategy
+  kind: has_one
+- from: ExploreStrategyOut
+  to: UserOut
+  via: user
+  kind: has_one
+- from: ExploreStrategyOut
+  to: StrategyOut
+  via: strategy
+  kind: has_one
+- from: LastOrderLiveDeploymentOut
+  to: LiveOrderBookOut
+  via: order_book_data
+  kind: has_one
+- from: LastOrderLiveDeploymentOut
+  to: LiveDeploymentOut
+  via: deployment_meta
+  kind: has_one
+- from: LiveActiveDeploymentsOut
+  to: LiveDeploymentOut
+  via: deployment_meta
+  kind: has_one
+- from: LiveDeploymentBrokerStatsOut
+  to: B2cBrokersOut
+  via: broker
+  kind: has_one
+- from: LiveDeploymentBrokerStatsOut
+  to: UserSelectedCustomOut
+  via: user
+  kind: has_one
+- from: LiveDeploymentBrokerStatsOut
+  to: BrokerStrategyOut
+  via: strategy
+  kind: has_one
+- from: LiveDeploymentCustomOut
+  to: LiveDeploymentOut
+  via: deployment_meta
+  kind: has_one
+- from: LiveDeploymentOrderBookBrokerUserStats
+  to: UserSelectedCustomOut
+  via: user
+  kind: has_one
+- from: LiveDeploymentOrderBookBrokerUserStats
+  to: StrategySelectedCustomOut
+  via: strategy
+  kind: has_one
+- from: LiveDeploymentOrderBookOut
+  to: StrategyDataLimitedOut
+  via: strategy
+  kind: has_one
+- from: LiveDeploymentOut
+  to: B2cBrokersOut
+  via: broker
+  kind: has_one
+- from: LiveDeploymentOut
+  to: StrategyOut
+  via: strategy
+  kind: has_one
+- from: LiveDeploymentProfitLossOut
+  to: LiveDeploymentShortOrderBookOut
+  via: yesterday
+  kind: has_many
+- from: LiveDeploymentProfitLossOut
+  to: LiveDeploymentShortOrderBookOut
+  via: today
+  kind: has_many
+- from: LiveExpiredOut
+  to: LiveDeploymentCustomOut
+  via: data
+  kind: has_many
+- from: MarketScannerStrategyOut
+  to: StrategyOut
+  via: strategy
+  kind: has_one
+- from: NotificationDeploymentOut
+  to: UserOut
+  via: user
+  kind: has_one
+- from: NotificationDeploymentOut
+  to: StrategyOut
+  via: strategy
+  kind: has_one
+- from: OpenOrderLiveDeploymentOut
+  to: LiveOrderBookOut
+  via: order_book_data
+  kind: has_one
+- from: OpenOrderLiveDeploymentOut
+  to: LiveDeploymentOut
+  via: deployment
+  kind: has_one
+- from: OpenOrderLiveDeploymentOut
+  to: LastOrderLiveDeploymentOut
+  via: last_order_data
+  kind: has_one
+- from: PaginatedStrategiesResponse
+  to: StrategiesCustomOut
+  via: items
+  kind: has_many
+- from: ScannerDeploymentsOut
+  to: MarketScannerUniverseOut
+  via: universe
+  kind: has_one
+- from: ScannerDeploymentsOut
+  to: StrategyOut
+  via: strategy
+  kind: has_one
+- from: StrategiesCustomOut
+  to: StrategyOut
+  via: strategy
+  kind: has_one
+- from: StrategyDetailsOut
+  to: StrategyOut
+  via: strategy_details
+  kind: has_one
+- from: StrategyDetailsOut
+  to: ActionMetricsOut
+  via: action_metrics
+  kind: has_many
+- from: StrategyOut
+  to: StrategyCategoryOut
+  via: strategy_category
+  kind: has_one
+- from: StrategyPrefCustomOut
+  to: StrategyOut
+  via: strategy
+  kind: has_one
+- from: StrategyPrefCustomOut
+  to: UserPreferenceOut
+  via: meta
+  kind: has_one
+- from: UserCustomOut
+  to: UserOut
+  via: user
+  kind: has_one
+- from: UserCustomOut
+  to: UserPreferenceOut
+  via: preference
+  kind: has_one
+- from: UserDeploymentNotificationsCustomOut
+  to: ScannerDeploymentsOut
+  via: scanner_deployment
+  kind: has_one
+- from: VirtualDeploymentOrderBookOut
+  to: StrategyDataLimitedOut
+  via: strategy
+  kind: has_one
+relationships_by_id_convention:
+- from: ActionMetricsOut
+  to: node
+  via: node_id
+  kind: belongs_to
+- from: AdminStrategiesResponse
+  to: PaginatedResponse
+  via: strategies
+  kind: has_one
+- from: AnalyticsEvent
+  to: client
+  via: client_id
+  kind: belongs_to
+- from: AnalyticsEvent
+  to: user
+  via: user_id
+  kind: belongs_to
+- from: BrokerCustomLiveDeploymentOrderBookOut
+  to: deployment
+  via: deployment_id
+  kind: belongs_to
+- from: BrokerCustomLiveDeploymentOrderBookOut
+  to: strategy
+  via: strategy_id
+  kind: belongs_to
+- from: LastOrderLiveDeploymentOut
+  to: deployment
+  via: deployment_id
+  kind: belongs_to
+- from: LiveActiveDeploymentsOut
+  to: deployment
+  via: deployment_id
+  kind: belongs_to
+- from: LiveActiveDeploymentsOut
+  to: user
+  via: user_id
+  kind: belongs_to
+- from: LiveDeploymentBrokerStatsOut
+  to: user
+  via: user_id
+  kind: belongs_to
+- from: LiveDeploymentOrderBookOut
+  to: deployment
+  via: deployment_id
+  kind: belongs_to
+- from: LiveDeploymentShortOrderBookOut
+  to: strategy
+  via: strategy_id
+  kind: belongs_to
+- from: LiveDeploymentShortOrderBookOut
+  to: deployment
+  via: deployment_id
+  kind: belongs_to
+- from: MarketplaceListOut
+  to: original_strategy
+  via: original_strategy_id
+  kind: belongs_to
+- from: OpenOrderLiveDeploymentOut
+  to: deployment
+  via: deployment_id
+  kind: belongs_to
+- from: SaveBrokerAPIKeysRequestV2
+  to: user
+  via: user_id
+  kind: belongs_to
+- from: SaveBrokerAPIKeysRequestV2
+  to: broker
+  via: broker_id
+  kind: belongs_to
+- from: StrategiesCustomOut
+  to: depl
+  via: depl_id
+  kind: belongs_to
+- from: StrategyOut
+  to: broker
+  via: broker_id
+  kind: belongs_to
+- from: StrategyPrefCustomOut
+  to: broker
+  via: broker_id
+  kind: belongs_to
+- from: StrategySelectedCustomOut
+  to: broker
+  via: broker_id
+  kind: belongs_to
+- from: UserCustomOut
+  to: user
+  via: user_id
+  kind: belongs_to
+- from: VirtualDeploymentOrderBookOut
+  to: deployment
+  via: deployment_id
+  kind: belongs_to
+pagination_wrappers:
+- Page_BrokerCustomLiveDeploymentOrderBookOut_
+- Page_BrokerCustomLiveDeploymentOut_
+- Page_BrokerMarketScannerStrategyOut_
+- Page_BrokerStrategyCustomOut_
+- Page_BrokerUserCustomOut_
+- Page_CanvasCommentsOut_
+- Page_ConsumerMarketplaceAuthors_
+- Page_ConsumerMarketplaceStrategies_
+- Page_ExploreStrategyOut_
+- Page_LiveDeploymentBrokerStatsOut_
+- Page_LiveDeploymentCustomOut_
+- Page_LiveDeploymentOrderBookBrokerUserStats_
+- Page_LiveDeploymentOrderBookOut_
+- Page_MarketScannerStrategyOut_
+- Page_MarketplaceListOut_
+- Page_NotificationDeploymentOut_
+- Page_ScannerDeploymentsOut_
+- Page_StrategiesCustomOut_
+- Page_Union_VirtualDeploymentOrderBookOut__LiveDeploymentOrderBookOut__
+- Page_UserDeploymentNotificationsCustomOut_
+notes:
+- 'The graph is centred on three nouns: a USER owns STRATEGIES, a strategy becomes a live DEPLOYMENT,
+  and a deployment produces an ORDER BOOK. Everything else — scanners, the marketplace, explore/showcase,
+  notifications — hangs off that spine.'
+- The Canvas* family (indicators, logics, actions, patterns, chart patterns, data sources, each with its
+  own inputs/params/outputs children) is the machine-readable vocabulary of the visual strategy builder
+  itself, and is the most structurally detailed part of the contract.
+- No subway/ render exists for this repo.

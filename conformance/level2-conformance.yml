@@ -1,0 +1,98 @@
+generated: '2026-09-17'
+method: derived
+source: >-
+  openapi/level2-hub-controller-openapi.json; https://learn.trylevel2.com/docs/Broker/API/authentication;
+  https://learn.trylevel2.com/docs/Broker/API/broker-api; https://www.trylevel2.com/security;
+  https://www.trylevel2.com/.well-known/security.txt
+description: >-
+  Cross-cutting standards conformance for the Level2 API surface, asserted only where the contract or
+  the provider's own documentation demonstrates it. Level2 is a retail systematic-trading platform;
+  its market (no-code strategy building and broker integration for retail traders) has no adopted
+  machine-readable domain standard that the contract declares, so domain_standard is recorded as
+  not-applicable rather than invented. Reward-only: nothing is penalised for that.
+conformance:
+  - id: openapi
+    name: OpenAPI Specification
+    version: 3.0.2
+    conforms: true
+    evidence: >-
+      https://hub2.trylevel2.com/openapi.json declares openapi 3.0.2 with 301 operations, 119
+      component schemas and unique operationIds on every operation.
+  - id: json-schema
+    name: JSON Schema (via OpenAPI 3.0 Schema Object)
+    conforms: true
+    evidence: >-
+      components.schemas carries 119 named schemas reused by $ref throughout the contract.
+  - id: rfc7519-jwt
+    name: JSON Web Token (RFC 7519)
+    conforms: true
+    evidence: >-
+      https://learn.trylevel2.com/docs/Broker/API/authentication documents HS256 JWTs carrying a
+      token_expiry claim, with worked PyJWT code and a sample token.
+  - id: rfc6750-bearer
+    name: OAuth 2.0 Bearer Token Usage (RFC 6750)
+    conforms: true
+    evidence: >-
+      The Broker API reference declares "HTTP: Bearer Auth / Bearer format: JWT", and the
+      provider-published Postman collection sends Authorization: Bearer [token] on every request.
+  - id: rfc9116-security-txt
+    name: security.txt (RFC 9116)
+    conforms: true
+    evidence: >-
+      https://www.trylevel2.com/.well-known/security.txt returns 200 text/plain with Contact,
+      Preferred-Languages and Policy fields.
+  - id: oauth2
+    name: OAuth 2.0 authorization server
+    conforms: false
+    evidence: >-
+      Level2 is an OAuth CLIENT of its broker partners (/broker-oauth/connecttrade/callback,
+      /broker-oauth/sterling, /ctrader_auth_callback in the contract) but publishes no authorization
+      server: /.well-known/oauth-authorization-server returns 404 on every Level2 host.
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence: >-
+      /.well-known/openid-configuration returns 404 on trylevel2.com, www.trylevel2.com,
+      hub2.trylevel2.com, learn.trylevel2.com, help.trylevel2.com and app.trylevel2.com. Google
+      sign-in is offered to end users (POST /auth/google) but no OIDC discovery document is served.
+  - id: rfc9457
+    name: Problem Details for HTTP APIs (RFC 9457)
+    conforms: false
+    evidence: >-
+      Errors use the FastAPI HTTPValidationError envelope (detail[] of {loc,msg,type}), not
+      application/problem+json. See errors/level2-problem-types.yml.
+  - id: pagination
+    name: Paginated collection envelope
+    conforms: true
+    evidence: >-
+      A consistent page/size request pair and an {items,total,page,size,pages} response envelope
+      (components.schemas.PaginatedResponse and the Page_*_ generics) across 33-36 operations in
+      openapi/level2-hub-controller-openapi.json.
+  - id: idempotency
+    name: Idempotency keys for unsafe requests
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header, no request-id echo, and no replay-protection language anywhere in
+      the contract or the Broker API documentation. See conventions/level2-conventions.yml.
+  - id: fapi
+    name: Financial-grade API (FAPI)
+    conforms: false
+    evidence: >-
+      No FAPI profile is claimed; there is no OAuth authorization server to profile. Level2 is a
+      strategy-building layer over a broker, not a regulated account-access API.
+domain_standard:
+  applicable: false
+  searched:
+    - FIX / FIXatdl (order routing and algorithmic-trading parameter interchange)
+    - FDX (financial data exchange)
+  evidence: >-
+    Neither the contract nor the broker-integration documentation
+    (https://learn.trylevel2.com/docs/Broker/Broker-integration-requirements) names a machine-readable
+    interchange standard: the integration requirements are written as a prose shopping list of broker
+    capabilities (symbol list, websocket feed, historical feed, create/cancel order, positions, order
+    history) with no standard named for any of them. Recorded as not-applicable, not as a failure.
+compliance_certifications: []
+compliance_note: >-
+  No SOC 2, ISO 27001, PCI DSS or equivalent certification is published anywhere on the Level2 site.
+  https://www.trylevel2.com/security is a vulnerability disclosure programme, not a trust centre, so
+  no Compliance or TrustCenter pointer is wired.

@@ -1,0 +1,104 @@
+generated: '2026-09-17'
+method: searched
+source: >-
+  https://learn.trylevel2.com/ (full sitemap walked), https://help.trylevel2.com/,
+  https://guide.bytemine.io/llms.txt, https://hub2.trylevel2.com/openapi.json,
+  https://www.trylevel2.com/ (footer + nav)
+description: >-
+  Versioning, deprecation and operational-transparency posture for the Level2 API surface. Searched
+  for a changelog, release notes, a status page, a deprecation policy and an SLA; none is published.
+  What the provider does state about lifecycle is recorded below, and the two dead contract hosts
+  found on 2026-09-17 are recorded as evidence rather than quietly repaired.
+versioning:
+  scheme: unversioned-path
+  current_version: '0.1.0'
+  evidence: >-
+    The live contract declares info.version 0.1.0 and serves every operation from the host root with
+    no version segment (https://hub2.trylevel2.com/broker/get_registered_users). The Broker API
+    reference page shows "Version: 1.0.0" for the documented subset — the two numbers disagree.
+  breaking_change_policy: none published
+changelog:
+  published: false
+  probed:
+    - url: https://learn.trylevel2.com/docs/changelog
+      status: 404
+    - url: https://help.trylevel2.com/changelog
+      status: 404
+    - url: https://www.trylevel2.com/changelog
+      status: 404
+    - url: https://learn.trylevel2.com/blog
+      status: 404
+  note: No dated changelog or release-notes surface exists on any Level2 or Bytemine host.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No operation in openapi/level2-hub-controller-openapi.json carries deprecated: true, and no
+    deprecation or sunset policy is documented. The contract does carry parallel generations in the
+    path names themselves — get_all_live_deployments_v2, get_ticker_data_v2, canvas_get_logics_v2,
+    get_symbol_data_tickers_v3, save_broker_api_keys_v2 — with the earlier generation removed from
+    the contract rather than marked deprecated in it.
+status_page:
+  published: false
+  probed:
+    - url: https://status.trylevel2.com/
+      status: 0
+      note: host does not resolve
+  liveness_endpoint:
+    url: https://hub2.trylevel2.com/health
+    status: 200
+    body: '{"status":"healthy"}'
+    note: >-
+      An unauthenticated health endpoint exists and answers, but it is a liveness check, not a
+      published status page with incident history — no StatusPage pointer is wired.
+sla:
+  published: false
+  note: >-
+    No uptime or latency SLA is published. The Broker API does expose per-user latency and slippage
+    measurement to broker partners (/broker/get_broker_user_latency_by_email,
+    /broker/get_broker_user_slippage_by_email), which is operational telemetry offered to the
+    partner, not a commitment made to them.
+support:
+  channels:
+    - type: help-center
+      url: https://help.trylevel2.com
+      status: 200
+    - type: email
+      value: contact@trylevel2.com
+      evidence: https://learn.trylevel2.com/docs/quick-links
+    - type: email
+      value: security@trylevel2.com
+      evidence: https://www.trylevel2.com/.well-known/security.txt
+contract_host_health:
+  checked: '2026-09-17'
+  hosts:
+    - host: hub2.trylevel2.com
+      resolves: true
+      status: 200
+      note: Live. Serves the Level2 Hub Controller OpenAPI and is the base URL the Broker API docs name.
+    - host: api.trylevel2.com
+      resolves: false
+      note: >-
+        NXDOMAIN. This is the servers[] host of the TradeStation-integration contract already in this
+        repo (openapi/_original/level2-tradestation-integration-openapi.yml and the users/strategies/
+        backtesting splits derived from it). Its declared paths (/broker/users, /broker/users/{userId}/
+        strategies) do not exist on the live Broker API either, whose real shape is /broker/register_user,
+        /broker/get_user_strategies and so on. Left in place and left pointing at its own declared
+        host — not silently repointed at hub2.trylevel2.com, which would weld a contract onto a host
+        that does not implement it.
+    - host: app.bytemine.io
+      resolves: false
+      note: >-
+        NXDOMAIN. The "Primary API Server" of the legacy Bytemine Strategy Builder contract, and the
+        host every example in https://guide.bytemine.io/technical-documentation/api-documentation.md
+        still curls, including the developer portal link app.bytemine.io/developers.
+    - host: valhalla.bytemine.workers.dev
+      resolves: true
+      status: 500
+      note: >-
+        The "Market Data Server" of the same contract. Resolves and answers, but every path — root
+        included — returns HTTP 500 "Wrong Api Call. Please check the docs at https://docs.bytemine.io."
+        and docs.bytemine.io does not resolve.

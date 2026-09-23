@@ -18,7 +18,8 @@
   "notes": [
     "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "level2-strategy-builder-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "level2-tradestation-integration-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0"
+    "level2-tradestation-integration-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "level2-backtesting-api-openapi.yml: previously refined output, superseded by openapi/_original/",

@@ -1,0 +1,206 @@
+generated: '2026-09-17'
+method: derived
+source: openapi/level2-hub-controller-openapi.json (harvested verbatim from https://hub2.trylevel2.com/openapi.json)
+status: candidate
+description: 'Level2 publishes no Model Context Protocol server. This is a DERIVED candidate tool list,
+  bound to real operationIds in the Level2 Hub Controller OpenAPI the provider serves at https://hub2.trylevel2.com/openapi.json.
+  Nothing here is offered by the provider and no endpoint is asserted: it is a proposal an agent team
+  could implement against the documented Broker API.'
+deployment:
+  mode: none
+  auth: api-key
+  verified: derived
+  note: No hosted/remote MCP endpoint and no stdio package exist. Probed https://mcp.trylevel2.com/mcp
+    (DNS does not resolve), https://hub2.trylevel2.com/mcp (404), https://www.trylevel2.com/mcp (404)
+    and https://learn.trylevel2.com/mcp (404) on 2026-09-17; npm and PyPI carry no Level2 or Bytemine
+    MCP package. No endpoint URL is invented here.
+search:
+  probed:
+  - url: https://mcp.trylevel2.com/mcp
+    status: 0
+    note: host does not resolve
+  - url: https://hub2.trylevel2.com/mcp
+    status: 404
+  - url: https://www.trylevel2.com/mcp
+    status: 404
+  - url: https://learn.trylevel2.com/mcp
+    status: 404
+  registries: npm and PyPI searched for level2 / trylevel2 / bytemine — no MCP package.
+server:
+  name: level2-broker (candidate)
+  transport: not published
+  auth:
+    scheme: http bearer (JWT HS256)
+    note: Broker API tokens are HS256 JWTs the broker mints with a shared secret and a token_expiry claim
+      capped at 180 minutes — https://learn.trylevel2.com/docs/Broker/API/authentication
+  base_url: https://hub2.trylevel2.com
+tool_count: 28
+tools:
+- name: broker_generate_broker_token
+  title: Broker Generate Broker Token
+  method: GET
+  path: /broker/generate_broker_token
+  operationId: broker_generate_broker_token_broker_generate_broker_token_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1generate_broker_token/get
+- name: broker_get_user_strategy_performance
+  title: Get Broker User Strategy Performance
+  method: GET
+  path: /broker/get_user_strategy_performance
+  operationId: get_broker_user_strategy_performance_broker_get_user_strategy_performance_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1get_user_strategy_performance/get
+- name: broker_get_broker_user_slippage_by_email
+  title: Get Broker User Slippage By Email
+  method: GET
+  path: /broker/get_broker_user_slippage_by_email
+  operationId: get_broker_user_slippage_by_email_broker_get_broker_user_slippage_by_email_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1get_broker_user_slippage_by_email/get
+- name: broker_get_broker_user_latency_by_email
+  title: Get Broker User Latency By Email
+  method: GET
+  path: /broker/get_broker_user_latency_by_email
+  operationId: get_broker_user_latency_by_email_broker_get_broker_user_latency_by_email_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1get_broker_user_latency_by_email/get
+- name: broker_reset_user_password
+  title: Broker Reset User Password
+  method: PUT
+  path: /broker/reset_user_password
+  operationId: broker_reset_user_password_broker_reset_user_password_put
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1reset_user_password/put
+- name: broker_update_user_email
+  title: Broker Update User Email
+  method: PUT
+  path: /broker/update_user_email
+  operationId: broker_update_user_email_broker_update_user_email_put
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1update_user_email/put
+- name: broker_get_user_strategies
+  title: Get User Strategies
+  method: GET
+  path: /broker/get_user_strategies
+  operationId: get_user_strategies_broker_get_user_strategies_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1get_user_strategies/get
+- name: broker_get_registered_users
+  title: Broker Get Registered Users
+  method: GET
+  path: /broker/get_registered_users
+  operationId: broker_get_registered_users_broker_get_registered_users_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1get_registered_users/get
+- name: broker_update_user_strategy
+  title: Update User Strategy
+  method: PUT
+  path: /broker/update_user_strategy
+  operationId: update_user_strategy_broker_update_user_strategy_put
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1update_user_strategy/put
+- name: broker_get_all_user_deployments
+  title: Broker Get All User Deployments
+  method: GET
+  path: /broker/get_all_user_deployments
+  operationId: broker_get_all_user_deployments_broker_get_all_user_deployments_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1get_all_user_deployments/get
+- name: broker_get_all_trades_by_user_deployments
+  title: Broker Get All Trades By User Deployments
+  method: GET
+  path: /broker/get_all_trades_by_user_deployments
+  operationId: broker_get_all_trades_by_user_deployments_broker_get_all_trades_by_user_deployments_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1get_all_trades_by_user_deployments/get
+- name: broker_get_all_trades_by_user_strategy
+  title: Broker Get All Trades By User Strategy
+  method: GET
+  path: /broker/get_all_trades_by_user_strategy
+  operationId: broker_get_all_trades_by_user_strategy_broker_get_all_trades_by_user_strategy_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1get_all_trades_by_user_strategy/get
+- name: broker_get_recent_backtest_details
+  title: Broker Get Recent Backtest Details
+  method: GET
+  path: /broker/get_recent_backtest_details
+  operationId: broker_get_recent_backtest_details_broker_get_recent_backtest_details_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1get_recent_backtest_details/get
+- name: broker_update_user_deployment
+  title: Broker Update User Deployment
+  method: PUT
+  path: /broker/update_user_deployment
+  operationId: broker_update_user_deployment_broker_update_user_deployment_put
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1update_user_deployment/put
+- name: broker_update_marketplace_strategy
+  title: Broker Update Marketplace Strategy
+  method: PUT
+  path: /broker/update_marketplace_strategy
+  operationId: broker_update_marketplace_strategy_broker_update_marketplace_strategy_put
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1update_marketplace_strategy/put
+- name: broker_update_scanner_strategy
+  title: Broker Update Scanner Strategy
+  method: PUT
+  path: /broker/update_scanner_strategy
+  operationId: broker_update_scanner_strategy_broker_update_scanner_strategy_put
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1update_scanner_strategy/put
+- name: broker_get_all_user_scanners
+  title: Broker Get All User Scanners
+  method: GET
+  path: /broker/get_all_user_scanners
+  operationId: broker_get_all_user_scanners_broker_get_all_user_scanners_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1get_all_user_scanners/get
+- name: broker_register_user
+  title: Register Broker User
+  method: POST
+  path: /broker/register_user
+  operationId: register_broker_user_broker_register_user_post
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1broker~1register_user/post
+- name: get_strategies_by_user
+  title: Get Strategies
+  method: GET
+  path: /get_strategies_by_user
+  operationId: get_strategies_get_strategies_by_user_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1get_strategies_by_user/get
+- name: backtest_strategy
+  title: Backtest Strategy
+  method: POST
+  path: /backtest_strategy
+  operationId: backtest_strategy_backtest_strategy_post
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1backtest_strategy/post
+- name: deploy_live_strategy
+  title: Deploy Live Strategy
+  method: POST
+  path: /deploy_live_strategy
+  operationId: deploy_live_strategy_deploy_live_strategy_post
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1deploy_live_strategy/post
+- name: undeploy_live_strategy
+  title: Undeploy Live Strategy
+  method: POST
+  path: /undeploy_live_strategy
+  operationId: undeploy_live_strategy_undeploy_live_strategy_post
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1undeploy_live_strategy/post
+- name: get_strategy_details
+  title: Get Strategy Details
+  method: GET
+  path: /get_strategy_details
+  operationId: get_strategy_details_get_strategy_details_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1get_strategy_details/get
+- name: build_new_strategy
+  title: Build New Strategy
+  method: POST
+  path: /build_new_strategy
+  operationId: build_new_strategy_build_new_strategy_post
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1build_new_strategy/post
+- name: save_strategy
+  title: Save Strategy
+  method: POST
+  path: /save_strategy
+  operationId: save_strategy_save_strategy_post
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1save_strategy/post
+- name: get_report_data
+  title: Get Report Data
+  method: GET
+  path: /get_report_data
+  operationId: get_report_data_get_report_data_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1get_report_data/get
+- name: get_market_scanner_strategies_v2
+  title: Get Market Scanner Strategies V2
+  method: GET
+  path: /get_market_scanner_strategies_v2
+  operationId: get_market_scanner_strategies_v2_get_market_scanner_strategies_v2_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1get_market_scanner_strategies_v2/get
+- name: get_explore_strategies
+  title: Get Explore Strategies
+  method: GET
+  path: /get_explore_strategies
+  operationId: get_explore_strategies_get_explore_strategies_get
+  input_schema_source: openapi/level2-hub-controller-openapi.json#/paths/~1get_explore_strategies/get

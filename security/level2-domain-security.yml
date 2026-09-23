@@ -1,21 +1,24 @@
-generated: '2026-07-11'
+generated: '2026-09-17'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
 - host: www.trylevel2.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Sep 13 08:58:44 2026 GMT
+  cert_expires: Nov 13 19:41:05 2026 GMT
   hsts: true
   hsts_max_age: 63072000
 - host: learn.trylevel2.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Sep 10 23:15:15 2026 GMT
+  cert_expires: Nov 11 12:39:03 2026 GMT
   hsts: true
   hsts_max_age: 63072000
-- host: app.bytemine.io
-  https: false
+- host: hub2.trylevel2.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov 19 15:25:58 2026 GMT
+  hsts: null
 domains:
 - domain: trylevel2.com
   dnssec: false
@@ -23,8 +26,3 @@ domains:
   spf: true
   dmarc: true
   dmarc_policy: none
-- domain: bytemine.io
-  dnssec: false
-  caa: []
-  spf: true
-  dmarc: false

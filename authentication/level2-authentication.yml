@@ -1,26 +1,94 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/level2-strategy-builder-openapi.yml, openapi/level2-tradestation-integration-openapi.yml
+generated: '2026-09-17'
+method: searched
+source: >-
+  https://learn.trylevel2.com/docs/Broker/API/authentication;
+  https://learn.trylevel2.com/docs/Broker/API/broker-api;
+  https://learn.trylevel2.com/broker_apis.json (provider-published Postman collection);
+  https://guide.bytemine.io/technical-documentation/api-documentation.md;
+  openapi/level2-hub-controller-openapi.json;
+  openapi/_original/level2-strategy-builder-openapi.yml;
+  openapi/_original/level2-tradestation-integration-openapi.yml
+docs: https://learn.trylevel2.com/docs/Broker/API/authentication
+description: >-
+  Authentication across the Level2 API surface. The live Broker API is protected by a bearer JWT the
+  broker partner mints itself; the legacy Bytemine signal API used an API key embedded in the URL
+  PATH. The live contract at https://hub2.trylevel2.com/openapi.json declares no securitySchemes at
+  all, so the model below is read from the provider's documentation and from the headers in its own
+  published Postman collection rather than from the spec.
 summary:
   types:
-  - apiKey
-  - http
+    - http
+    - apiKey
   api_key_in:
-  - query
+    - path
+  spec_declares_security: false
+  spec_declares_security_note: >-
+    The FastAPI-generated contract carries no components.securitySchemes block and no top-level
+    security requirement, even though every /broker/* operation requires a bearer token in practice.
+    overlays/level2-hub-controller-overlay.yaml adds the documented scheme without mutating the
+    original.
 schemes:
-- name: apiKeyPath
-  type: apiKey
-  in: query
-  parameter: api_key
-  description: API key passed as a path parameter in the URL. Obtain your API key from the Level2
-    platform dashboard.
-  sources:
-  - openapi/level2-strategy-builder-openapi.yml
-- name: bearerAuth
-  type: http
-  scheme: bearer
-  bearerFormat: JWT
-  description: Bearer token authentication for broker API access. Tokens are issued to broker
-    partners during the integration onboarding process.
-  sources:
-  - openapi/level2-tradestation-integration-openapi.yml
+  - name: bearerAuth
+    type: http
+    scheme: bearer
+    bearerFormat: JWT
+    surface: Level2 Hub / Broker API (https://hub2.trylevel2.com)
+    status: current
+    description: >-
+      The broker partner generates an HS256 JSON Web Token itself, signing it with a secret Level2
+      shares out of band. The payload carries a `domain` claim (the partner's Level2 subdomain, e.g.
+      antostrategy.trylevel2.com in the provider's own worked example) and a `token_expiry` claim.
+    token_lifetime:
+      recommended_minutes: 180
+      maximum_minutes: 180
+      enforcement: >-
+        "Tokens exceeding 180 minutes of validity will be automatically invalidated by the system.
+        Upon automatic expiration, a new JWT with a 180-minute token_expiry must be generated."
+    self_service: false
+    credential_issuance: >-
+      Out of band. The signing secret and the `domain` value are, in the provider's words, "to be
+      shared separately"; API access itself is requested by emailing contact@trylevel2.com.
+    evidence:
+      - https://learn.trylevel2.com/docs/Broker/API/authentication
+      - https://learn.trylevel2.com/docs/Broker/API/broker-api
+      - 'https://learn.trylevel2.com/broker_apis.json (every request sends Authorization: Bearer [token])'
+    sources:
+      - https://learn.trylevel2.com/docs/Broker/API/authentication
+  - name: apiKeyPath
+    type: apiKey
+    in: path
+    parameter: api_key
+    surface: Legacy Bytemine signal API (app.bytemine.io/api, valhalla.bytemine.workers.dev)
+    status: legacy
+    description: >-
+      An API key interpolated directly into the request PATH — e.g.
+      /checkForCandlestick/{api_key}/TSLA/5m. The Bytemine documentation obtains the key from a
+      developer portal at https://app.bytemine.io/developers.
+    caution: >-
+      A credential in the path is logged by every proxy, CDN and browser history along the way. It is
+      recorded here because the provider documents it, not because it is recommended.
+    liveness:
+      checked: '2026-09-17'
+      note: >-
+        app.bytemine.io does not resolve (NXDOMAIN), so the documented key-issuance portal is
+        unreachable; valhalla.bytemine.workers.dev resolves but returns HTTP 500 "Wrong Api Call" on
+        every path.
+    sources:
+      - https://guide.bytemine.io/technical-documentation/api-documentation.md
+      - openapi/_original/level2-strategy-builder-openapi.yml
+oauth:
+  as_server: false
+  as_client: true
+  note: >-
+    Level2 publishes no authorization server (/.well-known/oauth-authorization-server is 404 on every
+    host). It is an OAuth CLIENT of the brokers it connects to: the contract carries
+    /broker-oauth/public/callback, /broker-oauth/connecttrade/callback, /broker-oauth/sterling and
+    /ctrader_access + /ctrader_auth_callback. End users may additionally sign in with Google
+    (POST /auth/google), but no OIDC discovery document is served.
+end_user_auth:
+  methods:
+    - email + password (POST /login, POST /register_user)
+    - Google sign-in (POST /auth/google)
+    - email OTP (POST /generate_email_otp, POST /verify_otp_token)
+    - SMS OTP (POST /send_sms_otp, POST /validate_sms_otp)
+  note: Platform sign-in for traders, distinct from the partner-facing Broker API token above.
