@@ -1,0 +1,106 @@
+openapi: 3.2.0
+info:
+  title: Level2 Get User Preferences API
+  version: 0.1.0
+  description: 'Operations tagged Get User Preferences across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Get User Preferences
+paths:
+  /get_user_preferences:
+    get:
+      summary: Get User Preferences
+      operationId: get_user_preferences_get_user_preferences_get
+      parameters:
+      - required: true
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPreferenceOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Get User Preferences
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    UserPreferenceOut:
+      title: UserPreferenceOut
+      type: object
+      properties:
+        country:
+          title: Country
+          type: string
+        trading_yoe:
+          title: Trading Yoe
+          type: string
+        risk_class:
+          title: Risk Class
+          type: string
+        language:
+          title: Language
+          type: string
+        asset_class:
+          title: Asset Class
+          type: string
+        notification_preference:
+          title: Notification Preference
+          type: string
+        nudges_tracker:
+          title: Nudges Tracker
+          type: string
+        walkthrough_status:
+          title: Walkthrough Status
+          type: string
+        webhook:
+          title: Webhook
+          type: string
+        send_email:
+          title: Send Email
+          type: string
+        socials:
+          title: Socials
+          type: string
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

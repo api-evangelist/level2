@@ -1,0 +1,1038 @@
+openapi: 3.2.0
+info:
+  title: Level2 Broker API
+  version: 0.1.0
+  description: 'Operations tagged Broker across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Broker
+paths:
+  /broker/generate_broker_token:
+    get:
+      summary: Broker Generate Broker Token
+      operationId: broker_generate_broker_token_broker_generate_broker_token_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Broker
+  /broker/get_user_strategy_performance:
+    get:
+      summary: Get Broker User Strategy Performance
+      operationId: get_broker_user_strategy_performance_broker_get_user_strategy_performance_get
+      parameters:
+      - required: true
+        schema:
+          title: Strategy Id
+          type: integer
+        name: strategy_id
+        in: query
+      - required: true
+        schema:
+          title: Deployment Id
+          type: integer
+        name: deployment_id
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/get_broker_user_slippage_by_email:
+    get:
+      summary: Get Broker User Slippage By Email
+      operationId: get_broker_user_slippage_by_email_broker_get_broker_user_slippage_by_email_get
+      parameters:
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: false
+        schema:
+          title: Limit
+          type: integer
+          default: 30
+        name: limit
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/get_broker_user_latency_by_email:
+    get:
+      summary: Get Broker User Latency By Email
+      operationId: get_broker_user_latency_by_email_broker_get_broker_user_latency_by_email_get
+      parameters:
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: false
+        schema:
+          title: Limit
+          type: integer
+          default: 30
+        name: limit
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/reset_user_password:
+    put:
+      summary: Broker Reset User Password
+      operationId: broker_reset_user_password_broker_reset_user_password_put
+      parameters:
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: true
+        schema:
+          title: New Password
+          type: string
+        name: new_password
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/update_user_email:
+    put:
+      summary: Broker Update User Email
+      operationId: broker_update_user_email_broker_update_user_email_put
+      parameters:
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: true
+        schema:
+          title: New User Email
+          type: string
+        name: new_user_email
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/get_user_strategies:
+    get:
+      summary: Get User Strategies
+      operationId: get_user_strategies_broker_get_user_strategies_get
+      parameters:
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1.0
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100.0
+          minimum: 1.0
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_BrokerStrategyCustomOut_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/get_registered_users:
+    get:
+      summary: Broker Get Registered Users
+      operationId: broker_get_registered_users_broker_get_registered_users_get
+      parameters:
+      - required: false
+        schema:
+          title: Page
+          minimum: 1.0
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100.0
+          minimum: 1.0
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_BrokerUserCustomOut_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/update_user_strategy:
+    put:
+      summary: Update User Strategy
+      operationId: update_user_strategy_broker_update_user_strategy_put
+      parameters:
+      - required: true
+        schema:
+          title: Strategy Id
+          type: string
+        name: strategy_id
+        in: query
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: true
+        schema:
+          title: Should Delete
+          type: boolean
+        name: should_delete
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/get_all_user_deployments:
+    get:
+      summary: Broker Get All User Deployments
+      operationId: broker_get_all_user_deployments_broker_get_all_user_deployments_get
+      parameters:
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1.0
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100.0
+          minimum: 1.0
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_BrokerCustomLiveDeploymentOut_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/get_all_trades_by_user_deployments:
+    get:
+      summary: Broker Get All Trades By User Deployments
+      operationId: broker_get_all_trades_by_user_deployments_broker_get_all_trades_by_user_deployments_get
+      parameters:
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1.0
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100.0
+          minimum: 1.0
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_BrokerCustomLiveDeploymentOrderBookOut_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/get_all_trades_by_user_strategy:
+    get:
+      summary: Broker Get All Trades By User Strategy
+      operationId: broker_get_all_trades_by_user_strategy_broker_get_all_trades_by_user_strategy_get
+      parameters:
+      - required: true
+        schema:
+          title: Strategy Keygen
+          type: string
+        name: strategy_keygen
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1.0
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100.0
+          minimum: 1.0
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_BrokerCustomLiveDeploymentOrderBookOut_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/get_recent_backtest_details:
+    get:
+      summary: Broker Get Recent Backtest Details
+      operationId: broker_get_recent_backtest_details_broker_get_recent_backtest_details_get
+      parameters:
+      - required: true
+        schema:
+          title: Strategy Keygen
+          type: string
+        name: strategy_keygen
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/update_user_deployment:
+    put:
+      summary: Broker Update User Deployment
+      operationId: broker_update_user_deployment_broker_update_user_deployment_put
+      parameters:
+      - required: true
+        schema:
+          title: Deployment Id
+          type: string
+        name: deployment_id
+        in: query
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: true
+        schema:
+          title: Should Delete
+          type: boolean
+        name: should_delete
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/update_marketplace_strategy:
+    put:
+      summary: Broker Update Marketplace Strategy
+      operationId: broker_update_marketplace_strategy_broker_update_marketplace_strategy_put
+      parameters:
+      - required: true
+        schema:
+          title: Strategy Id
+          type: string
+        name: strategy_id
+        in: query
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: true
+        schema:
+          title: Should Publish
+          type: boolean
+        name: should_publish
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/update_scanner_strategy:
+    put:
+      summary: Broker Update Scanner Strategy
+      operationId: broker_update_scanner_strategy_broker_update_scanner_strategy_put
+      parameters:
+      - required: true
+        schema:
+          title: Scanner Id
+          type: string
+        name: scanner_id
+        in: query
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: true
+        schema:
+          title: Should Delete
+          type: boolean
+        name: should_delete
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/get_all_user_scanners:
+    get:
+      summary: Broker Get All User Scanners
+      operationId: broker_get_all_user_scanners_broker_get_all_user_scanners_get
+      parameters:
+      - required: true
+        schema:
+          title: User Email
+          type: string
+        name: user_email
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1.0
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100.0
+          minimum: 1.0
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_BrokerMarketScannerStrategyOut_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+  /broker/register_user:
+    post:
+      summary: Register Broker User
+      operationId: register_broker_user_broker_register_user_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_register_broker_user_broker_register_user_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    Page_BrokerMarketScannerStrategyOut_:
+      title: Page[BrokerMarketScannerStrategyOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/BrokerMarketScannerStrategyOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+    Page_BrokerStrategyCustomOut_:
+      title: Page[BrokerStrategyCustomOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/BrokerStrategyCustomOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+    BrokerMarketScannerStrategyOut:
+      title: BrokerMarketScannerStrategyOut
+      required:
+      - id
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        is_valid:
+          title: Is Valid
+          type: boolean
+        meta:
+          title: Meta
+          type: object
+        keygen:
+          title: Keygen
+          type: string
+        strategy:
+          $ref: '#/components/schemas/BrokerStrategyCustomOut'
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        last_updated_at:
+          title: Last Updated At
+          type: string
+          format: date-time
+    Page_BrokerCustomLiveDeploymentOrderBookOut_:
+      title: Page[BrokerCustomLiveDeploymentOrderBookOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/BrokerCustomLiveDeploymentOrderBookOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+    BrokerCustomLiveDeploymentOrderBookOut:
+      title: BrokerCustomLiveDeploymentOrderBookOut
+      required:
+      - id
+      - deployment_id
+      - strategy_id
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        deployment_id:
+          title: Deployment Id
+          type: integer
+        strategy_id:
+          title: Strategy Id
+          type: integer
+        stoploss:
+          title: Stoploss
+          type: string
+        target:
+          title: Target
+          type: string
+        decision:
+          title: Decision
+          type: string
+        order_price:
+          title: Order Price
+          type: string
+        filled_at_price:
+          title: Filled At Price
+          type: number
+        result:
+          title: Result
+          type: number
+        actual_result:
+          title: Actual Result
+          type: number
+        quantity:
+          title: Quantity
+          type: number
+        misc_data:
+          title: Misc Data
+          type: string
+        trade_taken_at:
+          title: Trade Taken At
+          type: string
+        trade_closed_at:
+          title: Trade Closed At
+          type: string
+        order_status:
+          title: Order Status
+          type: string
+        close_value:
+          title: Close Value
+          type: string
+        is_valid:
+          title: Is Valid
+          type: integer
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    BrokerStrategyCustomOut:
+      title: BrokerStrategyCustomOut
+      required:
+      - id
+      - keygen
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        keygen:
+          title: Keygen
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        is_deleted:
+          title: Is Deleted
+          type: integer
+          default: 0
+        timeframe:
+          title: Timeframe
+          type: string
+        strategy_category:
+          $ref: '#/components/schemas/StrategyCategoryOut'
+        add_ons:
+          title: Add Ons
+          type: string
+        is_copied:
+          title: Is Copied
+          type: integer
+          default: 0
+        is_published:
+          title: Is Published
+          type: integer
+          default: 0
+        is_notification:
+          title: Is Notification
+          type: integer
+          default: 0
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    BrokerUserCustomOut:
+      title: BrokerUserCustomOut
+      required:
+      - unique_key
+      - email
+      type: object
+      properties:
+        unique_key:
+          title: Unique Key
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+        email:
+          title: Email
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
+    BrokerCustomLiveDeploymentOut:
+      title: BrokerCustomLiveDeploymentOut
+      required:
+      - created_at
+      - last_updated_at
+      - strategy
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        meta_data:
+          title: Meta Data
+          type: string
+        dep_flag:
+          title: Dep Flag
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
+        order_trade_type:
+          title: Order Trade Type
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        last_updated_at:
+          title: Last Updated At
+          type: string
+          format: date-time
+        strategy:
+          $ref: '#/components/schemas/BrokerStrategyCustomOut'
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    Page_BrokerCustomLiveDeploymentOut_:
+      title: Page[BrokerCustomLiveDeploymentOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/BrokerCustomLiveDeploymentOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+    Body_register_broker_user_broker_register_user_post:
+      title: Body_register_broker_user_broker_register_user_post
+      required:
+      - email
+      - first_name
+      - last_name
+      - country
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+        country:
+          title: Country
+          type: string
+    Page_BrokerUserCustomOut_:
+      title: Page[BrokerUserCustomOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/BrokerUserCustomOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

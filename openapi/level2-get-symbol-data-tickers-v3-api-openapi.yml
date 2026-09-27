@@ -1,0 +1,80 @@
+openapi: 3.2.0
+info:
+  title: Level2 Get Symbol Data Tickers V3 API
+  version: 0.1.0
+  description: 'Operations tagged Get Symbol Data Tickers V3 across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Get Symbol Data Tickers V3
+paths:
+  /get_symbol_data_tickers_v3:
+    get:
+      summary: Get Symbol Data Tickers V3
+      operationId: get_symbol_data_tickers_v3_get_symbol_data_tickers_v3_get
+      parameters:
+      - required: true
+        schema:
+          title: Ticker
+          type: string
+        name: ticker
+        in: query
+      - required: false
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      - required: false
+        schema:
+          title: Broker Id
+          type: string
+        name: broker_id
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Get Symbol Data Tickers V3
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

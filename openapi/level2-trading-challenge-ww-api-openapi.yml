@@ -1,0 +1,24 @@
+openapi: 3.2.0
+info:
+  title: Level2 Trading Challenge Ww API
+  version: 0.1.0
+  description: 'Operations tagged Trading Challenge Ww across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Trading Challenge Ww
+paths:
+  /trading_challenge_ww:
+    get:
+      summary: Tcww
+      operationId: tcww_trading_challenge_ww_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            text/html:
+              schema:
+                type: string
+      tags:
+      - Trading Challenge Ww
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

@@ -1,0 +1,129 @@
+openapi: 3.2.0
+info:
+  title: Level2 Deploy Live Strategy API
+  version: 0.1.0
+  description: 'Operations tagged Deploy Live Strategy across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Deploy Live Strategy
+paths:
+  /deploy_live_strategy:
+    post:
+      summary: Deploy Live Strategy
+      operationId: deploy_live_strategy_deploy_live_strategy_post
+      parameters:
+      - required: true
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      - required: true
+        schema:
+          title: Size
+          type: number
+        name: size
+        in: query
+      - required: true
+        schema:
+          title: Strategy Id
+          type: integer
+        name: strategy_id
+        in: query
+      - required: true
+        schema:
+          title: Broker Id
+          type: integer
+        name: broker_id
+        in: query
+      - required: false
+        schema:
+          title: Symbols
+          type: string
+        name: symbols
+        in: query
+      - required: false
+        schema:
+          title: Connection Id
+          type: string
+        name: connection_id
+        in: query
+      - required: false
+        schema:
+          title: Leverage
+          type: integer
+          default: 1
+        name: leverage
+        in: query
+      - required: false
+        schema:
+          title: Strict Sl
+          type: number
+        name: strict_sl
+        in: query
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_deploy_live_strategy_deploy_live_strategy_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Deploy Live Strategy
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    Body_deploy_live_strategy_deploy_live_strategy_post:
+      title: Body_deploy_live_strategy_deploy_live_strategy_post
+      type: object
+      properties:
+        api_key:
+          title: Api Key
+          type: string
+        api_secret:
+          title: Api Secret
+          type: string
+        passphrase:
+          title: Passphrase
+          type: string
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

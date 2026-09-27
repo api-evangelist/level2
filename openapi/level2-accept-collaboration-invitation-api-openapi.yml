@@ -1,0 +1,155 @@
+openapi: 3.2.0
+info:
+  title: Level2 Accept Collaboration Invitation API
+  version: 0.1.0
+  description: 'Operations tagged Accept Collaboration Invitation across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Accept Collaboration Invitation
+paths:
+  /accept_collaboration_invitation:
+    post:
+      summary: Accept Collaboration Invitation
+      operationId: accept_collaboration_invitation_accept_collaboration_invitation_post
+      parameters:
+      - required: true
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      - required: true
+        schema:
+          title: Keygen
+          type: string
+        name: keygen
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Accept Collaboration Invitation
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    StrategyOut:
+      title: StrategyOut
+      required:
+      - id
+      - keygen
+      - backtest_type
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        keygen:
+          title: Keygen
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        is_deleted:
+          title: Is Deleted
+          type: integer
+          default: 0
+        timeframe:
+          title: Timeframe
+          type: string
+        strategy_category:
+          $ref: '#/components/schemas/StrategyCategoryOut'
+        add_ons:
+          title: Add Ons
+          type: string
+        broker_id:
+          title: Broker Id
+          type: integer
+        is_copied:
+          title: Is Copied
+          type: integer
+          default: 0
+        is_notification:
+          title: Is Notification
+          type: integer
+          default: 0
+        backtest_type:
+          title: Backtest Type
+          type: string
+        strategy_data:
+          title: Strategy Data
+          type: string
+        canvas_data:
+          title: Canvas Data
+          type: string
+        strategy_description:
+          title: Strategy Description
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

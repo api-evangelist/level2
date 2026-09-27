@@ -84,37 +84,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    CreateUserRequest:
-      type: object
-      description: Request body for creating a new broker user account.
-      required:
-      - externalId
-      properties:
-        externalId:
-          type: string
-          description: The broker's external identifier for this user, used to link the Level2 account to the broker's customer record.
-        email:
-          type: string
-          format: email
-          description: The user's email address
-        displayName:
-          type: string
-          description: The user's display name shown in the Level2 interface
-          maxLength: 100
-    ErrorResponse:
-      type: object
-      description: Standard error response for broker API requests.
-      properties:
-        error:
-          type: string
-          description: A human-readable error message
-        code:
-          type: string
-          description: A machine-readable error code
-        details:
-          type: object
-          description: Additional error details when available
-          additionalProperties: true
     UserResponse:
       type: object
       description: Response containing user account details.
@@ -147,6 +116,37 @@ components:
           type: string
           format: date-time
           description: Timestamp when the user account was last updated
+    ErrorResponse:
+      type: object
+      description: Standard error response for broker API requests.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: A machine-readable error code
+        details:
+          type: object
+          description: Additional error details when available
+          additionalProperties: true
+    CreateUserRequest:
+      type: object
+      description: Request body for creating a new broker user account.
+      required:
+      - externalId
+      properties:
+        externalId:
+          type: string
+          description: The broker's external identifier for this user, used to link the Level2 account to the broker's customer record.
+        email:
+          type: string
+          format: email
+          description: The user's email address
+        displayName:
+          type: string
+          description: The user's display name shown in the Level2 interface
+          maxLength: 100
   parameters:
     userId:
       name: userId

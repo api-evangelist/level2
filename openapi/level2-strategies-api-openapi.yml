@@ -286,57 +286,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    StrategyResponse:
-      type: object
-      description: Response containing full strategy details including configuration, status, and performance information.
-      properties:
-        id:
-          type: string
-          description: The unique strategy identifier
-        userId:
-          type: string
-          description: The owner user identifier
-        name:
-          type: string
-          description: The strategy name
-        description:
-          type: string
-          description: The strategy description
-        instrument:
-          type: string
-          description: The primary instrument ticker symbol
-        instrumentType:
-          type: string
-          description: The instrument type
-          enum:
-          - stock
-          - option
-          - future
-        timeframe:
-          type: string
-          description: The primary chart timeframe
-        status:
-          type: string
-          description: The current strategy status
-          enum:
-          - draft
-          - active
-          - deployed
-          - inactive
-        definition:
-          $ref: '#/components/schemas/StrategyDefinition'
-        createdAt:
-          type: string
-          format: date-time
-          description: Timestamp when the strategy was created
-        updatedAt:
-          type: string
-          format: date-time
-          description: Timestamp when the strategy was last updated
-        deployedAt:
-          type: string
-          format: date-time
-          description: Timestamp when the strategy was last deployed
     StrategyDefinition:
       type: object
       description: The visual strategy builder definition containing entry conditions, exit conditions, and risk management rules created through the Level2 drag-and-drop interface.
@@ -394,99 +343,6 @@ components:
           - 1d
         definition:
           $ref: '#/components/schemas/StrategyDefinition'
-    ErrorResponse:
-      type: object
-      description: Standard error response for broker API requests.
-      properties:
-        error:
-          type: string
-          description: A human-readable error message
-        code:
-          type: string
-          description: A machine-readable error code
-        details:
-          type: object
-          description: Additional error details when available
-          additionalProperties: true
-    StrategyListResponse:
-      type: object
-      description: Paginated list of user strategies.
-      properties:
-        strategies:
-          type: array
-          description: List of strategy objects
-          items:
-            $ref: '#/components/schemas/StrategyResponse'
-        total:
-          type: integer
-          description: Total number of strategies matching the filter
-        limit:
-          type: integer
-          description: Maximum number of results per page
-        offset:
-          type: integer
-          description: Current offset for pagination
-    PositionConfig:
-      type: object
-      description: Position sizing and order configuration for the strategy.
-      properties:
-        side:
-          type: string
-          description: The trade direction
-          enum:
-          - long
-          - short
-          - both
-        orderType:
-          type: string
-          description: The order type used for entries
-          enum:
-          - market
-          - limit
-          - stop
-        quantity:
-          type: number
-          format: float
-          description: The number of shares or contracts per trade
-        quantityType:
-          type: string
-          description: Whether quantity is shares, contracts, or a dollar amount
-          enum:
-          - shares
-          - contracts
-          - dollars
-    RiskManagement:
-      type: object
-      description: Risk management configuration for the strategy including stop loss, take profit, and trailing stop settings.
-      properties:
-        stopLoss:
-          type: number
-          format: float
-          description: Stop loss percentage or absolute value
-        stopLossType:
-          type: string
-          description: Whether stop loss is a percentage or absolute price
-          enum:
-          - percentage
-          - absolute
-        takeProfit:
-          type: number
-          format: float
-          description: Take profit percentage or absolute value
-        takeProfitType:
-          type: string
-          description: Whether take profit is a percentage or absolute price
-          enum:
-          - percentage
-          - absolute
-        trailingStop:
-          type: number
-          format: float
-          description: Trailing stop distance percentage
-        maxPositions:
-          type: integer
-          description: Maximum number of concurrent open positions
-          minimum: 1
     UpdateStrategyRequest:
       type: object
       description: Request body for updating an existing trading strategy.
@@ -529,14 +385,38 @@ components:
           - draft
         definition:
           $ref: '#/components/schemas/StrategyDefinition'
-    DeployStrategyRequest:
+    StrategyListResponse:
       type: object
-      description: Optional deployment configuration for a strategy being activated for live trading.
+      description: Paginated list of user strategies.
       properties:
-        paperTrading:
-          type: boolean
-          description: Whether to deploy in paper trading mode (simulated) rather than live trading. Defaults to false.
-          default: false
+        strategies:
+          type: array
+          description: List of strategy objects
+          items:
+            $ref: '#/components/schemas/StrategyResponse'
+        total:
+          type: integer
+          description: Total number of strategies matching the filter
+        limit:
+          type: integer
+          description: Maximum number of results per page
+        offset:
+          type: integer
+          description: Current offset for pagination
+    ErrorResponse:
+      type: object
+      description: Standard error response for broker API requests.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: A machine-readable error code
+        details:
+          type: object
+          description: Additional error details when available
+          additionalProperties: true
     StrategyCondition:
       type: object
       description: A single condition in a trading strategy, representing a comparison between indicators, price values, or other market data points.
@@ -572,6 +452,126 @@ components:
           enum:
           - AND
           - OR
+    RiskManagement:
+      type: object
+      description: Risk management configuration for the strategy including stop loss, take profit, and trailing stop settings.
+      properties:
+        stopLoss:
+          type: number
+          format: float
+          description: Stop loss percentage or absolute value
+        stopLossType:
+          type: string
+          description: Whether stop loss is a percentage or absolute price
+          enum:
+          - percentage
+          - absolute
+        takeProfit:
+          type: number
+          format: float
+          description: Take profit percentage or absolute value
+        takeProfitType:
+          type: string
+          description: Whether take profit is a percentage or absolute price
+          enum:
+          - percentage
+          - absolute
+        trailingStop:
+          type: number
+          format: float
+          description: Trailing stop distance percentage
+        maxPositions:
+          type: integer
+          description: Maximum number of concurrent open positions
+          minimum: 1
+    PositionConfig:
+      type: object
+      description: Position sizing and order configuration for the strategy.
+      properties:
+        side:
+          type: string
+          description: The trade direction
+          enum:
+          - long
+          - short
+          - both
+        orderType:
+          type: string
+          description: The order type used for entries
+          enum:
+          - market
+          - limit
+          - stop
+        quantity:
+          type: number
+          format: float
+          description: The number of shares or contracts per trade
+        quantityType:
+          type: string
+          description: Whether quantity is shares, contracts, or a dollar amount
+          enum:
+          - shares
+          - contracts
+          - dollars
+    StrategyResponse:
+      type: object
+      description: Response containing full strategy details including configuration, status, and performance information.
+      properties:
+        id:
+          type: string
+          description: The unique strategy identifier
+        userId:
+          type: string
+          description: The owner user identifier
+        name:
+          type: string
+          description: The strategy name
+        description:
+          type: string
+          description: The strategy description
+        instrument:
+          type: string
+          description: The primary instrument ticker symbol
+        instrumentType:
+          type: string
+          description: The instrument type
+          enum:
+          - stock
+          - option
+          - future
+        timeframe:
+          type: string
+          description: The primary chart timeframe
+        status:
+          type: string
+          description: The current strategy status
+          enum:
+          - draft
+          - active
+          - deployed
+          - inactive
+        definition:
+          $ref: '#/components/schemas/StrategyDefinition'
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the strategy was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the strategy was last updated
+        deployedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the strategy was last deployed
+    DeployStrategyRequest:
+      type: object
+      description: Optional deployment configuration for a strategy being activated for live trading.
+      properties:
+        paperTrading:
+          type: boolean
+          description: Whether to deploy in paper trading mode (simulated) rather than live trading. Defaults to false.
+          default: false
   parameters:
     strategyId:
       name: strategyId

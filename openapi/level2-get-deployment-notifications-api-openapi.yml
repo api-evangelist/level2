@@ -1,0 +1,244 @@
+openapi: 3.2.0
+info:
+  title: Level2 Get Deployment Notifications API
+  version: 0.1.0
+  description: 'Operations tagged Get Deployment Notifications across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Get Deployment Notifications
+paths:
+  /get_deployment_notifications:
+    get:
+      summary: Get Deployment Notifications
+      operationId: get_deployment_notifications_get_deployment_notifications_get
+      parameters:
+      - required: true
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1.0
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100.0
+          minimum: 1.0
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_UserDeploymentNotificationsCustomOut_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Get Deployment Notifications
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    Page_UserDeploymentNotificationsCustomOut_:
+      title: Page[UserDeploymentNotificationsCustomOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDeploymentNotificationsCustomOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+    StrategyOut:
+      title: StrategyOut
+      required:
+      - id
+      - keygen
+      - backtest_type
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        keygen:
+          title: Keygen
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        is_deleted:
+          title: Is Deleted
+          type: integer
+          default: 0
+        timeframe:
+          title: Timeframe
+          type: string
+        strategy_category:
+          $ref: '#/components/schemas/StrategyCategoryOut'
+        add_ons:
+          title: Add Ons
+          type: string
+        broker_id:
+          title: Broker Id
+          type: integer
+        is_copied:
+          title: Is Copied
+          type: integer
+          default: 0
+        is_notification:
+          title: Is Notification
+          type: integer
+          default: 0
+        backtest_type:
+          title: Backtest Type
+          type: string
+        strategy_data:
+          title: Strategy Data
+          type: string
+        canvas_data:
+          title: Canvas Data
+          type: string
+        strategy_description:
+          title: Strategy Description
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    UserDeploymentNotificationsCustomOut:
+      title: UserDeploymentNotificationsCustomOut
+      type: object
+      properties:
+        scanner_deployment:
+          $ref: '#/components/schemas/ScannerDeploymentsOut'
+        meta:
+          title: Meta
+          type: array
+          items: {}
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    ScannerDeploymentsOut:
+      title: ScannerDeploymentsOut
+      required:
+      - created_at
+      - last_updated_at
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        universe:
+          $ref: '#/components/schemas/MarketScannerUniverseOut'
+        strategy:
+          $ref: '#/components/schemas/StrategyOut'
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        last_updated_at:
+          title: Last Updated At
+          type: string
+          format: date-time
+    MarketScannerUniverseOut:
+      title: MarketScannerUniverseOut
+      type: object
+      properties:
+        meta:
+          title: Meta
+          type: object
+        keygen:
+          title: Keygen
+          type: string
+        universe_list:
+          title: Universe List
+          type: array
+          items: {}
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

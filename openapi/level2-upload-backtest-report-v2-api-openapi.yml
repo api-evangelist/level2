@@ -1,0 +1,80 @@
+openapi: 3.2.0
+info:
+  title: Level2 Upload Backtest Report V2 API
+  version: 0.1.0
+  description: 'Operations tagged Upload Backtest Report V2 across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Upload Backtest Report V2
+paths:
+  /upload_backtest_report_v2:
+    post:
+      summary: Upload Backtest Report V2
+      operationId: upload_backtest_report_v2_upload_backtest_report_v2_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_upload_backtest_report_v2_upload_backtest_report_v2_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Upload Backtest Report V2
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    Body_upload_backtest_report_v2_upload_backtest_report_v2_post:
+      title: Body_upload_backtest_report_v2_upload_backtest_report_v2_post
+      required:
+      - keygen
+      - backtest_report
+      type: object
+      properties:
+        keygen:
+          title: Keygen
+          type: string
+        backtest_report:
+          title: Backtest Report
+          type: string
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

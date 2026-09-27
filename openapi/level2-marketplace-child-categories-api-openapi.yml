@@ -1,0 +1,23 @@
+openapi: 3.2.0
+info:
+  title: Level2 Marketplace Child Categories API
+  version: 0.1.0
+  description: 'Operations tagged Marketplace Child Categories across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Marketplace Child Categories
+paths:
+  /marketplace_child_categories:
+    get:
+      summary: Marketplace Child Categories
+      operationId: marketplace_child_categories_marketplace_child_categories_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Marketplace Child Categories
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

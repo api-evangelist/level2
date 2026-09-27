@@ -1,0 +1,283 @@
+openapi: 3.2.0
+info:
+  title: Level2 Filter Broker User Stats Via Date API
+  version: 0.1.0
+  description: 'Operations tagged Filter Broker User Stats Via Date across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Filter Broker User Stats Via Date
+paths:
+  /filter_broker_user_stats_via_date:
+    get:
+      summary: Filter Broker User Stats Via Date
+      operationId: filter_broker_user_stats_via_date_filter_broker_user_stats_via_date_get
+      parameters:
+      - required: true
+        schema:
+          title: From Date
+          type: string
+        name: from_date
+        in: query
+      - required: true
+        schema:
+          title: To Date
+          type: string
+        name: to_date
+        in: query
+      - required: true
+        schema:
+          title: Key
+          type: string
+        name: key
+        in: query
+      - required: true
+        schema:
+          title: Passcode
+          type: string
+        name: passcode
+        in: query
+      - required: false
+        schema:
+          title: Search Key
+          type: string
+        name: search_key
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1.0
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100.0
+          minimum: 1.0
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_LiveDeploymentBrokerStatsOut_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Filter Broker User Stats Via Date
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    Page_LiveDeploymentBrokerStatsOut_:
+      title: Page[LiveDeploymentBrokerStatsOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveDeploymentBrokerStatsOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+    B2cBrokersOut:
+      title: B2cBrokersOut
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        broker_name:
+          title: Broker Name
+          type: string
+        image_url:
+          title: Image Url
+          type: string
+        doc_url:
+          title: Doc Url
+          type: string
+        referral_link:
+          title: Referral Link
+          type: string
+        offer_valid:
+          title: Offer Valid
+          type: integer
+    UserSelectedCustomOut:
+      title: UserSelectedCustomOut
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        degree:
+          title: Degree
+          type: string
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
+    LiveDeploymentBrokerStatsOut:
+      title: LiveDeploymentBrokerStatsOut
+      required:
+      - created_at
+      - last_updated_at
+      - broker
+      - strategy
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        user_id:
+          title: User Id
+          type: string
+        meta_data:
+          title: Meta Data
+          type: string
+        dep_flag:
+          title: Dep Flag
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
+        order_trade_type:
+          title: Order Trade Type
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        last_updated_at:
+          title: Last Updated At
+          type: string
+          format: date-time
+        broker:
+          $ref: '#/components/schemas/B2cBrokersOut'
+        user:
+          $ref: '#/components/schemas/UserSelectedCustomOut'
+        strategy:
+          $ref: '#/components/schemas/BrokerStrategyOut'
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    BrokerStrategyOut:
+      title: BrokerStrategyOut
+      required:
+      - id
+      - backtest_type
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        strategy_name:
+          title: Strategy Name
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        is_deleted:
+          title: Is Deleted
+          type: integer
+          default: 0
+        timeframe:
+          title: Timeframe
+          type: string
+        strategy_category:
+          $ref: '#/components/schemas/StrategyCategoryOut'
+        add_ons:
+          title: Add Ons
+          type: string
+        is_copied:
+          title: Is Copied
+          type: integer
+          default: 0
+        is_notification:
+          title: Is Notification
+          type: integer
+          default: 0
+        backtest_type:
+          title: Backtest Type
+          type: string
+        strategy_data:
+          title: Strategy Data
+          type: string
+        canvas_data:
+          title: Canvas Data
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

@@ -1,0 +1,68 @@
+openapi: 3.2.0
+info:
+  title: Level2 Get Fcm Token Web API
+  version: 0.1.0
+  description: 'Operations tagged Get Fcm Token Web across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Get Fcm Token Web
+paths:
+  /get_fcm_token_web:
+    get:
+      summary: Get Fcm Token Web
+      operationId: get_fcm_token_web_get_fcm_token_web_get
+      parameters:
+      - required: true
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Get Fcm Token Web
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

@@ -1,0 +1,80 @@
+openapi: 3.2.0
+info:
+  title: Level2 Send Engine Email API
+  version: 0.1.0
+  description: 'Operations tagged Send Engine Email across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Send Engine Email
+paths:
+  /send_engine_email:
+    get:
+      summary: Send Engine Email
+      operationId: send_engine_email_send_engine_email_get
+      parameters:
+      - required: true
+        schema:
+          title: Hashed User
+          type: integer
+        name: hashed_user
+        in: query
+      - required: true
+        schema:
+          title: Email Subject
+          type: string
+        name: email_subject
+        in: query
+      - required: true
+        schema:
+          title: Email Body
+          type: string
+        name: email_body
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Send Engine Email
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

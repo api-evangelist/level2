@@ -1,0 +1,80 @@
+openapi: 3.2.0
+info:
+  title: Level2 Get Live Strategy Full Order Book API
+  version: 0.1.0
+  description: 'Operations tagged Get Live Strategy Full Order Book across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Get Live Strategy Full Order Book
+paths:
+  /get_live_strategy_full_order_book:
+    get:
+      summary: Get Live Strategy Full Order Book
+      operationId: get_live_strategy_full_order_book_get_live_strategy_full_order_book_get
+      parameters:
+      - required: true
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      - required: true
+        schema:
+          title: Strategy Id
+          type: integer
+        name: strategy_id
+        in: query
+      - required: true
+        schema:
+          title: Deployment Id
+          type: integer
+        name: deployment_id
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Get Live Strategy Full Order Book
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

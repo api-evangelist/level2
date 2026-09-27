@@ -1,0 +1,96 @@
+openapi: 3.2.0
+info:
+  title: Level2 Send Canvas Attendance API
+  version: 0.1.0
+  description: 'Operations tagged Send Canvas Attendance across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Send Canvas Attendance
+paths:
+  /send_canvas_attendance:
+    post:
+      summary: Send Canvas Attendance
+      operationId: send_canvas_attendance_send_canvas_attendance_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_send_canvas_attendance_send_canvas_attendance_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Send Canvas Attendance
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    Body_send_canvas_attendance_send_canvas_attendance_post:
+      title: Body_send_canvas_attendance_send_canvas_attendance_post
+      required:
+      - room
+      - status
+      - u_key
+      - strategy_id
+      - first_name
+      - last_name
+      type: object
+      properties:
+        room:
+          title: Room
+          type: string
+        status:
+          title: Status
+          type: string
+        u_key:
+          title: U Key
+          type: string
+        strategy_id:
+          title: Strategy Id
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

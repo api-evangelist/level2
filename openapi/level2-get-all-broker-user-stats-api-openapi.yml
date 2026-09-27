@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: Level2 Get All Broker User Stats API
+  version: 0.1.0
+  description: 'Operations tagged Get All Broker User Stats across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Get All Broker User Stats
+paths:
+  /get_all_broker_user_stats:
+    get:
+      summary: Get Broker User Stats
+      operationId: get_broker_user_stats_get_all_broker_user_stats_get
+      parameters:
+      - required: true
+        schema:
+          title: Passcode
+          type: string
+        name: passcode
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get Broker User Stats Get All Broker User Stats Get
+                type: array
+                items:
+                  $ref: '#/components/schemas/LiveDeploymentOrderBookBrokerUserStats'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Get All Broker User Stats
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    UserSelectedCustomOut:
+      title: UserSelectedCustomOut
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        degree:
+          title: Degree
+          type: string
+    StrategySelectedCustomOut:
+      title: StrategySelectedCustomOut
+      required:
+      - id
+      - keygen
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        keygen:
+          title: Keygen
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        is_deleted:
+          title: Is Deleted
+          type: integer
+          default: 0
+        strategy_data:
+          title: Strategy Data
+          type: string
+        canvas_data:
+          title: Canvas Data
+          type: string
+        timeframe:
+          title: Timeframe
+          type: string
+        broker_id:
+          title: Broker Id
+          type: integer
+        cached:
+          title: Cached
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    LiveDeploymentOrderBookBrokerUserStats:
+      title: LiveDeploymentOrderBookBrokerUserStats
+      required:
+      - user
+      - quantity
+      - trade_taken_at
+      - decision
+      - strategy
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        meta_data:
+          title: Meta Data
+          type: string
+        user:
+          $ref: '#/components/schemas/UserSelectedCustomOut'
+        quantity:
+          title: Quantity
+          type: string
+        trade_taken_at:
+          title: Trade Taken At
+          type: string
+        decision:
+          title: Decision
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        trade_closed_at_ts:
+          title: Trade Closed At Ts
+          type: string
+          format: date-time
+        trade_closed_at:
+          title: Trade Closed At
+          type: string
+        strategy:
+          $ref: '#/components/schemas/StrategySelectedCustomOut'
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

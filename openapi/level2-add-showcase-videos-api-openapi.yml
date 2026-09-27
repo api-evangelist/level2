@@ -1,0 +1,86 @@
+openapi: 3.2.0
+info:
+  title: Level2 Add Showcase Videos API
+  version: 0.1.0
+  description: 'Operations tagged Add Showcase Videos across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Add Showcase Videos
+paths:
+  /add_showcase_videos:
+    post:
+      summary: Add Showcase Videos
+      operationId: add_showcase_videos_add_showcase_videos_post
+      parameters:
+      - required: true
+        schema:
+          title: Description
+          type: string
+        name: description
+        in: query
+      - required: true
+        schema:
+          title: Link
+          type: string
+        name: link
+        in: query
+      - required: true
+        schema:
+          title: Image Path
+          type: string
+        name: image_path
+        in: query
+      - required: true
+        schema:
+          title: Label
+          type: string
+        name: label
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Add Showcase Videos
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

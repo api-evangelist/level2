@@ -1,0 +1,154 @@
+openapi: 3.2.0
+info:
+  title: Level2 Broker Oauth API
+  version: 0.1.0
+  description: 'Operations tagged Broker Oauth across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Broker Oauth
+paths:
+  /broker-oauth/public/callback:
+    get:
+      summary: Public Broker Oauth Callback
+      operationId: public_broker_oauth_callback_broker_oauth_public_callback_get
+      parameters:
+      - required: false
+        schema:
+          title: Code
+          type: string
+        name: code
+        in: query
+      - required: false
+        schema:
+          title: State
+          type: string
+        name: state
+        in: query
+      - required: false
+        schema:
+          title: Error
+          type: string
+        name: error
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker Oauth
+  /broker-oauth/connecttrade/callback:
+    get:
+      summary: Connecttrade Callback
+      operationId: connecttrade_callback_broker_oauth_connecttrade_callback_get
+      parameters:
+      - required: false
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      - required: false
+        schema:
+          title: Broker Name
+          type: string
+        name: broker_name
+        in: query
+      - required: false
+        schema:
+          title: Error
+          type: string
+        name: error
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker Oauth
+  /broker-oauth/sterling:
+    get:
+      summary: Sterling Connect
+      operationId: sterling_connect_broker_oauth_sterling_get
+      parameters:
+      - required: false
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      - required: false
+        schema:
+          title: Username
+          type: string
+        name: username
+        in: query
+      - required: false
+        schema:
+          title: Password
+          type: string
+        name: password
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Broker Oauth
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

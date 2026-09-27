@@ -1,0 +1,68 @@
+openapi: 3.2.0
+info:
+  title: Level2 Check Symbol Forex API
+  version: 0.1.0
+  description: 'Operations tagged Check Symbol Forex across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Check Symbol Forex
+paths:
+  /check_symbol_forex:
+    get:
+      summary: Check Symbol Forex
+      operationId: check_symbol_forex_check_symbol_forex_get
+      parameters:
+      - required: true
+        schema:
+          title: Symbol
+          type: string
+        name: symbol
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Check Symbol Forex
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

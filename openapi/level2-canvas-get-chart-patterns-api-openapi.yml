@@ -1,0 +1,89 @@
+openapi: 3.2.0
+info:
+  title: Level2 Canvas Get Chart Patterns API
+  version: 0.1.0
+  description: 'Operations tagged Canvas Get Chart Patterns across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Canvas Get Chart Patterns
+paths:
+  /canvas_get_chart_patterns:
+    get:
+      summary: Canvas Get Chart Patterns
+      operationId: canvas_get_chart_patterns_canvas_get_chart_patterns_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Canvas Get Chart Patterns Canvas Get Chart Patterns Get
+                type: array
+                items:
+                  $ref: '#/components/schemas/CanvasChartPatternsOut'
+      tags:
+      - Canvas Get Chart Patterns
+components:
+  schemas:
+    CanvasChartPatternsOut:
+      title: CanvasChartPatternsOut
+      required:
+      - is_valid
+      - name
+      - short_name
+      - unique_key
+      type: object
+      properties:
+        inputs:
+          title: Inputs
+          type: array
+          items: {}
+          default:
+          - name: input
+        is_valid:
+          title: Is Valid
+          type: boolean
+        name:
+          title: Name
+          type: string
+        outputs:
+          title: Outputs
+          type: array
+          items: {}
+          default:
+          - name: Then
+        params:
+          title: Params
+          type: array
+          items:
+            $ref: '#/components/schemas/CanvasChartPatternParamsOut'
+        short_name:
+          title: Short Name
+          type: string
+        unique_key:
+          title: Unique Key
+          type: string
+    CanvasChartPatternParamsOut:
+      title: CanvasChartPatternParamsOut
+      type: object
+      properties:
+        box_type:
+          title: Box Type
+          type: string
+        max_value:
+          title: Max Value
+          type: number
+        min_value:
+          title: Min Value
+          type: number
+        name:
+          title: Name
+          type: string
+        type:
+          title: Type
+          type: string
+        default_value:
+          title: Default Value
+          type: string
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

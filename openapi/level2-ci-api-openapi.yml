@@ -1,0 +1,23 @@
+openapi: 3.2.0
+info:
+  title: Level2 Ci API
+  version: 0.1.0
+  description: 'Operations tagged Ci across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Ci
+paths:
+  /ci:
+    get:
+      summary: Ci
+      operationId: ci_ci_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Ci
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

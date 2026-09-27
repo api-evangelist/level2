@@ -1,0 +1,174 @@
+openapi: 3.2.0
+info:
+  title: Level2 Canvas Get Comments API
+  version: 0.1.0
+  description: 'Operations tagged Canvas Get Comments across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Canvas Get Comments
+paths:
+  /canvas_get_comments:
+    get:
+      summary: Canvas Get Comments
+      operationId: canvas_get_comments_canvas_get_comments_get
+      parameters:
+      - required: true
+        schema:
+          title: Strategy Key
+          type: string
+        name: strategy_key
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1.0
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100.0
+          minimum: 1.0
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_CanvasCommentsOut_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Canvas Get Comments
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    Page_CanvasCommentsOut_:
+      title: Page[CanvasCommentsOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/CanvasCommentsOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+    CanvasCommentsOut:
+      title: CanvasCommentsOut
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserOut'
+        reaction:
+          title: Reaction
+          type: string
+        comment:
+          title: Comment
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    UserOut:
+      title: UserOut
+      required:
+      - email
+      - first_name
+      - last_name
+      - unique_key
+      - is_active
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+        unique_key:
+          title: Unique Key
+          type: string
+        profile_image:
+          title: Profile Image
+          type: string
+        trading_challenge:
+          title: Trading Challenge
+          type: string
+        description:
+          title: Description
+          type: string
+        is_active:
+          title: Is Active
+          type: boolean
+        user_type:
+          title: User Type
+          type: string
+        meta_data:
+          title: Meta Data
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

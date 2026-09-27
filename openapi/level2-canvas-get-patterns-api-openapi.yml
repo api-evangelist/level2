@@ -1,0 +1,89 @@
+openapi: 3.2.0
+info:
+  title: Level2 Canvas Get Patterns API
+  version: 0.1.0
+  description: 'Operations tagged Canvas Get Patterns across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Canvas Get Patterns
+paths:
+  /canvas_get_patterns:
+    get:
+      summary: Canvas Get Patterns
+      operationId: canvas_get_patterns_canvas_get_patterns_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Canvas Get Patterns Canvas Get Patterns Get
+                type: array
+                items:
+                  $ref: '#/components/schemas/CanvasPatternsOut'
+      tags:
+      - Canvas Get Patterns
+components:
+  schemas:
+    CanvasPatternParamsOut:
+      title: CanvasPatternParamsOut
+      type: object
+      properties:
+        box_type:
+          title: Box Type
+          type: string
+        max_value:
+          title: Max Value
+          type: number
+        min_value:
+          title: Min Value
+          type: number
+        name:
+          title: Name
+          type: string
+        type:
+          title: Type
+          type: string
+        values:
+          title: Values
+          type: string
+    CanvasPatternsOut:
+      title: CanvasPatternsOut
+      required:
+      - is_valid
+      - name
+      - short_name
+      - unique_key
+      type: object
+      properties:
+        inputs:
+          title: Inputs
+          type: array
+          items: {}
+          default:
+          - name: input
+        is_valid:
+          title: Is Valid
+          type: boolean
+        name:
+          title: Name
+          type: string
+        outputs:
+          title: Outputs
+          type: array
+          items: {}
+          default:
+          - name: Then
+        params:
+          title: Params
+          type: array
+          items:
+            $ref: '#/components/schemas/CanvasPatternParamsOut'
+        short_name:
+          title: Short Name
+          type: string
+        unique_key:
+          title: Unique Key
+          type: string
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

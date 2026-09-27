@@ -1,0 +1,74 @@
+openapi: 3.2.0
+info:
+  title: Level2 Copy Marketplace Strategy API
+  version: 0.1.0
+  description: 'Operations tagged Copy Marketplace Strategy across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Copy Marketplace Strategy
+paths:
+  /copy_marketplace_strategy:
+    get:
+      summary: Copy Marketplace Strategy
+      operationId: copy_marketplace_strategy_copy_marketplace_strategy_get
+      parameters:
+      - required: true
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      - required: true
+        schema:
+          title: Marketplace Key
+          type: string
+        name: marketplace_key
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Copy Marketplace Strategy
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

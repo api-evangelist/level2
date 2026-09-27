@@ -1,0 +1,100 @@
+openapi: 3.2.0
+info:
+  title: Level2 Get All Report Versions API
+  version: 0.1.0
+  description: 'Operations tagged Get All Report Versions across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Get All Report Versions
+paths:
+  /get_all_report_versions:
+    get:
+      summary: Get All Report Versions
+      operationId: get_all_report_versions_get_all_report_versions_get
+      parameters:
+      - required: true
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      - required: true
+        schema:
+          title: Strategy Id
+          type: integer
+        name: strategy_id
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get All Report Versions Get All Report Versions Get
+                type: array
+                items:
+                  $ref: '#/components/schemas/StrategyBacktestReportOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Get All Report Versions
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    StrategyBacktestReportOut:
+      title: StrategyBacktestReportOut
+      required:
+      - id
+      - report_data
+      - performance_data
+      - created_at
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        report_data:
+          title: Report Data
+          type: string
+        performance_data:
+          title: Performance Data
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

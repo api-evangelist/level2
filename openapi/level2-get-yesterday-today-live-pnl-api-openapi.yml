@@ -1,0 +1,118 @@
+openapi: 3.2.0
+info:
+  title: Level2 Get Yesterday Today Live Pnl API
+  version: 0.1.0
+  description: 'Operations tagged Get Yesterday Today Live Pnl across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Get Yesterday Today Live Pnl
+paths:
+  /get_yesterday_today_live_pnl:
+    get:
+      summary: Get Yesterday Today Live Pnl
+      operationId: get_yesterday_today_live_pnl_get_yesterday_today_live_pnl_get
+      parameters:
+      - required: true
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LiveDeploymentProfitLossOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Get Yesterday Today Live Pnl
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    LiveDeploymentProfitLossOut:
+      title: LiveDeploymentProfitLossOut
+      type: object
+      properties:
+        yesterday:
+          title: Yesterday
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveDeploymentShortOrderBookOut'
+        today:
+          title: Today
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveDeploymentShortOrderBookOut'
+        yesterday_pnl:
+          title: Yesterday Pnl
+          type: object
+        today_pnl:
+          title: Today Pnl
+          type: object
+    LiveDeploymentShortOrderBookOut:
+      title: LiveDeploymentShortOrderBookOut
+      required:
+      - id
+      - strategy_id
+      - deployment_id
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        strategy_id:
+          title: Strategy Id
+          type: integer
+        deployment_id:
+          title: Deployment Id
+          type: integer
+        result:
+          title: Result
+          type: number
+        trade_taken_at:
+          title: Trade Taken At
+          type: string
+        trade_closed_at:
+          title: Trade Closed At
+          type: string
+        close_value:
+          title: Close Value
+          type: string
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

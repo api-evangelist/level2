@@ -1,0 +1,124 @@
+openapi: 3.2.0
+info:
+  title: Level2 Register User API
+  version: 0.1.0
+  description: 'Operations tagged Register User across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Register User
+paths:
+  /register_user:
+    post:
+      summary: Register User
+      operationId: register_user_register_user_post
+      parameters:
+      - required: true
+        schema:
+          title: Auth
+          type: string
+        name: auth
+        in: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserIn'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Register User
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    UserIn:
+      title: UserIn
+      required:
+      - email
+      - password
+      - first_name
+      - last_name
+      - trading_challenge
+      - phone_number
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        password:
+          title: Password
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+        trading_challenge:
+          title: Trading Challenge
+          type: string
+        phone_number:
+          title: Phone Number
+          type: string
+        country:
+          title: Country
+          type: string
+        trading_experience:
+          title: Trading Experience
+          type: string
+        source:
+          title: Source
+          type: string
+        university:
+          title: University
+          type: string
+        degree:
+          title: Degree
+          type: string
+        yos:
+          title: Yos
+          type: integer
+        referral:
+          title: Referral
+          type: string
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

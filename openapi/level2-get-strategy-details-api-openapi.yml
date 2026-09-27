@@ -1,0 +1,228 @@
+openapi: 3.2.0
+info:
+  title: Level2 Get Strategy Details API
+  version: 0.1.0
+  description: 'Operations tagged Get Strategy Details across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Get Strategy Details
+paths:
+  /get_strategy_details:
+    get:
+      summary: Get Strategy Details
+      operationId: get_strategy_details_get_strategy_details_get
+      parameters:
+      - required: true
+        schema:
+          title: User Id
+          type: string
+        name: user_id
+        in: query
+      - required: true
+        schema:
+          title: Strategy Id
+          type: integer
+        name: strategy_id
+        in: query
+      - required: false
+        schema:
+          title: Depl Id
+          type: integer
+        name: depl_id
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyDetailsOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Get Strategy Details
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    StrategyOut:
+      title: StrategyOut
+      required:
+      - id
+      - keygen
+      - backtest_type
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        keygen:
+          title: Keygen
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        is_deleted:
+          title: Is Deleted
+          type: integer
+          default: 0
+        timeframe:
+          title: Timeframe
+          type: string
+        strategy_category:
+          $ref: '#/components/schemas/StrategyCategoryOut'
+        add_ons:
+          title: Add Ons
+          type: string
+        broker_id:
+          title: Broker Id
+          type: integer
+        is_copied:
+          title: Is Copied
+          type: integer
+          default: 0
+        is_notification:
+          title: Is Notification
+          type: integer
+          default: 0
+        backtest_type:
+          title: Backtest Type
+          type: string
+        strategy_data:
+          title: Strategy Data
+          type: string
+        canvas_data:
+          title: Canvas Data
+          type: string
+        strategy_description:
+          title: Strategy Description
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    ActionMetricsOut:
+      title: ActionMetricsOut
+      type: object
+      properties:
+        trailling_sl_p:
+          title: Trailling Sl P
+          type: string
+        trailling_sl:
+          title: Trailling Sl
+          type: string
+        order_type:
+          title: Order Type
+          type: string
+        node_id:
+          title: Node Id
+          type: string
+        stop_loss_p:
+          title: Stop Loss P
+          type: string
+        stop_loss:
+          title: Stop Loss
+          type: string
+        size:
+          title: Size
+          type: string
+        take_profit:
+          title: Take Profit
+          type: string
+        take_profit_pips:
+          title: Take Profit Pips
+          type: string
+        stop_loss_pips:
+          title: Stop Loss Pips
+          type: string
+        take_profit_price:
+          title: Take Profit Price
+          type: string
+        stop_loss_price:
+          title: Stop Loss Price
+          type: string
+        take_profit_p:
+          title: Take Profit P
+          type: string
+    StrategyDetailsOut:
+      title: StrategyDetailsOut
+      required:
+      - strategy_details
+      - action_metrics
+      - deployment
+      type: object
+      properties:
+        strategy_details:
+          $ref: '#/components/schemas/StrategyOut'
+        epoch:
+          title: Epoch
+          type: string
+        action_meta:
+          title: Action Meta
+          type: object
+        action_metrics:
+          title: Action Metrics
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionMetricsOut'
+        deployment:
+          title: Deployment
+          type: object
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

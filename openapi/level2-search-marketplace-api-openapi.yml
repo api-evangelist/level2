@@ -1,0 +1,189 @@
+openapi: 3.2.0
+info:
+  title: Level2 Search Marketplace API
+  version: 0.1.0
+  description: 'Operations tagged Search Marketplace across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Search Marketplace
+paths:
+  /search_marketplace:
+    get:
+      summary: Search Marketplace
+      operationId: search_marketplace_search_marketplace_get
+      parameters:
+      - required: true
+        schema:
+          title: Search
+          type: string
+        name: search
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1.0
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100.0
+          minimum: 1.0
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_MarketplaceListOut_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Search Marketplace
+components:
+  schemas:
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    Page_MarketplaceListOut_:
+      title: Page[MarketplaceListOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceListOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+    MarketplaceListOut:
+      title: MarketplaceListOut
+      required:
+      - symbol
+      - timeframe
+      - strategy_data
+      - canvas_data
+      - strategy_name
+      - strategy_description
+      - keygen
+      - latest_backtest
+      - previous_backtest
+      - previous_meta_data
+      - latest_meta_data
+      - blocks_data
+      - copiers_count
+      type: object
+      properties:
+        symbol:
+          title: Symbol
+          type: string
+        timeframe:
+          title: Timeframe
+          type: string
+        is_valid:
+          title: Is Valid
+          type: boolean
+          default: true
+        strategy_data:
+          title: Strategy Data
+          type: string
+        canvas_data:
+          title: Canvas Data
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        strategy_description:
+          title: Strategy Description
+          type: string
+        keygen:
+          title: Keygen
+          type: string
+        latest_backtest:
+          title: Latest Backtest
+          type: string
+        previous_backtest:
+          title: Previous Backtest
+          type: string
+        previous_meta_data:
+          title: Previous Meta Data
+          type: string
+        latest_meta_data:
+          title: Latest Meta Data
+          type: string
+        blocks_data:
+          title: Blocks Data
+          type: string
+        copiers_count:
+          title: Copiers Count
+          type: integer
+        original_strategy_id:
+          title: Original Strategy Id
+          type: integer
+        add_ons:
+          title: Add Ons
+          type: string
+        last_updated_at:
+          title: Last Updated At
+          type: string
+          format: date-time
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json

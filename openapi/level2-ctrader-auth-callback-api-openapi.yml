@@ -1,0 +1,24 @@
+openapi: 3.2.0
+info:
+  title: Level2 Ctrader Auth Callback API
+  version: 0.1.0
+  description: 'Operations tagged Ctrader Auth Callback across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Ctrader Auth Callback
+paths:
+  /ctrader_auth_callback:
+    get:
+      summary: Ctrader Auth Callback
+      description: Handle cTrader OAuth2 callback and exchange code for token.
+      operationId: ctrader_auth_callback_ctrader_auth_callback_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Ctrader Auth Callback
+x-refined-from:
+- level2-hub-controller-openapi.json
+- level2-hub-controller-openapi.json
