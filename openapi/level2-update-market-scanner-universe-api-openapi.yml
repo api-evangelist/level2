@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Update Market Scanner Universe API
+  title: Level2 Hub Controller Update Market Scanner Universe API
   version: 0.1.0
-  description: 'Operations tagged Update Market Scanner Universe across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Update Market Scanner Universe
 paths:
@@ -50,6 +49,13 @@ paths:
       - Update Market Scanner Universe
 components:
   schemas:
+    Body_update_market_scanner_universe_update_market_scanner_universe_post:
+      title: Body_update_market_scanner_universe_update_market_scanner_universe_post
+      type: object
+      properties:
+        stocks_list:
+          title: Stocks List
+          type: string
     ValidationError:
       title: ValidationError
       required:
@@ -80,13 +86,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-    Body_update_market_scanner_universe_update_market_scanner_universe_post:
-      title: Body_update_market_scanner_universe_update_market_scanner_universe_post
-      type: object
-      properties:
-        stocks_list:
-          title: Stocks List
-          type: string
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

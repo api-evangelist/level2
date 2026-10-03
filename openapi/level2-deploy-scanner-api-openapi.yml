@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Deploy Scanner API
+  title: Level2 Hub Controller Deploy Scanner API
   version: 0.1.0
-  description: 'Operations tagged Deploy Scanner across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Deploy Scanner
 paths:
@@ -69,6 +68,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

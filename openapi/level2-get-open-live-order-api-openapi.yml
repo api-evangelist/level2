@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Get Open Live Order API
+  title: Level2 Hub Controller Get Open Live Order API
   version: 0.1.0
-  description: 'Operations tagged Get Open Live Order across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Get Open Live Order
 paths:
@@ -34,58 +33,6 @@ paths:
       - Get Open Live Order
 components:
   schemas:
-    LiveOrderBookOut:
-      title: LiveOrderBookOut
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        stoploss:
-          title: Stoploss
-          type: string
-        target:
-          title: Target
-          type: string
-        decision:
-          title: Decision
-          type: string
-        order_price:
-          title: Order Price
-          type: string
-        result:
-          title: Result
-          type: string
-        trade_taken_at:
-          title: Trade Taken At
-          type: string
-        trade_closed_at:
-          title: Trade Closed At
-          type: string
-        meta_data:
-          title: Meta Data
-          type: string
-        order_status:
-          title: Order Status
-          type: string
-        close_value:
-          title: Close Value
-          type: string
-        quantity:
-          title: Quantity
-          type: string
-        original_quantity:
-          title: Original Quantity
-          type: string
-        misc_data:
-          title: Misc Data
-          type: string
-        trade_closed_at_ts:
-          title: Trade Closed At Ts
-          type: string
-          format: date-time
     ValidationError:
       title: ValidationError
       required:
@@ -107,34 +54,6 @@ components:
         type:
           title: Error Type
           type: string
-    OpenOrderLiveDeploymentOut:
-      title: OpenOrderLiveDeploymentOut
-      type: object
-      properties:
-        order_book_data:
-          $ref: '#/components/schemas/LiveOrderBookOut'
-        deployment_id:
-          title: Deployment Id
-          type: integer
-        strategy_key:
-          title: Strategy Key
-          type: string
-        strategy_name:
-          title: Strategy Name
-          type: string
-        strategy_data:
-          title: Strategy Data
-          type: string
-        timeframe:
-          title: Timeframe
-          type: string
-        symbol:
-          title: Symbol
-          type: string
-        deployment:
-          $ref: '#/components/schemas/LiveDeploymentOut'
-        last_order_data:
-          $ref: '#/components/schemas/LastOrderLiveDeploymentOut'
     StrategyOut:
       title: StrategyOut
       required:
@@ -203,6 +122,155 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
+    OpenOrderLiveDeploymentOut:
+      title: OpenOrderLiveDeploymentOut
+      type: object
+      properties:
+        order_book_data:
+          $ref: '#/components/schemas/LiveOrderBookOut'
+        deployment_id:
+          title: Deployment Id
+          type: integer
+        strategy_key:
+          title: Strategy Key
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        strategy_data:
+          title: Strategy Data
+          type: string
+        timeframe:
+          title: Timeframe
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        deployment:
+          $ref: '#/components/schemas/LiveDeploymentOut'
+        last_order_data:
+          $ref: '#/components/schemas/LastOrderLiveDeploymentOut'
+    B2cBrokersOut:
+      title: B2cBrokersOut
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        broker_name:
+          title: Broker Name
+          type: string
+        image_url:
+          title: Image Url
+          type: string
+        doc_url:
+          title: Doc Url
+          type: string
+        referral_link:
+          title: Referral Link
+          type: string
+        offer_valid:
+          title: Offer Valid
+          type: integer
+    LiveOrderBookOut:
+      title: LiveOrderBookOut
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        stoploss:
+          title: Stoploss
+          type: string
+        target:
+          title: Target
+          type: string
+        decision:
+          title: Decision
+          type: string
+        order_price:
+          title: Order Price
+          type: string
+        result:
+          title: Result
+          type: string
+        trade_taken_at:
+          title: Trade Taken At
+          type: string
+        trade_closed_at:
+          title: Trade Closed At
+          type: string
+        meta_data:
+          title: Meta Data
+          type: string
+        order_status:
+          title: Order Status
+          type: string
+        close_value:
+          title: Close Value
+          type: string
+        quantity:
+          title: Quantity
+          type: string
+        original_quantity:
+          title: Original Quantity
+          type: string
+        misc_data:
+          title: Misc Data
+          type: string
+        trade_closed_at_ts:
+          title: Trade Closed At Ts
+          type: string
+          format: date-time
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
+    LastOrderLiveDeploymentOut:
+      title: LastOrderLiveDeploymentOut
+      type: object
+      properties:
+        order_book_data:
+          $ref: '#/components/schemas/LiveOrderBookOut'
+        deployment_id:
+          title: Deployment Id
+          type: integer
+        strategy_key:
+          title: Strategy Key
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        strategy_data:
+          title: Strategy Data
+          type: string
+        timeframe:
+          title: Timeframe
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        deployment_meta:
+          $ref: '#/components/schemas/LiveDeploymentOut'
     LiveDeploymentOut:
       title: LiveDeploymentOut
       required:
@@ -242,75 +310,3 @@ components:
           $ref: '#/components/schemas/B2cBrokersOut'
         strategy:
           $ref: '#/components/schemas/StrategyOut'
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
-      required:
-      - id
-      - label
-      - description
-      - is_valid
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        label:
-          title: Label
-          type: string
-        description:
-          title: Description
-          type: string
-        is_valid:
-          title: Is Valid
-          type: string
-    B2cBrokersOut:
-      title: B2cBrokersOut
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        broker_name:
-          title: Broker Name
-          type: string
-        image_url:
-          title: Image Url
-          type: string
-        doc_url:
-          title: Doc Url
-          type: string
-        referral_link:
-          title: Referral Link
-          type: string
-        offer_valid:
-          title: Offer Valid
-          type: integer
-    LastOrderLiveDeploymentOut:
-      title: LastOrderLiveDeploymentOut
-      type: object
-      properties:
-        order_book_data:
-          $ref: '#/components/schemas/LiveOrderBookOut'
-        deployment_id:
-          title: Deployment Id
-          type: integer
-        strategy_key:
-          title: Strategy Key
-          type: string
-        strategy_name:
-          title: Strategy Name
-          type: string
-        strategy_data:
-          title: Strategy Data
-          type: string
-        timeframe:
-          title: Timeframe
-          type: string
-        symbol:
-          title: Symbol
-          type: string
-        deployment_meta:
-          $ref: '#/components/schemas/LiveDeploymentOut'
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Fetch Active Live Deployments API
+  title: Level2 Hub Controller Fetch Active Live Deployments API
   version: 0.1.0
-  description: 'Operations tagged Fetch Active Live Deployments across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Fetch Active Live Deployments
 paths:
@@ -24,43 +23,6 @@ paths:
       - Fetch Active Live Deployments
 components:
   schemas:
-    LiveActiveDeploymentsOut:
-      title: LiveActiveDeploymentsOut
-      required:
-      - deployment_meta
-      - deployment_id
-      - strategy_key
-      - strategy_name
-      - strategy_data
-      - user_id
-      type: object
-      properties:
-        deployment_meta:
-          $ref: '#/components/schemas/LiveDeploymentOut'
-        deployment_id:
-          title: Deployment Id
-          type: integer
-        strategy_key:
-          title: Strategy Key
-          type: string
-        strategy_name:
-          title: Strategy Name
-          type: string
-        strategy_data:
-          title: Strategy Data
-          type: string
-        depl_flag:
-          title: Depl Flag
-          type: string
-        order_trade_type:
-          title: Order Trade Type
-          type: string
-        meta_data:
-          title: Meta Data
-          type: string
-        user_id:
-          title: User Id
-          type: integer
     StrategyOut:
       title: StrategyOut
       required:
@@ -120,6 +82,86 @@ components:
           title: Created At
           type: string
           format: date-time
+    B2cBrokersOut:
+      title: B2cBrokersOut
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        broker_name:
+          title: Broker Name
+          type: string
+        image_url:
+          title: Image Url
+          type: string
+        doc_url:
+          title: Doc Url
+          type: string
+        referral_link:
+          title: Referral Link
+          type: string
+        offer_valid:
+          title: Offer Valid
+          type: integer
+    LiveActiveDeploymentsOut:
+      title: LiveActiveDeploymentsOut
+      required:
+      - deployment_meta
+      - deployment_id
+      - strategy_key
+      - strategy_name
+      - strategy_data
+      - user_id
+      type: object
+      properties:
+        deployment_meta:
+          $ref: '#/components/schemas/LiveDeploymentOut'
+        deployment_id:
+          title: Deployment Id
+          type: integer
+        strategy_key:
+          title: Strategy Key
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        strategy_data:
+          title: Strategy Data
+          type: string
+        depl_flag:
+          title: Depl Flag
+          type: string
+        order_trade_type:
+          title: Order Trade Type
+          type: string
+        meta_data:
+          title: Meta Data
+          type: string
+        user_id:
+          title: User Id
+          type: integer
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
     LiveDeploymentOut:
       title: LiveDeploymentOut
       required:
@@ -159,49 +201,3 @@ components:
           $ref: '#/components/schemas/B2cBrokersOut'
         strategy:
           $ref: '#/components/schemas/StrategyOut'
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
-      required:
-      - id
-      - label
-      - description
-      - is_valid
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        label:
-          title: Label
-          type: string
-        description:
-          title: Description
-          type: string
-        is_valid:
-          title: Is Valid
-          type: string
-    B2cBrokersOut:
-      title: B2cBrokersOut
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        broker_name:
-          title: Broker Name
-          type: string
-        image_url:
-          title: Image Url
-          type: string
-        doc_url:
-          title: Doc Url
-          type: string
-        referral_link:
-          title: Referral Link
-          type: string
-        offer_valid:
-          title: Offer Valid
-          type: integer
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

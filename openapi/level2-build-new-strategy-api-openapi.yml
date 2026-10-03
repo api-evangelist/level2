@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Build New Strategy API
+  title: Level2 Hub Controller Build New Strategy API
   version: 0.1.0
-  description: 'Operations tagged Build New Strategy across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Build New Strategy
 paths:
@@ -138,20 +137,6 @@ components:
           title: Created At
           type: string
           format: date-time
-    StrategyPrefCustomOut:
-      title: StrategyPrefCustomOut
-      required:
-      - strategy
-      - meta
-      type: object
-      properties:
-        strategy:
-          $ref: '#/components/schemas/StrategyOut'
-        broker_id:
-          title: Broker Id
-          type: integer
-        meta:
-          $ref: '#/components/schemas/UserPreferenceOut'
     UserPreferenceOut:
       title: UserPreferenceOut
       type: object
@@ -189,6 +174,29 @@ components:
         socials:
           title: Socials
           type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    StrategyPrefCustomOut:
+      title: StrategyPrefCustomOut
+      required:
+      - strategy
+      - meta
+      type: object
+      properties:
+        strategy:
+          $ref: '#/components/schemas/StrategyOut'
+        broker_id:
+          title: Broker Id
+          type: integer
+        meta:
+          $ref: '#/components/schemas/UserPreferenceOut'
     StrategyCategoryOut:
       title: StrategyCategoryOut
       required:
@@ -210,15 +218,3 @@ components:
         is_valid:
           title: Is Valid
           type: string
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

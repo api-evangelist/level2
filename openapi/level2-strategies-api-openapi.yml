@@ -286,63 +286,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    StrategyDefinition:
-      type: object
-      description: The visual strategy builder definition containing entry conditions, exit conditions, and risk management rules created through the Level2 drag-and-drop interface.
-      properties:
-        entryConditions:
-          type: array
-          description: List of conditions that must be met to trigger a trade entry
-          items:
-            $ref: '#/components/schemas/StrategyCondition'
-        exitConditions:
-          type: array
-          description: List of conditions that trigger trade exits
-          items:
-            $ref: '#/components/schemas/StrategyCondition'
-        riskManagement:
-          $ref: '#/components/schemas/RiskManagement'
-        position:
-          $ref: '#/components/schemas/PositionConfig'
-    CreateStrategyRequest:
-      type: object
-      description: Request body for creating a new trading strategy. Includes the strategy metadata and its visual builder definition.
-      required:
-      - name
-      - instrument
-      properties:
-        name:
-          type: string
-          description: A human-readable name for the strategy
-          maxLength: 200
-        description:
-          type: string
-          description: A description of what the strategy does
-          maxLength: 2000
-        instrument:
-          type: string
-          description: The ticker symbol of the primary instrument this strategy trades
-          example: AAPL
-        instrumentType:
-          type: string
-          description: The type of financial instrument
-          enum:
-          - stock
-          - option
-          - future
-        timeframe:
-          type: string
-          description: The primary chart timeframe for the strategy
-          enum:
-          - 1m
-          - 5m
-          - 15m
-          - 30m
-          - 1h
-          - 4h
-          - 1d
-        definition:
-          $ref: '#/components/schemas/StrategyDefinition'
     UpdateStrategyRequest:
       type: object
       description: Request body for updating an existing trading strategy.
@@ -385,6 +328,85 @@ components:
           - draft
         definition:
           $ref: '#/components/schemas/StrategyDefinition'
+    StrategyDefinition:
+      type: object
+      description: The visual strategy builder definition containing entry conditions, exit conditions, and risk management rules created through the Level2 drag-and-drop interface.
+      properties:
+        entryConditions:
+          type: array
+          description: List of conditions that must be met to trigger a trade entry
+          items:
+            $ref: '#/components/schemas/StrategyCondition'
+        exitConditions:
+          type: array
+          description: List of conditions that trigger trade exits
+          items:
+            $ref: '#/components/schemas/StrategyCondition'
+        riskManagement:
+          $ref: '#/components/schemas/RiskManagement'
+        position:
+          $ref: '#/components/schemas/PositionConfig'
+    ErrorResponse:
+      type: object
+      description: Standard error response for broker API requests.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: A machine-readable error code
+        details:
+          type: object
+          description: Additional error details when available
+          additionalProperties: true
+    CreateStrategyRequest:
+      type: object
+      description: Request body for creating a new trading strategy. Includes the strategy metadata and its visual builder definition.
+      required:
+      - name
+      - instrument
+      properties:
+        name:
+          type: string
+          description: A human-readable name for the strategy
+          maxLength: 200
+        description:
+          type: string
+          description: A description of what the strategy does
+          maxLength: 2000
+        instrument:
+          type: string
+          description: The ticker symbol of the primary instrument this strategy trades
+          example: AAPL
+        instrumentType:
+          type: string
+          description: The type of financial instrument
+          enum:
+          - stock
+          - option
+          - future
+        timeframe:
+          type: string
+          description: The primary chart timeframe for the strategy
+          enum:
+          - 1m
+          - 5m
+          - 15m
+          - 30m
+          - 1h
+          - 4h
+          - 1d
+        definition:
+          $ref: '#/components/schemas/StrategyDefinition'
+    DeployStrategyRequest:
+      type: object
+      description: Optional deployment configuration for a strategy being activated for live trading.
+      properties:
+        paperTrading:
+          type: boolean
+          description: Whether to deploy in paper trading mode (simulated) rather than live trading. Defaults to false.
+          default: false
     StrategyListResponse:
       type: object
       description: Paginated list of user strategies.
@@ -403,55 +425,6 @@ components:
         offset:
           type: integer
           description: Current offset for pagination
-    ErrorResponse:
-      type: object
-      description: Standard error response for broker API requests.
-      properties:
-        error:
-          type: string
-          description: A human-readable error message
-        code:
-          type: string
-          description: A machine-readable error code
-        details:
-          type: object
-          description: Additional error details when available
-          additionalProperties: true
-    StrategyCondition:
-      type: object
-      description: A single condition in a trading strategy, representing a comparison between indicators, price values, or other market data points.
-      properties:
-        id:
-          type: string
-          description: Unique identifier for this condition
-        indicator:
-          type: string
-          description: The technical indicator or data source for the left side of the condition (e.g., SMA, RSI, MACD, Price)
-        parameters:
-          type: object
-          description: Parameters for the indicator (e.g., period length, source field)
-          additionalProperties: true
-        operator:
-          type: string
-          description: The comparison operator
-          enum:
-          - crosses_above
-          - crosses_below
-          - greater_than
-          - less_than
-          - equals
-        compareValue:
-          description: The value or indicator to compare against (right side of condition)
-          oneOf:
-          - type: number
-          - type: string
-          - type: object
-        logicalOperator:
-          type: string
-          description: How this condition combines with the next condition in the list
-          enum:
-          - AND
-          - OR
     RiskManagement:
       type: object
       description: Risk management configuration for the strategy including stop loss, take profit, and trailing stop settings.
@@ -564,14 +537,41 @@ components:
           type: string
           format: date-time
           description: Timestamp when the strategy was last deployed
-    DeployStrategyRequest:
+    StrategyCondition:
       type: object
-      description: Optional deployment configuration for a strategy being activated for live trading.
+      description: A single condition in a trading strategy, representing a comparison between indicators, price values, or other market data points.
       properties:
-        paperTrading:
-          type: boolean
-          description: Whether to deploy in paper trading mode (simulated) rather than live trading. Defaults to false.
-          default: false
+        id:
+          type: string
+          description: Unique identifier for this condition
+        indicator:
+          type: string
+          description: The technical indicator or data source for the left side of the condition (e.g., SMA, RSI, MACD, Price)
+        parameters:
+          type: object
+          description: Parameters for the indicator (e.g., period length, source field)
+          additionalProperties: true
+        operator:
+          type: string
+          description: The comparison operator
+          enum:
+          - crosses_above
+          - crosses_below
+          - greater_than
+          - less_than
+          - equals
+        compareValue:
+          description: The value or indicator to compare against (right side of condition)
+          oneOf:
+          - type: number
+          - type: string
+          - type: object
+        logicalOperator:
+          type: string
+          description: How this condition combines with the next condition in the list
+          enum:
+          - AND
+          - OR
   parameters:
     strategyId:
       name: strategyId

@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Auth API
+  title: Level2 Hub Controller Auth API
   version: 0.1.0
-  description: 'Operations tagged Auth across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Auth
 paths:
@@ -63,6 +62,43 @@ components:
         idToken:
           title: Idtoken
           type: string
+    UserPreferenceOut:
+      title: UserPreferenceOut
+      type: object
+      properties:
+        country:
+          title: Country
+          type: string
+        trading_yoe:
+          title: Trading Yoe
+          type: string
+        risk_class:
+          title: Risk Class
+          type: string
+        language:
+          title: Language
+          type: string
+        asset_class:
+          title: Asset Class
+          type: string
+        notification_preference:
+          title: Notification Preference
+          type: string
+        nudges_tracker:
+          title: Nudges Tracker
+          type: string
+        walkthrough_status:
+          title: Walkthrough Status
+          type: string
+        webhook:
+          title: Webhook
+          type: string
+        send_email:
+          title: Send Email
+          type: string
+        socials:
+          title: Socials
+          type: string
     UserCustomOut:
       title: UserCustomOut
       required:
@@ -107,43 +143,6 @@ components:
           title: Is Admin
           type: boolean
           default: false
-    UserPreferenceOut:
-      title: UserPreferenceOut
-      type: object
-      properties:
-        country:
-          title: Country
-          type: string
-        trading_yoe:
-          title: Trading Yoe
-          type: string
-        risk_class:
-          title: Risk Class
-          type: string
-        language:
-          title: Language
-          type: string
-        asset_class:
-          title: Asset Class
-          type: string
-        notification_preference:
-          title: Notification Preference
-          type: string
-        nudges_tracker:
-          title: Nudges Tracker
-          type: string
-        walkthrough_status:
-          title: Walkthrough Status
-          type: string
-        webhook:
-          title: Webhook
-          type: string
-        send_email:
-          title: Send Email
-          type: string
-        socials:
-          title: Socials
-          type: string
     HTTPValidationError:
       title: HTTPValidationError
       type: object
@@ -197,6 +196,3 @@ components:
           title: Created At
           type: string
           format: date-time
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

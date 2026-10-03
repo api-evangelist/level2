@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Canvas Get Logics V2 API
+  title: Level2 Hub Controller Canvas Get Logics V2 API
   version: 0.1.0
-  description: 'Operations tagged Canvas Get Logics V2 across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Canvas Get Logics V2
 paths:
@@ -58,6 +57,55 @@ components:
         type:
           title: Error Type
           type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    CanvasLogicParamsOut:
+      title: CanvasLogicParamsOut
+      type: object
+      properties:
+        box_type:
+          title: Box Type
+          type: string
+        max_value:
+          title: Max Value
+          type: number
+        min_value:
+          title: Min Value
+          type: number
+        name:
+          title: Name
+          type: string
+        type:
+          title: Type
+          type: string
+        default_value:
+          title: Default Value
+          type: number
+    CanvasLogicOutputsOut:
+      title: CanvasLogicOutputsOut
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+    CanvasLogicInputsOut:
+      title: CanvasLogicInputsOut
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
     CanvasLogicsOut:
       title: CanvasLogicsOut
       required:
@@ -88,55 +136,3 @@ components:
         is_segment_valid:
           title: Is Segment Valid
           type: boolean
-    CanvasLogicParamsOut:
-      title: CanvasLogicParamsOut
-      type: object
-      properties:
-        box_type:
-          title: Box Type
-          type: string
-        max_value:
-          title: Max Value
-          type: number
-        min_value:
-          title: Min Value
-          type: number
-        name:
-          title: Name
-          type: string
-        type:
-          title: Type
-          type: string
-        default_value:
-          title: Default Value
-          type: number
-    CanvasLogicInputsOut:
-      title: CanvasLogicInputsOut
-      required:
-      - name
-      type: object
-      properties:
-        name:
-          title: Name
-          type: string
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    CanvasLogicOutputsOut:
-      title: CanvasLogicOutputsOut
-      required:
-      - name
-      type: object
-      properties:
-        name:
-          title: Name
-          type: string
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Update Live Trade API
+  title: Level2 Hub Controller Update Live Trade API
   version: 0.1.0
-  description: 'Operations tagged Update Live Trade across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Update Live Trade
 paths:
@@ -46,6 +45,31 @@ paths:
       - Update Live Trade
 components:
   schemas:
+    StrategyDataLimitedOut:
+      title: StrategyDataLimitedOut
+      required:
+      - strategy_name
+      - timeframe
+      - symbol
+      - id
+      - keygen
+      type: object
+      properties:
+        strategy_name:
+          title: Strategy Name
+          type: string
+        timeframe:
+          title: Timeframe
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        id:
+          title: Id
+          type: integer
+        keygen:
+          title: Keygen
+          type: string
     ValidationError:
       title: ValidationError
       required:
@@ -143,31 +167,3 @@ components:
         meta_data:
           title: Meta Data
           type: string
-    StrategyDataLimitedOut:
-      title: StrategyDataLimitedOut
-      required:
-      - strategy_name
-      - timeframe
-      - symbol
-      - id
-      - keygen
-      type: object
-      properties:
-        strategy_name:
-          title: Strategy Name
-          type: string
-        timeframe:
-          title: Timeframe
-          type: string
-        symbol:
-          title: Symbol
-          type: string
-        id:
-          title: Id
-          type: integer
-        keygen:
-          title: Keygen
-          type: string
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

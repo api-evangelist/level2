@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Canvas Get Datas API
+  title: Level2 Hub Controller Canvas Get Datas API
   version: 0.1.0
-  description: 'Operations tagged Canvas Get Datas across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Canvas Get Datas
 paths:
@@ -57,6 +56,22 @@ components:
           type: string
         type:
           title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    CanvasDataOutputsOut:
+      title: CanvasDataOutputsOut
+      type: object
+      properties:
+        name:
+          title: Name
           type: string
     CanvasDatasOut:
       title: CanvasDatasOut
@@ -118,22 +133,3 @@ components:
         values:
           title: Values
           type: string
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    CanvasDataOutputsOut:
-      title: CanvasDataOutputsOut
-      type: object
-      properties:
-        name:
-          title: Name
-          type: string
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

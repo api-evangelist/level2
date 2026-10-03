@@ -54,30 +54,6 @@ paths:
         description: Market Data Server
 components:
   parameters:
-    timeframe:
-      name: timeframe
-      in: path
-      required: true
-      description: The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively.
-      schema:
-        type: string
-        enum:
-        - 1m
-        - 5m
-        - 15m
-        - 30m
-        - 1h
-        - 4h
-        - 1d
-        - 1w
-        - 1M
-    apiKey:
-      name: api_key
-      in: path
-      required: true
-      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
-      schema:
-        type: string
     range:
       name: range
       in: path
@@ -95,6 +71,13 @@ components:
         - 2y
         - 5y
         - max
+    apiKey:
+      name: api_key
+      in: path
+      required: true
+      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
+      schema:
+        type: string
     ticker:
       name: ticker
       in: path
@@ -103,7 +86,34 @@ components:
       schema:
         type: string
         example: AAPL
+    timeframe:
+      name: timeframe
+      in: path
+      required: true
+      description: The chart timeframe for the analysis or data retrieval. Common values include 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1w, and 1M representing minutes, hours, days, weeks, and months respectively.
+      schema:
+        type: string
+        enum:
+        - 1m
+        - 5m
+        - 15m
+        - 30m
+        - 1h
+        - 4h
+        - 1d
+        - 1w
+        - 1M
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message describing the issue
+        code:
+          type: integer
+          description: The HTTP status code associated with the error
     OHLCCandle:
       type: object
       description: A single OHLC candle data point.
@@ -137,16 +147,6 @@ components:
         volume:
           type: integer
           description: The trading volume during the period
-    ErrorResponse:
-      type: object
-      description: Standard error response returned when a request fails.
-      properties:
-        error:
-          type: string
-          description: A human-readable error message describing the issue
-        code:
-          type: integer
-          description: The HTTP status code associated with the error
     OHLCDataResponse:
       type: object
       description: Response containing historical OHLC price data for the requested ticker, timeframe, and range.

@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Get All Broker User Stats API
+  title: Level2 Hub Controller Get All Broker User Stats API
   version: 0.1.0
-  description: 'Operations tagged Get All Broker User Stats across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Get All Broker User Stats
 paths:
@@ -37,6 +36,18 @@ paths:
       - Get All Broker User Stats
 components:
   schemas:
+    UserSelectedCustomOut:
+      title: UserSelectedCustomOut
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        degree:
+          title: Degree
+          type: string
     ValidationError:
       title: ValidationError
       required:
@@ -58,18 +69,55 @@ components:
         type:
           title: Error Type
           type: string
-    UserSelectedCustomOut:
-      title: UserSelectedCustomOut
-      required:
-      - email
+    HTTPValidationError:
+      title: HTTPValidationError
       type: object
       properties:
-        email:
-          title: Email
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    LiveDeploymentOrderBookBrokerUserStats:
+      title: LiveDeploymentOrderBookBrokerUserStats
+      required:
+      - user
+      - quantity
+      - trade_taken_at
+      - decision
+      - strategy
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        meta_data:
+          title: Meta Data
           type: string
-        degree:
-          title: Degree
+        user:
+          $ref: '#/components/schemas/UserSelectedCustomOut'
+        quantity:
+          title: Quantity
           type: string
+        trade_taken_at:
+          title: Trade Taken At
+          type: string
+        decision:
+          title: Decision
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        trade_closed_at_ts:
+          title: Trade Closed At Ts
+          type: string
+          format: date-time
+        trade_closed_at:
+          title: Trade Closed At
+          type: string
+        strategy:
+          $ref: '#/components/schemas/StrategySelectedCustomOut'
     StrategySelectedCustomOut:
       title: StrategySelectedCustomOut
       required:
@@ -112,55 +160,3 @@ components:
           title: Created At
           type: string
           format: date-time
-    LiveDeploymentOrderBookBrokerUserStats:
-      title: LiveDeploymentOrderBookBrokerUserStats
-      required:
-      - user
-      - quantity
-      - trade_taken_at
-      - decision
-      - strategy
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        meta_data:
-          title: Meta Data
-          type: string
-        user:
-          $ref: '#/components/schemas/UserSelectedCustomOut'
-        quantity:
-          title: Quantity
-          type: string
-        trade_taken_at:
-          title: Trade Taken At
-          type: string
-        decision:
-          title: Decision
-          type: string
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
-        trade_closed_at_ts:
-          title: Trade Closed At Ts
-          type: string
-          format: date-time
-        trade_closed_at:
-          title: Trade Closed At
-          type: string
-        strategy:
-          $ref: '#/components/schemas/StrategySelectedCustomOut'
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Deploy Notification Strategy API
+  title: Level2 Hub Controller Deploy Notification Strategy API
   version: 0.1.0
-  description: 'Operations tagged Deploy Notification Strategy across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Deploy Notification Strategy
 paths:
@@ -120,57 +119,6 @@ components:
           title: Created At
           type: string
           format: date-time
-    Body_deploy_notification_strategy_deploy_notification_strategy_post:
-      title: Body_deploy_notification_strategy_deploy_notification_strategy_post
-      required:
-      - strategy_data
-      - canvas_data
-      type: object
-      properties:
-        strategy_data:
-          title: Strategy Data
-          type: string
-        canvas_data:
-          title: Canvas Data
-          type: string
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
-      required:
-      - id
-      - label
-      - description
-      - is_valid
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        label:
-          title: Label
-          type: string
-        description:
-          title: Description
-          type: string
-        is_valid:
-          title: Is Valid
-          type: string
-    NotificationDeploymentOut:
-      title: NotificationDeploymentOut
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        user:
-          $ref: '#/components/schemas/UserOut'
-        strategy:
-          $ref: '#/components/schemas/StrategyOut'
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
     HTTPValidationError:
       title: HTTPValidationError
       type: object
@@ -224,6 +172,54 @@ components:
           title: Created At
           type: string
           format: date-time
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json
+    NotificationDeploymentOut:
+      title: NotificationDeploymentOut
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        user:
+          $ref: '#/components/schemas/UserOut'
+        strategy:
+          $ref: '#/components/schemas/StrategyOut'
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
+    Body_deploy_notification_strategy_deploy_notification_strategy_post:
+      title: Body_deploy_notification_strategy_deploy_notification_strategy_post
+      required:
+      - strategy_data
+      - canvas_data
+      type: object
+      properties:
+        strategy_data:
+          title: Strategy Data
+          type: string
+        canvas_data:
+          title: Canvas Data
+          type: string

@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 External Analysis API
+  title: Level2 Hub Controller External Analysis API
   version: 0.1.0
-  description: 'Operations tagged External Analysis across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: External Analysis
 paths:
@@ -33,6 +32,31 @@ paths:
       - External Analysis
 components:
   schemas:
+    AnalyticsEvent:
+      title: AnalyticsEvent
+      required:
+      - event_name
+      type: object
+      properties:
+        event_name:
+          title: Event Name
+          type: string
+        params:
+          title: Params
+          type: object
+          default: {}
+        client_id:
+          title: Client Id
+          type: string
+        user_id:
+          title: User Id
+          type: string
+        page_path:
+          title: Page Path
+          type: string
+        location:
+          title: Location
+          type: string
     ValidationError:
       title: ValidationError
       required:
@@ -63,31 +87,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-    AnalyticsEvent:
-      title: AnalyticsEvent
-      required:
-      - event_name
-      type: object
-      properties:
-        event_name:
-          title: Event Name
-          type: string
-        params:
-          title: Params
-          type: object
-          default: {}
-        client_id:
-          title: Client Id
-          type: string
-        user_id:
-          title: User Id
-          type: string
-        page_path:
-          title: Page Path
-          type: string
-        location:
-          title: Location
-          type: string
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

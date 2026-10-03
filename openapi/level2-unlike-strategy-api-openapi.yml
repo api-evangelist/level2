@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Unlike Strategy API
+  title: Level2 Hub Controller Unlike Strategy API
   version: 0.1.0
-  description: 'Operations tagged Unlike Strategy across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Unlike Strategy
 paths:
@@ -61,50 +60,6 @@ components:
         type:
           title: Error Type
           type: string
-    UserOut:
-      title: UserOut
-      required:
-      - email
-      - first_name
-      - last_name
-      - unique_key
-      - is_active
-      type: object
-      properties:
-        email:
-          title: Email
-          type: string
-        first_name:
-          title: First Name
-          type: string
-        last_name:
-          title: Last Name
-          type: string
-        unique_key:
-          title: Unique Key
-          type: string
-        profile_image:
-          title: Profile Image
-          type: string
-        trading_challenge:
-          title: Trading Challenge
-          type: string
-        description:
-          title: Description
-          type: string
-        is_active:
-          title: Is Active
-          type: boolean
-        user_type:
-          title: User Type
-          type: string
-        meta_data:
-          title: Meta Data
-          type: string
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
     StrategyOut:
       title: StrategyOut
       required:
@@ -164,8 +119,61 @@ components:
           title: Created At
           type: string
           format: date-time
-    ExploreStrategyFavouriteOut:
-      title: ExploreStrategyFavouriteOut
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    UserOut:
+      title: UserOut
+      required:
+      - email
+      - first_name
+      - last_name
+      - unique_key
+      - is_active
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+        unique_key:
+          title: Unique Key
+          type: string
+        profile_image:
+          title: Profile Image
+          type: string
+        trading_challenge:
+          title: Trading Challenge
+          type: string
+        description:
+          title: Description
+          type: string
+        is_active:
+          title: Is Active
+          type: boolean
+        user_type:
+          title: User Type
+          type: string
+        meta_data:
+          title: Meta Data
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    ExploreStrategyOut:
+      title: ExploreStrategyOut
       required:
       - id
       type: object
@@ -175,8 +183,8 @@ components:
           type: integer
         user:
           $ref: '#/components/schemas/UserOut'
-        explore_strategy:
-          $ref: '#/components/schemas/ExploreStrategyOut'
+        strategy:
+          $ref: '#/components/schemas/StrategyOut'
     StrategyCategoryOut:
       title: StrategyCategoryOut
       required:
@@ -198,17 +206,8 @@ components:
         is_valid:
           title: Is Valid
           type: string
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    ExploreStrategyOut:
-      title: ExploreStrategyOut
+    ExploreStrategyFavouriteOut:
+      title: ExploreStrategyFavouriteOut
       required:
       - id
       type: object
@@ -218,8 +217,5 @@ components:
           type: integer
         user:
           $ref: '#/components/schemas/UserOut'
-        strategy:
-          $ref: '#/components/schemas/StrategyOut'
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json
+        explore_strategy:
+          $ref: '#/components/schemas/ExploreStrategyOut'

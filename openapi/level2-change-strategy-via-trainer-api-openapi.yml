@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Change Strategy Via Trainer API
+  title: Level2 Hub Controller Change Strategy Via Trainer API
   version: 0.1.0
-  description: 'Operations tagged Change Strategy Via Trainer across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Change Strategy Via Trainer
 paths:
@@ -45,6 +44,19 @@ paths:
       - Change Strategy Via Trainer
 components:
   schemas:
+    Body_change_strategy_via_trainer_change_strategy_via_trainer_post:
+      title: Body_change_strategy_via_trainer_change_strategy_via_trainer_post
+      required:
+      - strategy_data
+      - canvas_data
+      type: object
+      properties:
+        strategy_data:
+          title: Strategy Data
+          type: string
+        canvas_data:
+          title: Canvas Data
+          type: string
     ValidationError:
       title: ValidationError
       required:
@@ -75,19 +87,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-    Body_change_strategy_via_trainer_change_strategy_via_trainer_post:
-      title: Body_change_strategy_via_trainer_change_strategy_via_trainer_post
-      required:
-      - strategy_data
-      - canvas_data
-      type: object
-      properties:
-        strategy_data:
-          title: Strategy Data
-          type: string
-        canvas_data:
-          title: Canvas Data
-          type: string
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

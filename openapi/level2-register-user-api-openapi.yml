@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Register User API
+  title: Level2 Hub Controller Register User API
   version: 0.1.0
-  description: 'Operations tagged Register User across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Register User
 paths:
@@ -119,6 +118,3 @@ components:
         referral:
           title: Referral
           type: string
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

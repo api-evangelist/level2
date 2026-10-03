@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Admin API
+  title: Level2 Hub Controller Admin API
   version: 0.1.0
-  description: 'Operations tagged Admin across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Admin
 paths:
@@ -742,6 +741,32 @@ paths:
       - Admin
 components:
   schemas:
+    PaginatedResponse:
+      title: PaginatedResponse
+      required:
+      - items
+      - total
+      - page
+      - size
+      - pages
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items: {}
+        total:
+          title: Total
+          type: integer
+        page:
+          title: Page
+          type: integer
+        size:
+          title: Size
+          type: integer
+        pages:
+          title: Pages
+          type: integer
     ValidationError:
       title: ValidationError
       required:
@@ -784,32 +809,3 @@ components:
           type: boolean
         strategies:
           $ref: '#/components/schemas/PaginatedResponse'
-    PaginatedResponse:
-      title: PaginatedResponse
-      required:
-      - items
-      - total
-      - page
-      - size
-      - pages
-      type: object
-      properties:
-        items:
-          title: Items
-          type: array
-          items: {}
-        total:
-          title: Total
-          type: integer
-        page:
-          title: Page
-          type: integer
-        size:
-          title: Size
-          type: integer
-        pages:
-          title: Pages
-          type: integer
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

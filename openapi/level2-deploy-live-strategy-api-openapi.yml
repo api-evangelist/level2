@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Deploy Live Strategy API
+  title: Level2 Hub Controller Deploy Live Strategy API
   version: 0.1.0
-  description: 'Operations tagged Deploy Live Strategy across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Deploy Live Strategy
 paths:
@@ -81,6 +80,19 @@ paths:
       - Deploy Live Strategy
 components:
   schemas:
+    Body_deploy_live_strategy_deploy_live_strategy_post:
+      title: Body_deploy_live_strategy_deploy_live_strategy_post
+      type: object
+      properties:
+        api_key:
+          title: Api Key
+          type: string
+        api_secret:
+          title: Api Secret
+          type: string
+        passphrase:
+          title: Passphrase
+          type: string
     ValidationError:
       title: ValidationError
       required:
@@ -111,19 +123,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-    Body_deploy_live_strategy_deploy_live_strategy_post:
-      title: Body_deploy_live_strategy_deploy_live_strategy_post
-      type: object
-      properties:
-        api_key:
-          title: Api Key
-          type: string
-        api_secret:
-          title: Api Secret
-          type: string
-        passphrase:
-          title: Passphrase
-          type: string
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

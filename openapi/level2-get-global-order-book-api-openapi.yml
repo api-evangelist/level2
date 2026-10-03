@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Get Global Order Book API
+  title: Level2 Hub Controller Get Global Order Book API
   version: 0.1.0
-  description: 'Operations tagged Get Global Order Book across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Get Global Order Book
 paths:
@@ -57,52 +56,6 @@ paths:
       - Get Global Order Book
 components:
   schemas:
-    VirtualDeploymentOrderBookOut:
-      title: VirtualDeploymentOrderBookOut
-      required:
-      - deployment_id
-      - strategy
-      type: object
-      properties:
-        deployment_id:
-          title: Deployment Id
-          type: integer
-        strategy:
-          $ref: '#/components/schemas/StrategyDataLimitedOut'
-        stoploss:
-          title: Stoploss
-          type: string
-        target:
-          title: Target
-          type: string
-        decision:
-          title: Decision
-          type: string
-        order_price:
-          title: Order Price
-          type: string
-        result:
-          title: Result
-          type: number
-        trade_taken_at:
-          title: Trade Taken At
-          type: string
-        trade_closed_at:
-          title: Trade Closed At
-          type: string
-        order_status:
-          title: Order Status
-          type: string
-        close_value:
-          title: Close Value
-          type: string
-        is_valid:
-          title: Is Valid
-          type: integer
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
     ValidationError:
       title: ValidationError
       required:
@@ -124,6 +77,45 @@ components:
         type:
           title: Error Type
           type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    Page_Union_VirtualDeploymentOrderBookOut__LiveDeploymentOrderBookOut__:
+      title: Page[Union[VirtualDeploymentOrderBookOut, LiveDeploymentOrderBookOut]]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/VirtualDeploymentOrderBookOut'
+            - $ref: '#/components/schemas/LiveDeploymentOrderBookOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
     LiveDeploymentOrderBookOut:
       title: LiveDeploymentOrderBookOut
       required:
@@ -191,45 +183,52 @@ components:
         meta_data:
           title: Meta Data
           type: string
-    Page_Union_VirtualDeploymentOrderBookOut__LiveDeploymentOrderBookOut__:
-      title: Page[Union[VirtualDeploymentOrderBookOut, LiveDeploymentOrderBookOut]]
+    VirtualDeploymentOrderBookOut:
+      title: VirtualDeploymentOrderBookOut
       required:
-      - items
-      - total
+      - deployment_id
+      - strategy
       type: object
       properties:
-        items:
-          title: Items
-          type: array
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/VirtualDeploymentOrderBookOut'
-            - $ref: '#/components/schemas/LiveDeploymentOrderBookOut'
-        total:
-          title: Total
-          minimum: 0.0
+        deployment_id:
+          title: Deployment Id
           type: integer
-        page:
-          title: Page
-          minimum: 1.0
+        strategy:
+          $ref: '#/components/schemas/StrategyDataLimitedOut'
+        stoploss:
+          title: Stoploss
+          type: string
+        target:
+          title: Target
+          type: string
+        decision:
+          title: Decision
+          type: string
+        order_price:
+          title: Order Price
+          type: string
+        result:
+          title: Result
+          type: number
+        trade_taken_at:
+          title: Trade Taken At
+          type: string
+        trade_closed_at:
+          title: Trade Closed At
+          type: string
+        order_status:
+          title: Order Status
+          type: string
+        close_value:
+          title: Close Value
+          type: string
+        is_valid:
+          title: Is Valid
           type: integer
-        size:
-          title: Size
-          minimum: 1.0
-          type: integer
-        pages:
-          title: Pages
-          minimum: 0.0
-          type: integer
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
     StrategyDataLimitedOut:
       title: StrategyDataLimitedOut
       required:
@@ -255,6 +254,3 @@ components:
         keygen:
           title: Keygen
           type: string
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

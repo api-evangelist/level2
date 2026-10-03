@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Get Strategy Library API
+  title: Level2 Hub Controller Get Strategy Library API
   version: 0.1.0
-  description: 'Operations tagged Get Strategy Library across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Get Strategy Library
 paths:
@@ -43,6 +42,3 @@ components:
         canvas_data:
           title: Canvas Data
           type: string
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json

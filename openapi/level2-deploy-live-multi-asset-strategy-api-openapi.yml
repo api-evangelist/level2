@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Deploy Live Multi Asset Strategy API
+  title: Level2 Hub Controller Deploy Live Multi Asset Strategy API
   version: 0.1.0
-  description: 'Operations tagged Deploy Live Multi Asset Strategy across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Deploy Live Multi Asset Strategy
 paths:
@@ -96,15 +95,6 @@ components:
         type:
           title: Error Type
           type: string
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     Body_deploy_live_multi_asset_strategy_deploy_live_multi_asset_strategy_post:
       title: Body_deploy_live_multi_asset_strategy_deploy_live_multi_asset_strategy_post
       type: object
@@ -118,6 +108,12 @@ components:
         passphrase:
           title: Passphrase
           type: string
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'

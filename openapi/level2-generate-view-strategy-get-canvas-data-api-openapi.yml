@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Level2 Generate View Strategy Get Canvas Data API
+  title: Level2 Hub Controller Generate View Strategy Get Canvas…
   version: 0.1.0
-  description: 'Operations tagged Generate View Strategy Get Canvas Data across 2 of this provider''s published API definitions: level2-hub-controller-openapi.json, level2-hub-controller-openapi.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Generate View Strategy Get Canvas Data
 paths:
@@ -63,6 +62,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-x-refined-from:
-- level2-hub-controller-openapi.json
-- level2-hub-controller-openapi.json
