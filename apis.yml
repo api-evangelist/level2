@@ -30,6 +30,10 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/level2.png
 url: https://raw.githubusercontent.com/api-evangelist/level2/refs/heads/main/apis.yml
 modified: '2026-09-17'
+x-docs-platform: docusaurus
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
+x-docs-hosting: vercel
 apis:
 - aid: level2:level2-backtesting-api
   name: level2 Backtesting API
@@ -141,6 +145,8 @@ apis:
   humanURL: https://learn.trylevel2.com/docs/Broker/API/broker-api
   baseURL: https://hub2.trylevel2.com
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -207,6 +213,8 @@ apis:
   humanURL: https://learn.trylevel2.com/docs/Broker/API/broker-api
   baseURL: https://hub2.trylevel2.com
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -296,6 +304,8 @@ apis:
   humanURL: https://learn.trylevel2.com/docs/Broker/API/broker-api
   baseURL: https://hub2.trylevel2.com
   tags:
+  - Brokers
+  tags_raw:
   - Broker
   properties:
   - type: OpenAPI
@@ -1055,6 +1065,8 @@ apis:
   humanURL: https://learn.trylevel2.com/docs/Broker/API/broker-api
   baseURL: https://hub2.trylevel2.com
   tags:
+  - CI
+  tags_raw:
   - Ci
   properties:
   - type: OpenAPI
@@ -1664,7 +1676,8 @@ apis:
     stats via date all.
   humanURL: https://learn.trylevel2.com/docs/Broker/API/broker-api
   baseURL: https://hub2.trylevel2.com
-  tags:
+  tags: []
+  tags_raw:
   - Filter Broker User Stats Via Date All
   properties:
   - type: OpenAPI
@@ -5083,6 +5096,8 @@ apis:
   humanURL: https://learn.trylevel2.com/docs/Broker/API/broker-api
   baseURL: https://hub2.trylevel2.com
   tags:
+  - Sessions
+  tags_raw:
   - Session
   properties:
   - type: OpenAPI
@@ -5354,6 +5369,8 @@ apis:
   humanURL: https://learn.trylevel2.com/docs/Broker/API/broker-api
   baseURL: https://hub2.trylevel2.com
   tags:
+  - SupportRequest
+  tags_raw:
   - Support Request
   properties:
   - type: OpenAPI
@@ -6092,6 +6109,9 @@ apis:
   - type: PostmanCollection
     url: collections/level2-broker-apis.postman_collection.json
 common:
+- type: CapabilityMap
+  url: capabilities/level2-capability-edges.yml
+  name: Level2 Business Capability Map
 - type: AgenticAccess
   url: agentic-access/level2-agentic-access.yml
 - type: VulnerabilityDisclosure
