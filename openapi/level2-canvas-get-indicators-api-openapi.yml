@@ -36,26 +36,27 @@ paths:
       - Canvas Get Indicators
 components:
   schemas:
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
+    CanvasIndicatorSourcesOut:
+      title: CanvasIndicatorSourcesOut
       type: object
       properties:
-        loc:
-          title: Location
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
+        box_type:
+          title: Box Type
+          type: string
+        max_value:
+          title: Max Value
+          type: number
+        min_value:
+          title: Min Value
+          type: number
+        name:
+          title: Name
           type: string
         type:
-          title: Error Type
+          title: Type
+          type: string
+        values:
+          title: Values
           type: string
     HTTPValidationError:
       title: HTTPValidationError
@@ -66,6 +67,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
+    CanvasIndicatorOutputsOut:
+      title: CanvasIndicatorOutputsOut
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
     CanvasIndicatorsOut:
       title: CanvasIndicatorsOut
       required:
@@ -121,27 +129,26 @@ components:
         valid:
           title: Valid
           type: boolean
-    CanvasIndicatorSourcesOut:
-      title: CanvasIndicatorSourcesOut
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
       type: object
       properties:
-        box_type:
-          title: Box Type
-          type: string
-        max_value:
-          title: Max Value
-          type: number
-        min_value:
-          title: Min Value
-          type: number
-        name:
-          title: Name
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
           type: string
         type:
-          title: Type
-          type: string
-        values:
-          title: Values
+          title: Error Type
           type: string
     CanvasIndicatorParamsOut:
       title: CanvasIndicatorParamsOut
@@ -164,11 +171,4 @@ components:
           type: string
         type:
           title: Type
-          type: string
-    CanvasIndicatorOutputsOut:
-      title: CanvasIndicatorOutputsOut
-      type: object
-      properties:
-        name:
-          title: Name
           type: string

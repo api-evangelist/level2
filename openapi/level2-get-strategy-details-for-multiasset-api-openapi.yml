@@ -45,27 +45,6 @@ paths:
       - Get Strategy Details For Multiasset
 components:
   schemas:
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
-      type: object
-      properties:
-        loc:
-          title: Location
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
     StrategyOut:
       title: StrategyOut
       required:
@@ -125,15 +104,6 @@ components:
           title: Created At
           type: string
           format: date-time
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     ActionMetricsOut:
       title: ActionMetricsOut
       type: object
@@ -177,27 +147,15 @@ components:
         take_profit_p:
           title: Take Profit P
           type: string
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
-      required:
-      - id
-      - label
-      - description
-      - is_valid
+    HTTPValidationError:
+      title: HTTPValidationError
       type: object
       properties:
-        id:
-          title: Id
-          type: integer
-        label:
-          title: Label
-          type: string
-        description:
-          title: Description
-          type: string
-        is_valid:
-          title: Is Valid
-          type: string
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
     StrategyDetailsOut:
       title: StrategyDetailsOut
       required:
@@ -222,3 +180,45 @@ components:
         deployment:
           title: Deployment
           type: object
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string

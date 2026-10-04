@@ -39,27 +39,6 @@ paths:
       - Like Strategy
 components:
   schemas:
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
-      type: object
-      properties:
-        loc:
-          title: Location
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
     StrategyOut:
       title: StrategyOut
       required:
@@ -119,6 +98,19 @@ components:
           title: Created At
           type: string
           format: date-time
+    ExploreStrategyFavouriteOut:
+      title: ExploreStrategyFavouriteOut
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        user:
+          $ref: '#/components/schemas/UserOut'
+        explore_strategy:
+          $ref: '#/components/schemas/ExploreStrategyOut'
     HTTPValidationError:
       title: HTTPValidationError
       type: object
@@ -128,6 +120,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
+    ExploreStrategyOut:
+      title: ExploreStrategyOut
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        user:
+          $ref: '#/components/schemas/UserOut'
+        strategy:
+          $ref: '#/components/schemas/StrategyOut'
     UserOut:
       title: UserOut
       required:
@@ -172,19 +177,27 @@ components:
           title: Created At
           type: string
           format: date-time
-    ExploreStrategyOut:
-      title: ExploreStrategyOut
+    ValidationError:
+      title: ValidationError
       required:
-      - id
+      - loc
+      - msg
+      - type
       type: object
       properties:
-        id:
-          title: Id
-          type: integer
-        user:
-          $ref: '#/components/schemas/UserOut'
-        strategy:
-          $ref: '#/components/schemas/StrategyOut'
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
     StrategyCategoryOut:
       title: StrategyCategoryOut
       required:
@@ -206,16 +219,3 @@ components:
         is_valid:
           title: Is Valid
           type: string
-    ExploreStrategyFavouriteOut:
-      title: ExploreStrategyFavouriteOut
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        user:
-          $ref: '#/components/schemas/UserOut'
-        explore_strategy:
-          $ref: '#/components/schemas/ExploreStrategyOut'

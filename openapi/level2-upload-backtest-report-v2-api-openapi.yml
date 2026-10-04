@@ -31,6 +31,28 @@ paths:
       - Upload Backtest Report V2
 components:
   schemas:
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    Body_upload_backtest_report_v2_upload_backtest_report_v2_post:
+      title: Body_upload_backtest_report_v2_upload_backtest_report_v2_post
+      required:
+      - keygen
+      - backtest_report
+      type: object
+      properties:
+        keygen:
+          title: Keygen
+          type: string
+        backtest_report:
+          title: Backtest Report
+          type: string
     ValidationError:
       title: ValidationError
       required:
@@ -52,25 +74,3 @@ components:
         type:
           title: Error Type
           type: string
-    Body_upload_backtest_report_v2_upload_backtest_report_v2_post:
-      title: Body_upload_backtest_report_v2_upload_backtest_report_v2_post
-      required:
-      - keygen
-      - backtest_report
-      type: object
-      properties:
-        keygen:
-          title: Keygen
-          type: string
-        backtest_report:
-          title: Backtest Report
-          type: string
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'

@@ -32,64 +32,15 @@ paths:
       - Login
 components:
   schemas:
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
+    HTTPValidationError:
+      title: HTTPValidationError
       type: object
       properties:
-        loc:
-          title: Location
+        detail:
+          title: Detail
           type: array
           items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-    UserPreferenceOut:
-      title: UserPreferenceOut
-      type: object
-      properties:
-        country:
-          title: Country
-          type: string
-        trading_yoe:
-          title: Trading Yoe
-          type: string
-        risk_class:
-          title: Risk Class
-          type: string
-        language:
-          title: Language
-          type: string
-        asset_class:
-          title: Asset Class
-          type: string
-        notification_preference:
-          title: Notification Preference
-          type: string
-        nudges_tracker:
-          title: Nudges Tracker
-          type: string
-        walkthrough_status:
-          title: Walkthrough Status
-          type: string
-        webhook:
-          title: Webhook
-          type: string
-        send_email:
-          title: Send Email
-          type: string
-        socials:
-          title: Socials
-          type: string
+            $ref: '#/components/schemas/ValidationError'
     UserCustomOut:
       title: UserCustomOut
       required:
@@ -134,15 +85,19 @@ components:
           title: Is Admin
           type: boolean
           default: false
-    HTTPValidationError:
-      title: HTTPValidationError
+    Body_login_login_post:
+      title: Body_login_login_post
+      required:
+      - email
+      - password
       type: object
       properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
+        email:
+          title: Email
+          type: string
+        password:
+          title: Password
+          type: string
     UserOut:
       title: UserOut
       required:
@@ -187,16 +142,61 @@ components:
           title: Created At
           type: string
           format: date-time
-    Body_login_login_post:
-      title: Body_login_login_post
-      required:
-      - email
-      - password
+    UserPreferenceOut:
+      title: UserPreferenceOut
       type: object
       properties:
-        email:
-          title: Email
+        country:
+          title: Country
           type: string
-        password:
-          title: Password
+        trading_yoe:
+          title: Trading Yoe
+          type: string
+        risk_class:
+          title: Risk Class
+          type: string
+        language:
+          title: Language
+          type: string
+        asset_class:
+          title: Asset Class
+          type: string
+        notification_preference:
+          title: Notification Preference
+          type: string
+        nudges_tracker:
+          title: Nudges Tracker
+          type: string
+        walkthrough_status:
+          title: Walkthrough Status
+          type: string
+        webhook:
+          title: Webhook
+          type: string
+        send_email:
+          title: Send Email
+          type: string
+        socials:
+          title: Socials
+          type: string
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
           type: string

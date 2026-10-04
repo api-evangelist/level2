@@ -625,6 +625,27 @@ paths:
       - Broker
 components:
   schemas:
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
     Page_BrokerCustomLiveDeploymentOut_:
       title: Page[BrokerCustomLiveDeploymentOut]
       required:
@@ -653,56 +674,15 @@ components:
           title: Pages
           minimum: 0.0
           type: integer
-    BrokerMarketScannerStrategyOut:
-      title: BrokerMarketScannerStrategyOut
-      required:
-      - id
-      - is_valid
+    HTTPValidationError:
+      title: HTTPValidationError
       type: object
       properties:
-        id:
-          title: Id
-          type: integer
-        is_valid:
-          title: Is Valid
-          type: boolean
-        meta:
-          title: Meta
-          type: object
-        keygen:
-          title: Keygen
-          type: string
-        strategy:
-          $ref: '#/components/schemas/BrokerStrategyCustomOut'
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
-        last_updated_at:
-          title: Last Updated At
-          type: string
-          format: date-time
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
-      type: object
-      properties:
-        loc:
-          title: Location
+        detail:
+          title: Detail
           type: array
           items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
+            $ref: '#/components/schemas/ValidationError'
     BrokerStrategyCustomOut:
       title: BrokerStrategyCustomOut
       required:
@@ -750,8 +730,8 @@ components:
           title: Created At
           type: string
           format: date-time
-    Page_BrokerUserCustomOut_:
-      title: Page[BrokerUserCustomOut]
+    Page_BrokerStrategyCustomOut_:
+      title: Page[BrokerStrategyCustomOut]
       required:
       - items
       - total
@@ -761,7 +741,7 @@ components:
           title: Items
           type: array
           items:
-            $ref: '#/components/schemas/BrokerUserCustomOut'
+            $ref: '#/components/schemas/BrokerStrategyCustomOut'
         total:
           title: Total
           minimum: 0.0
@@ -778,43 +758,6 @@ components:
           title: Pages
           minimum: 0.0
           type: integer
-    Page_BrokerCustomLiveDeploymentOrderBookOut_:
-      title: Page[BrokerCustomLiveDeploymentOrderBookOut]
-      required:
-      - items
-      - total
-      type: object
-      properties:
-        items:
-          title: Items
-          type: array
-          items:
-            $ref: '#/components/schemas/BrokerCustomLiveDeploymentOrderBookOut'
-        total:
-          title: Total
-          minimum: 0.0
-          type: integer
-        page:
-          title: Page
-          minimum: 1.0
-          type: integer
-        size:
-          title: Size
-          minimum: 1.0
-          type: integer
-        pages:
-          title: Pages
-          minimum: 0.0
-          type: integer
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     BrokerCustomLiveDeploymentOut:
       title: BrokerCustomLiveDeploymentOut
       required:
@@ -848,27 +791,34 @@ components:
           format: date-time
         strategy:
           $ref: '#/components/schemas/BrokerStrategyCustomOut'
-    Body_register_broker_user_broker_register_user_post:
-      title: Body_register_broker_user_broker_register_user_post
+    Page_BrokerUserCustomOut_:
+      title: Page[BrokerUserCustomOut]
       required:
-      - email
-      - first_name
-      - last_name
-      - country
+      - items
+      - total
       type: object
       properties:
-        email:
-          title: Email
-          type: string
-        first_name:
-          title: First Name
-          type: string
-        last_name:
-          title: Last Name
-          type: string
-        country:
-          title: Country
-          type: string
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/BrokerUserCustomOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
     Page_BrokerMarketScannerStrategyOut_:
       title: Page[BrokerMarketScannerStrategyOut]
       required:
@@ -897,34 +847,50 @@ components:
           title: Pages
           minimum: 0.0
           type: integer
-    Page_BrokerStrategyCustomOut_:
-      title: Page[BrokerStrategyCustomOut]
+    BrokerUserCustomOut:
+      title: BrokerUserCustomOut
       required:
-      - items
-      - total
+      - unique_key
+      - email
       type: object
       properties:
-        items:
-          title: Items
+        unique_key:
+          title: Unique Key
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+        email:
+          title: Email
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
           type: array
           items:
-            $ref: '#/components/schemas/BrokerStrategyCustomOut'
-        total:
-          title: Total
-          minimum: 0.0
-          type: integer
-        page:
-          title: Page
-          minimum: 1.0
-          type: integer
-        size:
-          title: Size
-          minimum: 1.0
-          type: integer
-        pages:
-          title: Pages
-          minimum: 0.0
-          type: integer
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
     BrokerCustomLiveDeploymentOrderBookOut:
       title: BrokerCustomLiveDeploymentOrderBookOut
       required:
@@ -988,15 +954,17 @@ components:
           title: Created At
           type: string
           format: date-time
-    BrokerUserCustomOut:
-      title: BrokerUserCustomOut
+    Body_register_broker_user_broker_register_user_post:
+      title: Body_register_broker_user_broker_register_user_post
       required:
-      - unique_key
       - email
+      - first_name
+      - last_name
+      - country
       type: object
       properties:
-        unique_key:
-          title: Unique Key
+        email:
+          title: Email
           type: string
         first_name:
           title: First Name
@@ -1004,31 +972,63 @@ components:
         last_name:
           title: Last Name
           type: string
-        email:
-          title: Email
+        country:
+          title: Country
           type: string
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
+    Page_BrokerCustomLiveDeploymentOrderBookOut_:
+      title: Page[BrokerCustomLiveDeploymentOrderBookOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/BrokerCustomLiveDeploymentOrderBookOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+    BrokerMarketScannerStrategyOut:
+      title: BrokerMarketScannerStrategyOut
       required:
       - id
-      - label
-      - description
       - is_valid
       type: object
       properties:
         id:
           title: Id
           type: integer
-        label:
-          title: Label
-          type: string
-        description:
-          title: Description
-          type: string
         is_valid:
           title: Is Valid
+          type: boolean
+        meta:
+          title: Meta
+          type: object
+        keygen:
+          title: Keygen
           type: string
+        strategy:
+          $ref: '#/components/schemas/BrokerStrategyCustomOut'
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        last_updated_at:
+          title: Last Updated At
+          type: string
+          format: date-time

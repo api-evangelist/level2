@@ -93,58 +93,6 @@ components:
         degree:
           title: Degree
           type: string
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
-      type: object
-      properties:
-        loc:
-          title: Location
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    B2cBrokersOut:
-      title: B2cBrokersOut
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        broker_name:
-          title: Broker Name
-          type: string
-        image_url:
-          title: Image Url
-          type: string
-        doc_url:
-          title: Doc Url
-          type: string
-        referral_link:
-          title: Referral Link
-          type: string
-        offer_valid:
-          title: Offer Valid
-          type: integer
     LiveDeploymentBrokerStatsOut:
       title: LiveDeploymentBrokerStatsOut
       required:
@@ -186,27 +134,6 @@ components:
           $ref: '#/components/schemas/UserSelectedCustomOut'
         strategy:
           $ref: '#/components/schemas/BrokerStrategyOut'
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
-      required:
-      - id
-      - label
-      - description
-      - is_valid
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        label:
-          title: Label
-          type: string
-        description:
-          title: Description
-          type: string
-        is_valid:
-          title: Is Valid
-          type: string
     BrokerStrategyOut:
       title: BrokerStrategyOut
       required:
@@ -256,3 +183,76 @@ components:
           title: Created At
           type: string
           format: date-time
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    B2cBrokersOut:
+      title: B2cBrokersOut
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        broker_name:
+          title: Broker Name
+          type: string
+        image_url:
+          title: Image Url
+          type: string
+        doc_url:
+          title: Doc Url
+          type: string
+        referral_link:
+          title: Referral Link
+          type: string
+        offer_valid:
+          title: Offer Valid
+          type: integer
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string

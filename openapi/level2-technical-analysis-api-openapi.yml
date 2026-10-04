@@ -86,33 +86,6 @@ paths:
         description: Primary API Server
 components:
   schemas:
-    TickerTrendResponse:
-      type: object
-      description: Response containing trend analysis data for the requested ticker and timeframe.
-      properties:
-        ticker:
-          type: string
-          description: The ticker symbol queried
-        timeframe:
-          type: string
-          description: The timeframe analyzed
-        trend:
-          type: string
-          description: The overall trend direction
-          enum:
-          - bullish
-          - bearish
-          - neutral
-        strength:
-          type: number
-          format: float
-          description: Trend strength indicator between 0 and 1
-          minimum: 0
-          maximum: 1
-        indicators:
-          type: object
-          description: Supporting technical indicator values
-          additionalProperties: true
     ErrorResponse:
       type: object
       description: Standard error response returned when a request fails.
@@ -158,14 +131,34 @@ components:
           description: List of detected candlestick patterns
           items:
             $ref: '#/components/schemas/CandlestickPattern'
+    TickerTrendResponse:
+      type: object
+      description: Response containing trend analysis data for the requested ticker and timeframe.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        timeframe:
+          type: string
+          description: The timeframe analyzed
+        trend:
+          type: string
+          description: The overall trend direction
+          enum:
+          - bullish
+          - bearish
+          - neutral
+        strength:
+          type: number
+          format: float
+          description: Trend strength indicator between 0 and 1
+          minimum: 0
+          maximum: 1
+        indicators:
+          type: object
+          description: Supporting technical indicator values
+          additionalProperties: true
   parameters:
-    apiKey:
-      name: api_key
-      in: path
-      required: true
-      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
-      schema:
-        type: string
     ticker:
       name: ticker
       in: path
@@ -191,6 +184,13 @@ components:
         - 1d
         - 1w
         - 1M
+    apiKey:
+      name: api_key
+      in: path
+      required: true
+      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
+      schema:
+        type: string
   securitySchemes:
     apiKeyPath:
       type: apiKey

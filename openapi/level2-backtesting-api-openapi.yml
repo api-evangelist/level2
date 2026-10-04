@@ -59,33 +59,20 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    BacktestRequest:
+    ErrorResponse:
       type: object
-      description: Request body specifying the parameters for a strategy backtest run.
-      required:
-      - startDate
-      - endDate
+      description: Standard error response for broker API requests.
       properties:
-        startDate:
+        error:
           type: string
-          format: date
-          description: The start date for the backtest period
-        endDate:
+          description: A human-readable error message
+        code:
           type: string
-          format: date
-          description: The end date for the backtest period
-        initialCapital:
-          type: number
-          format: float
-          description: The starting capital amount for the backtest in USD
-          default: 100000
-          minimum: 0
-        commissionPerTrade:
-          type: number
-          format: float
-          description: Commission cost per trade in USD
-          default: 0
-          minimum: 0
+          description: A machine-readable error code
+        details:
+          type: object
+          description: Additional error details when available
+          additionalProperties: true
     BacktestResponse:
       type: object
       description: Response containing the results of a strategy backtest including performance metrics and trade history.
@@ -145,20 +132,6 @@ components:
           description: Detailed list of individual trades executed
           items:
             $ref: '#/components/schemas/BacktestTrade'
-    ErrorResponse:
-      type: object
-      description: Standard error response for broker API requests.
-      properties:
-        error:
-          type: string
-          description: A human-readable error message
-        code:
-          type: string
-          description: A machine-readable error code
-        details:
-          type: object
-          description: Additional error details when available
-          additionalProperties: true
     BacktestTrade:
       type: object
       description: A single trade executed during a backtest.
@@ -206,19 +179,46 @@ components:
           - trailing_stop
           - exit_condition
           - end_of_backtest
+    BacktestRequest:
+      type: object
+      description: Request body specifying the parameters for a strategy backtest run.
+      required:
+      - startDate
+      - endDate
+      properties:
+        startDate:
+          type: string
+          format: date
+          description: The start date for the backtest period
+        endDate:
+          type: string
+          format: date
+          description: The end date for the backtest period
+        initialCapital:
+          type: number
+          format: float
+          description: The starting capital amount for the backtest in USD
+          default: 100000
+          minimum: 0
+        commissionPerTrade:
+          type: number
+          format: float
+          description: Commission cost per trade in USD
+          default: 0
+          minimum: 0
   parameters:
-    strategyId:
-      name: strategyId
-      in: path
-      required: true
-      description: The unique identifier of the trading strategy.
-      schema:
-        type: string
     userId:
       name: userId
       in: path
       required: true
       description: The unique identifier of the broker user on the Level2 platform.
+      schema:
+        type: string
+    strategyId:
+      name: strategyId
+      in: path
+      required: true
+      description: The unique identifier of the trading strategy.
       schema:
         type: string
   securitySchemes:

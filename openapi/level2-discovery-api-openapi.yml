@@ -84,6 +84,22 @@ paths:
         description: Market Data Server
 components:
   schemas:
+    SimilarStock:
+      type: object
+      description: A stock that is similar to the queried ticker.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol of the similar stock
+        name:
+          type: string
+          description: The company name of the similar stock
+        similarity:
+          type: number
+          format: float
+          description: Similarity score between 0 and 1
+          minimum: 0
+          maximum: 1
     ErrorResponse:
       type: object
       description: Standard error response returned when a request fails.
@@ -94,6 +110,18 @@ components:
         code:
           type: integer
           description: The HTTP status code associated with the error
+    SimilarStocksResponse:
+      type: object
+      description: Response containing a list of stocks similar to the requested ticker.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        similar:
+          type: array
+          description: List of similar stock tickers with relevance information
+          items:
+            $ref: '#/components/schemas/SimilarStock'
     CompanySummaryResponse:
       type: object
       description: Response containing fundamental company information for the requested ticker symbol.
@@ -127,42 +155,7 @@ components:
           type: string
           format: uri
           description: The company website URL
-    SimilarStock:
-      type: object
-      description: A stock that is similar to the queried ticker.
-      properties:
-        ticker:
-          type: string
-          description: The ticker symbol of the similar stock
-        name:
-          type: string
-          description: The company name of the similar stock
-        similarity:
-          type: number
-          format: float
-          description: Similarity score between 0 and 1
-          minimum: 0
-          maximum: 1
-    SimilarStocksResponse:
-      type: object
-      description: Response containing a list of stocks similar to the requested ticker.
-      properties:
-        ticker:
-          type: string
-          description: The ticker symbol queried
-        similar:
-          type: array
-          description: List of similar stock tickers with relevance information
-          items:
-            $ref: '#/components/schemas/SimilarStock'
   parameters:
-    apiKey:
-      name: api_key
-      in: path
-      required: true
-      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
-      schema:
-        type: string
     ticker:
       name: ticker
       in: path
@@ -171,6 +164,13 @@ components:
       schema:
         type: string
         example: AAPL
+    apiKey:
+      name: api_key
+      in: path
+      required: true
+      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
+      schema:
+        type: string
   securitySchemes:
     apiKeyPath:
       type: apiKey

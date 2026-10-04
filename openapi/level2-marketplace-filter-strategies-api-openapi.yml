@@ -49,27 +49,6 @@ paths:
       - Marketplace Filter Strategies
 components:
   schemas:
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
-      type: object
-      properties:
-        loc:
-          title: Location
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
     HTTPValidationError:
       title: HTTPValidationError
       type: object
@@ -79,137 +58,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-    UserOut:
-      title: UserOut
-      required:
-      - email
-      - first_name
-      - last_name
-      - unique_key
-      - is_active
-      type: object
-      properties:
-        email:
-          title: Email
-          type: string
-        first_name:
-          title: First Name
-          type: string
-        last_name:
-          title: Last Name
-          type: string
-        unique_key:
-          title: Unique Key
-          type: string
-        profile_image:
-          title: Profile Image
-          type: string
-        trading_challenge:
-          title: Trading Challenge
-          type: string
-        description:
-          title: Description
-          type: string
-        is_active:
-          title: Is Active
-          type: boolean
-        user_type:
-          title: User Type
-          type: string
-        meta_data:
-          title: Meta Data
-          type: string
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
-    Page_ConsumerMarketplaceStrategies_:
-      title: Page[ConsumerMarketplaceStrategies]
-      required:
-      - items
-      - total
-      type: object
-      properties:
-        items:
-          title: Items
-          type: array
-          items:
-            $ref: '#/components/schemas/ConsumerMarketplaceStrategies'
-        total:
-          title: Total
-          minimum: 0.0
-          type: integer
-        page:
-          title: Page
-          minimum: 1.0
-          type: integer
-        size:
-          title: Size
-          minimum: 1.0
-          type: integer
-        pages:
-          title: Pages
-          minimum: 0.0
-          type: integer
-    ConsumerMarketplaceStrategies:
-      title: ConsumerMarketplaceStrategies
-      type: object
-      properties:
-        user:
-          $ref: '#/components/schemas/UserOut'
-        strategy:
-          $ref: '#/components/schemas/StrategySelectedCustomOut'
-        backtest_data:
-          title: Backtest Data
-          type: object
-        meta_data:
-          title: Meta Data
-          type: object
-        deployment_data:
-          title: Deployment Data
-          type: object
-    StrategySelectedCustomOut:
-      title: StrategySelectedCustomOut
-      required:
-      - id
-      - keygen
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        keygen:
-          title: Keygen
-          type: string
-        strategy_name:
-          title: Strategy Name
-          type: string
-        symbol:
-          title: Symbol
-          type: string
-        is_deleted:
-          title: Is Deleted
-          type: integer
-          default: 0
-        strategy_data:
-          title: Strategy Data
-          type: string
-        canvas_data:
-          title: Canvas Data
-          type: string
-        timeframe:
-          title: Timeframe
-          type: string
-        broker_id:
-          title: Broker Id
-          type: integer
-        cached:
-          title: Cached
-          type: string
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
     Body_marketplace_filter_strategies_marketplace_filter_strategies_post:
       title: Body_marketplace_filter_strategies_marketplace_filter_strategies_post
       type: object
@@ -256,3 +104,155 @@ components:
         action:
           title: Action
           type: string
+    Page_ConsumerMarketplaceStrategies_:
+      title: Page[ConsumerMarketplaceStrategies]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsumerMarketplaceStrategies'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+    ConsumerMarketplaceStrategies:
+      title: ConsumerMarketplaceStrategies
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserOut'
+        strategy:
+          $ref: '#/components/schemas/StrategySelectedCustomOut'
+        backtest_data:
+          title: Backtest Data
+          type: object
+        meta_data:
+          title: Meta Data
+          type: object
+        deployment_data:
+          title: Deployment Data
+          type: object
+    UserOut:
+      title: UserOut
+      required:
+      - email
+      - first_name
+      - last_name
+      - unique_key
+      - is_active
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+        unique_key:
+          title: Unique Key
+          type: string
+        profile_image:
+          title: Profile Image
+          type: string
+        trading_challenge:
+          title: Trading Challenge
+          type: string
+        description:
+          title: Description
+          type: string
+        is_active:
+          title: Is Active
+          type: boolean
+        user_type:
+          title: User Type
+          type: string
+        meta_data:
+          title: Meta Data
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    StrategySelectedCustomOut:
+      title: StrategySelectedCustomOut
+      required:
+      - id
+      - keygen
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        keygen:
+          title: Keygen
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        is_deleted:
+          title: Is Deleted
+          type: integer
+          default: 0
+        strategy_data:
+          title: Strategy Data
+          type: string
+        canvas_data:
+          title: Canvas Data
+          type: string
+        timeframe:
+          title: Timeframe
+          type: string
+        broker_id:
+          title: Broker Id
+          type: integer
+        cached:
+          title: Cached
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time

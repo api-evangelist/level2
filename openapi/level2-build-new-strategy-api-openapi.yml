@@ -57,27 +57,6 @@ paths:
       - Build New Strategy
 components:
   schemas:
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
-      type: object
-      properties:
-        loc:
-          title: Location
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
     StrategyOut:
       title: StrategyOut
       required:
@@ -137,6 +116,50 @@ components:
           title: Created At
           type: string
           format: date-time
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    StrategyPrefCustomOut:
+      title: StrategyPrefCustomOut
+      required:
+      - strategy
+      - meta
+      type: object
+      properties:
+        strategy:
+          $ref: '#/components/schemas/StrategyOut'
+        broker_id:
+          title: Broker Id
+          type: integer
+        meta:
+          $ref: '#/components/schemas/UserPreferenceOut'
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
     UserPreferenceOut:
       title: UserPreferenceOut
       type: object
@@ -174,29 +197,6 @@ components:
         socials:
           title: Socials
           type: string
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    StrategyPrefCustomOut:
-      title: StrategyPrefCustomOut
-      required:
-      - strategy
-      - meta
-      type: object
-      properties:
-        strategy:
-          $ref: '#/components/schemas/StrategyOut'
-        broker_id:
-          title: Broker Id
-          type: integer
-        meta:
-          $ref: '#/components/schemas/UserPreferenceOut'
     StrategyCategoryOut:
       title: StrategyCategoryOut
       required:

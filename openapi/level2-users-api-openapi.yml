@@ -84,6 +84,20 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response for broker API requests.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message
+        code:
+          type: string
+          description: A machine-readable error code
+        details:
+          type: object
+          description: Additional error details when available
+          additionalProperties: true
     UserResponse:
       type: object
       description: Response containing user account details.
@@ -116,20 +130,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the user account was last updated
-    ErrorResponse:
-      type: object
-      description: Standard error response for broker API requests.
-      properties:
-        error:
-          type: string
-          description: A human-readable error message
-        code:
-          type: string
-          description: A machine-readable error code
-        details:
-          type: object
-          description: Additional error details when available
-          additionalProperties: true
     CreateUserRequest:
       type: object
       description: Request body for creating a new broker user account.

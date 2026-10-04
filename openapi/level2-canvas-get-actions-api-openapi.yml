@@ -36,26 +36,59 @@ paths:
       - Canvas Get Actions
 components:
   schemas:
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
+    CanvasActionInputsOut:
+      title: CanvasActionInputsOut
       type: object
       properties:
-        loc:
-          title: Location
+        name:
+          title: Name
+          type: string
+    CanvasActionOutputsOut:
+      title: CanvasActionOutputsOut
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
           type: array
           items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
+            $ref: '#/components/schemas/ValidationError'
+    CanvasActionParamsOut:
+      title: CanvasActionParamsOut
+      type: object
+      properties:
+        box_type:
+          title: Box Type
+          type: string
+        max_value:
+          title: Max Value
+          type: number
+        min_value:
+          title: Min Value
+          type: number
+        default_value:
+          title: Default Value
+          type: number
+        name:
+          title: Name
           type: string
         type:
-          title: Error Type
+          title: Type
+          type: string
+        for_fx:
+          title: For Fx
+          type: boolean
+        check_fx:
+          title: Check Fx
+          type: boolean
+        hint_text:
+          title: Hint Text
           type: string
     CanvasActionsOut:
       title: CanvasActionsOut
@@ -92,57 +125,24 @@ components:
         category:
           title: Category
           type: string
-    HTTPValidationError:
-      title: HTTPValidationError
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
       type: object
       properties:
-        detail:
-          title: Detail
+        loc:
+          title: Location
           type: array
           items:
-            $ref: '#/components/schemas/ValidationError'
-    CanvasActionInputsOut:
-      title: CanvasActionInputsOut
-      type: object
-      properties:
-        name:
-          title: Name
-          type: string
-    CanvasActionParamsOut:
-      title: CanvasActionParamsOut
-      type: object
-      properties:
-        box_type:
-          title: Box Type
-          type: string
-        max_value:
-          title: Max Value
-          type: number
-        min_value:
-          title: Min Value
-          type: number
-        default_value:
-          title: Default Value
-          type: number
-        name:
-          title: Name
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
           type: string
         type:
-          title: Type
-          type: string
-        for_fx:
-          title: For Fx
-          type: boolean
-        check_fx:
-          title: Check Fx
-          type: boolean
-        hint_text:
-          title: Hint Text
-          type: string
-    CanvasActionOutputsOut:
-      title: CanvasActionOutputsOut
-      type: object
-      properties:
-        name:
-          title: Name
+          title: Error Type
           type: string

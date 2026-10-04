@@ -50,47 +50,18 @@ paths:
       - Get Deployment Notifications
 components:
   schemas:
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
+    UserDeploymentNotificationsCustomOut:
+      title: UserDeploymentNotificationsCustomOut
       type: object
       properties:
-        loc:
-          title: Location
+        scanner_deployment:
+          $ref: '#/components/schemas/ScannerDeploymentsOut'
+        meta:
+          title: Meta
           type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-    ScannerDeploymentsOut:
-      title: ScannerDeploymentsOut
-      required:
-      - created_at
-      - last_updated_at
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        universe:
-          $ref: '#/components/schemas/MarketScannerUniverseOut'
-        strategy:
-          $ref: '#/components/schemas/StrategyOut'
+          items: {}
         created_at:
           title: Created At
-          type: string
-          format: date-time
-        last_updated_at:
-          title: Last Updated At
           type: string
           format: date-time
     StrategyOut:
@@ -161,6 +132,28 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
+    ScannerDeploymentsOut:
+      title: ScannerDeploymentsOut
+      required:
+      - created_at
+      - last_updated_at
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        universe:
+          $ref: '#/components/schemas/MarketScannerUniverseOut'
+        strategy:
+          $ref: '#/components/schemas/StrategyOut'
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        last_updated_at:
+          title: Last Updated At
+          type: string
+          format: date-time
     Page_UserDeploymentNotificationsCustomOut_:
       title: Page[UserDeploymentNotificationsCustomOut]
       required:
@@ -189,20 +182,41 @@ components:
           title: Pages
           minimum: 0.0
           type: integer
-    UserDeploymentNotificationsCustomOut:
-      title: UserDeploymentNotificationsCustomOut
+    MarketScannerUniverseOut:
+      title: MarketScannerUniverseOut
       type: object
       properties:
-        scanner_deployment:
-          $ref: '#/components/schemas/ScannerDeploymentsOut'
         meta:
           title: Meta
+          type: object
+        keygen:
+          title: Keygen
+          type: string
+        universe_list:
+          title: Universe List
           type: array
           items: {}
-        created_at:
-          title: Created At
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
           type: string
-          format: date-time
+        type:
+          title: Error Type
+          type: string
     StrategyCategoryOut:
       title: StrategyCategoryOut
       required:
@@ -224,17 +238,3 @@ components:
         is_valid:
           title: Is Valid
           type: string
-    MarketScannerUniverseOut:
-      title: MarketScannerUniverseOut
-      type: object
-      properties:
-        meta:
-          title: Meta
-          type: object
-        keygen:
-          title: Keygen
-          type: string
-        universe_list:
-          title: Universe List
-          type: array
-          items: {}

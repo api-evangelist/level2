@@ -39,27 +39,6 @@ paths:
       - Deploy Notification Strategy
 components:
   schemas:
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
-      type: object
-      properties:
-        loc:
-          title: Location
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
     StrategyOut:
       title: StrategyOut
       required:
@@ -128,6 +107,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
+    Body_deploy_notification_strategy_deploy_notification_strategy_post:
+      title: Body_deploy_notification_strategy_deploy_notification_strategy_post
+      required:
+      - strategy_data
+      - canvas_data
+      type: object
+      properties:
+        strategy_data:
+          title: Strategy Data
+          type: string
+        canvas_data:
+          title: Canvas Data
+          type: string
+    NotificationDeploymentOut:
+      title: NotificationDeploymentOut
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        user:
+          $ref: '#/components/schemas/UserOut'
+        strategy:
+          $ref: '#/components/schemas/StrategyOut'
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
     UserOut:
       title: UserOut
       required:
@@ -172,23 +181,27 @@ components:
           title: Created At
           type: string
           format: date-time
-    NotificationDeploymentOut:
-      title: NotificationDeploymentOut
+    ValidationError:
+      title: ValidationError
       required:
-      - id
+      - loc
+      - msg
+      - type
       type: object
       properties:
-        id:
-          title: Id
-          type: integer
-        user:
-          $ref: '#/components/schemas/UserOut'
-        strategy:
-          $ref: '#/components/schemas/StrategyOut'
-        created_at:
-          title: Created At
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
           type: string
-          format: date-time
+        type:
+          title: Error Type
+          type: string
     StrategyCategoryOut:
       title: StrategyCategoryOut
       required:
@@ -209,17 +222,4 @@ components:
           type: string
         is_valid:
           title: Is Valid
-          type: string
-    Body_deploy_notification_strategy_deploy_notification_strategy_post:
-      title: Body_deploy_notification_strategy_deploy_notification_strategy_post
-      required:
-      - strategy_data
-      - canvas_data
-      type: object
-      properties:
-        strategy_data:
-          title: Strategy Data
-          type: string
-        canvas_data:
-          title: Canvas Data
           type: string

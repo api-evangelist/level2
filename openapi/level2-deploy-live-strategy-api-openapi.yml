@@ -80,19 +80,15 @@ paths:
       - Deploy Live Strategy
 components:
   schemas:
-    Body_deploy_live_strategy_deploy_live_strategy_post:
-      title: Body_deploy_live_strategy_deploy_live_strategy_post
+    HTTPValidationError:
+      title: HTTPValidationError
       type: object
       properties:
-        api_key:
-          title: Api Key
-          type: string
-        api_secret:
-          title: Api Secret
-          type: string
-        passphrase:
-          title: Passphrase
-          type: string
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
     ValidationError:
       title: ValidationError
       required:
@@ -114,12 +110,16 @@ components:
         type:
           title: Error Type
           type: string
-    HTTPValidationError:
-      title: HTTPValidationError
+    Body_deploy_live_strategy_deploy_live_strategy_post:
+      title: Body_deploy_live_strategy_deploy_live_strategy_post
       type: object
       properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
+        api_key:
+          title: Api Key
+          type: string
+        api_secret:
+          title: Api Secret
+          type: string
+        passphrase:
+          title: Passphrase
+          type: string

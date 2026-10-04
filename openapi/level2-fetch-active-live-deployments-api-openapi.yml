@@ -23,6 +23,43 @@ paths:
       - Fetch Active Live Deployments
 components:
   schemas:
+    LiveActiveDeploymentsOut:
+      title: LiveActiveDeploymentsOut
+      required:
+      - deployment_meta
+      - deployment_id
+      - strategy_key
+      - strategy_name
+      - strategy_data
+      - user_id
+      type: object
+      properties:
+        deployment_meta:
+          $ref: '#/components/schemas/LiveDeploymentOut'
+        deployment_id:
+          title: Deployment Id
+          type: integer
+        strategy_key:
+          title: Strategy Key
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        strategy_data:
+          title: Strategy Data
+          type: string
+        depl_flag:
+          title: Depl Flag
+          type: string
+        order_trade_type:
+          title: Order Trade Type
+          type: string
+        meta_data:
+          title: Meta Data
+          type: string
+        user_id:
+          title: User Id
+          type: integer
     StrategyOut:
       title: StrategyOut
       required:
@@ -104,64 +141,6 @@ components:
         offer_valid:
           title: Offer Valid
           type: integer
-    LiveActiveDeploymentsOut:
-      title: LiveActiveDeploymentsOut
-      required:
-      - deployment_meta
-      - deployment_id
-      - strategy_key
-      - strategy_name
-      - strategy_data
-      - user_id
-      type: object
-      properties:
-        deployment_meta:
-          $ref: '#/components/schemas/LiveDeploymentOut'
-        deployment_id:
-          title: Deployment Id
-          type: integer
-        strategy_key:
-          title: Strategy Key
-          type: string
-        strategy_name:
-          title: Strategy Name
-          type: string
-        strategy_data:
-          title: Strategy Data
-          type: string
-        depl_flag:
-          title: Depl Flag
-          type: string
-        order_trade_type:
-          title: Order Trade Type
-          type: string
-        meta_data:
-          title: Meta Data
-          type: string
-        user_id:
-          title: User Id
-          type: integer
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
-      required:
-      - id
-      - label
-      - description
-      - is_valid
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        label:
-          title: Label
-          type: string
-        description:
-          title: Description
-          type: string
-        is_valid:
-          title: Is Valid
-          type: string
     LiveDeploymentOut:
       title: LiveDeploymentOut
       required:
@@ -201,3 +180,24 @@ components:
           $ref: '#/components/schemas/B2cBrokersOut'
         strategy:
           $ref: '#/components/schemas/StrategyOut'
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string

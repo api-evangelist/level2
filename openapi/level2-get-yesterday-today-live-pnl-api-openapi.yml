@@ -33,6 +33,35 @@ paths:
       - Get Yesterday Today Live Pnl
 components:
   schemas:
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    LiveDeploymentProfitLossOut:
+      title: LiveDeploymentProfitLossOut
+      type: object
+      properties:
+        yesterday:
+          title: Yesterday
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveDeploymentShortOrderBookOut'
+        today:
+          title: Today
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveDeploymentShortOrderBookOut'
+        yesterday_pnl:
+          title: Yesterday Pnl
+          type: object
+        today_pnl:
+          title: Today Pnl
+          type: object
     ValidationError:
       title: ValidationError
       required:
@@ -83,32 +112,3 @@ components:
         close_value:
           title: Close Value
           type: string
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    LiveDeploymentProfitLossOut:
-      title: LiveDeploymentProfitLossOut
-      type: object
-      properties:
-        yesterday:
-          title: Yesterday
-          type: array
-          items:
-            $ref: '#/components/schemas/LiveDeploymentShortOrderBookOut'
-        today:
-          title: Today
-          type: array
-          items:
-            $ref: '#/components/schemas/LiveDeploymentShortOrderBookOut'
-        yesterday_pnl:
-          title: Yesterday Pnl
-          type: object
-        today_pnl:
-          title: Today Pnl
-          type: object

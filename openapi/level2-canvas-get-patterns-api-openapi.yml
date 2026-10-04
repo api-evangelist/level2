@@ -23,28 +23,6 @@ paths:
       - Canvas Get Patterns
 components:
   schemas:
-    CanvasPatternParamsOut:
-      title: CanvasPatternParamsOut
-      type: object
-      properties:
-        box_type:
-          title: Box Type
-          type: string
-        max_value:
-          title: Max Value
-          type: number
-        min_value:
-          title: Min Value
-          type: number
-        name:
-          title: Name
-          type: string
-        type:
-          title: Type
-          type: string
-        values:
-          title: Values
-          type: string
     CanvasPatternsOut:
       title: CanvasPatternsOut
       required:
@@ -82,4 +60,26 @@ components:
           type: string
         unique_key:
           title: Unique Key
+          type: string
+    CanvasPatternParamsOut:
+      title: CanvasPatternParamsOut
+      type: object
+      properties:
+        box_type:
+          title: Box Type
+          type: string
+        max_value:
+          title: Max Value
+          type: number
+        min_value:
+          title: Min Value
+          type: number
+        name:
+          title: Name
+          type: string
+        type:
+          title: Type
+          type: string
+        values:
+          title: Values
           type: string

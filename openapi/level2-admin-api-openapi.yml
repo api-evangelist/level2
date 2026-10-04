@@ -767,6 +767,18 @@ components:
         pages:
           title: Pages
           type: integer
+    AdminStrategiesResponse:
+      title: AdminStrategiesResponse
+      required:
+      - success
+      - strategies
+      type: object
+      properties:
+        success:
+          title: Success
+          type: boolean
+        strategies:
+          $ref: '#/components/schemas/PaginatedResponse'
     ValidationError:
       title: ValidationError
       required:
@@ -797,15 +809,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-    AdminStrategiesResponse:
-      title: AdminStrategiesResponse
-      required:
-      - success
-      - strategies
-      type: object
-      properties:
-        success:
-          title: Success
-          type: boolean
-        strategies:
-          $ref: '#/components/schemas/PaginatedResponse'

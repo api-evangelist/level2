@@ -44,6 +44,15 @@ paths:
       - Marketplace List
 components:
   schemas:
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
     ValidationError:
       title: ValidationError
       required:
@@ -140,15 +149,6 @@ components:
           title: Created At
           type: string
           format: date-time
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     Page_MarketplaceListOut_:
       title: Page[MarketplaceListOut]
       required:
