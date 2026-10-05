@@ -1,0 +1,12 @@
+{
+ "url": "https://hub2.trylevel2.com/openapi.json",
+ "requested_url": "https://hub2.trylevel2.com/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 242732,
+ "sha256": "885dc523fa6c8deb524923a7b8002f61ae410ce948a3db1b8de3e1723630c567",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
