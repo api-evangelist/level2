@@ -151,3 +151,36 @@ api_access:
     contact@trylevel2.com to request an access now", and the iframe embed is provisioned by Level2
     per partner. The Broker API reference itself is nonetheless public and unauthenticated to read,
     and the contract is served openly at https://hub2.trylevel2.com/openapi.json.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units:
+  - period
+  plans:
+  - name: Free
+    access: freemium
+    model: free
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Pro
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    - period
+    periods:
+    - month
+  - name: Elite
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    periods:
+    - month
