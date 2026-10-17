@@ -54,6 +54,21 @@ paths:
         description: Market Data Server
 components:
   schemas:
+    OHLCDataResponse:
+      type: object
+      description: Response containing historical OHLC price data for the requested ticker, timeframe, and range.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol queried
+        timeframe:
+          type: string
+          description: The timeframe of each candle
+        data:
+          type: array
+          description: Array of OHLC candle data points
+          items:
+            $ref: '#/components/schemas/OHLCCandle'
     ErrorResponse:
       type: object
       description: Standard error response returned when a request fails.
@@ -97,30 +112,7 @@ components:
         volume:
           type: integer
           description: The trading volume during the period
-    OHLCDataResponse:
-      type: object
-      description: Response containing historical OHLC price data for the requested ticker, timeframe, and range.
-      properties:
-        ticker:
-          type: string
-          description: The ticker symbol queried
-        timeframe:
-          type: string
-          description: The timeframe of each candle
-        data:
-          type: array
-          description: Array of OHLC candle data points
-          items:
-            $ref: '#/components/schemas/OHLCCandle'
   parameters:
-    ticker:
-      name: ticker
-      in: path
-      required: true
-      description: The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges.
-      schema:
-        type: string
-        example: AAPL
     timeframe:
       name: timeframe
       in: path
@@ -138,6 +130,13 @@ components:
         - 1d
         - 1w
         - 1M
+    apiKey:
+      name: api_key
+      in: path
+      required: true
+      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
+      schema:
+        type: string
     range:
       name: range
       in: path
@@ -155,13 +154,14 @@ components:
         - 2y
         - 5y
         - max
-    apiKey:
-      name: api_key
+    ticker:
+      name: ticker
       in: path
       required: true
-      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
+      description: The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges.
       schema:
         type: string
+        example: AAPL
   securitySchemes:
     apiKeyPath:
       type: apiKey

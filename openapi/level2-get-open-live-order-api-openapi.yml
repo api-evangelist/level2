@@ -33,6 +33,79 @@ paths:
       - Get Open Live Order
 components:
   schemas:
+    LiveOrderBookOut:
+      title: LiveOrderBookOut
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        stoploss:
+          title: Stoploss
+          type: string
+        target:
+          title: Target
+          type: string
+        decision:
+          title: Decision
+          type: string
+        order_price:
+          title: Order Price
+          type: string
+        result:
+          title: Result
+          type: string
+        trade_taken_at:
+          title: Trade Taken At
+          type: string
+        trade_closed_at:
+          title: Trade Closed At
+          type: string
+        meta_data:
+          title: Meta Data
+          type: string
+        order_status:
+          title: Order Status
+          type: string
+        close_value:
+          title: Close Value
+          type: string
+        quantity:
+          title: Quantity
+          type: string
+        original_quantity:
+          title: Original Quantity
+          type: string
+        misc_data:
+          title: Misc Data
+          type: string
+        trade_closed_at_ts:
+          title: Trade Closed At Ts
+          type: string
+          format: date-time
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
     StrategyOut:
       title: StrategyOut
       required:
@@ -92,95 +165,6 @@ components:
           title: Created At
           type: string
           format: date-time
-    OpenOrderLiveDeploymentOut:
-      title: OpenOrderLiveDeploymentOut
-      type: object
-      properties:
-        order_book_data:
-          $ref: '#/components/schemas/LiveOrderBookOut'
-        deployment_id:
-          title: Deployment Id
-          type: integer
-        strategy_key:
-          title: Strategy Key
-          type: string
-        strategy_name:
-          title: Strategy Name
-          type: string
-        strategy_data:
-          title: Strategy Data
-          type: string
-        timeframe:
-          title: Timeframe
-          type: string
-        symbol:
-          title: Symbol
-          type: string
-        deployment:
-          $ref: '#/components/schemas/LiveDeploymentOut'
-        last_order_data:
-          $ref: '#/components/schemas/LastOrderLiveDeploymentOut'
-    LiveOrderBookOut:
-      title: LiveOrderBookOut
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        stoploss:
-          title: Stoploss
-          type: string
-        target:
-          title: Target
-          type: string
-        decision:
-          title: Decision
-          type: string
-        order_price:
-          title: Order Price
-          type: string
-        result:
-          title: Result
-          type: string
-        trade_taken_at:
-          title: Trade Taken At
-          type: string
-        trade_closed_at:
-          title: Trade Closed At
-          type: string
-        meta_data:
-          title: Meta Data
-          type: string
-        order_status:
-          title: Order Status
-          type: string
-        close_value:
-          title: Close Value
-          type: string
-        quantity:
-          title: Quantity
-          type: string
-        original_quantity:
-          title: Original Quantity
-          type: string
-        misc_data:
-          title: Misc Data
-          type: string
-        trade_closed_at_ts:
-          title: Trade Closed At Ts
-          type: string
-          format: date-time
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     B2cBrokersOut:
       title: B2cBrokersOut
       type: object
@@ -203,32 +187,6 @@ components:
         offer_valid:
           title: Offer Valid
           type: integer
-    LastOrderLiveDeploymentOut:
-      title: LastOrderLiveDeploymentOut
-      type: object
-      properties:
-        order_book_data:
-          $ref: '#/components/schemas/LiveOrderBookOut'
-        deployment_id:
-          title: Deployment Id
-          type: integer
-        strategy_key:
-          title: Strategy Key
-          type: string
-        strategy_name:
-          title: Strategy Name
-          type: string
-        strategy_data:
-          title: Strategy Data
-          type: string
-        timeframe:
-          title: Timeframe
-          type: string
-        symbol:
-          title: Symbol
-          type: string
-        deployment_meta:
-          $ref: '#/components/schemas/LiveDeploymentOut'
     ValidationError:
       title: ValidationError
       required:
@@ -250,6 +208,15 @@ components:
         type:
           title: Error Type
           type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
     LiveDeploymentOut:
       title: LiveDeploymentOut
       required:
@@ -289,24 +256,57 @@ components:
           $ref: '#/components/schemas/B2cBrokersOut'
         strategy:
           $ref: '#/components/schemas/StrategyOut'
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
-      required:
-      - id
-      - label
-      - description
-      - is_valid
+    LastOrderLiveDeploymentOut:
+      title: LastOrderLiveDeploymentOut
       type: object
       properties:
-        id:
-          title: Id
+        order_book_data:
+          $ref: '#/components/schemas/LiveOrderBookOut'
+        deployment_id:
+          title: Deployment Id
           type: integer
-        label:
-          title: Label
+        strategy_key:
+          title: Strategy Key
           type: string
-        description:
-          title: Description
+        strategy_name:
+          title: Strategy Name
           type: string
-        is_valid:
-          title: Is Valid
+        strategy_data:
+          title: Strategy Data
           type: string
+        timeframe:
+          title: Timeframe
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        deployment_meta:
+          $ref: '#/components/schemas/LiveDeploymentOut'
+    OpenOrderLiveDeploymentOut:
+      title: OpenOrderLiveDeploymentOut
+      type: object
+      properties:
+        order_book_data:
+          $ref: '#/components/schemas/LiveOrderBookOut'
+        deployment_id:
+          title: Deployment Id
+          type: integer
+        strategy_key:
+          title: Strategy Key
+          type: string
+        strategy_name:
+          title: Strategy Name
+          type: string
+        strategy_data:
+          title: Strategy Data
+          type: string
+        timeframe:
+          title: Timeframe
+          type: string
+        symbol:
+          title: Symbol
+          type: string
+        deployment:
+          $ref: '#/components/schemas/LiveDeploymentOut'
+        last_order_data:
+          $ref: '#/components/schemas/LastOrderLiveDeploymentOut'

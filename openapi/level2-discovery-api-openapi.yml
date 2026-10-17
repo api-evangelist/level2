@@ -83,33 +83,23 @@ paths:
       - url: https://valhalla.bytemine.workers.dev
         description: Market Data Server
 components:
+  parameters:
+    apiKey:
+      name: api_key
+      in: path
+      required: true
+      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
+      schema:
+        type: string
+    ticker:
+      name: ticker
+      in: path
+      required: true
+      description: The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges.
+      schema:
+        type: string
+        example: AAPL
   schemas:
-    SimilarStock:
-      type: object
-      description: A stock that is similar to the queried ticker.
-      properties:
-        ticker:
-          type: string
-          description: The ticker symbol of the similar stock
-        name:
-          type: string
-          description: The company name of the similar stock
-        similarity:
-          type: number
-          format: float
-          description: Similarity score between 0 and 1
-          minimum: 0
-          maximum: 1
-    ErrorResponse:
-      type: object
-      description: Standard error response returned when a request fails.
-      properties:
-        error:
-          type: string
-          description: A human-readable error message describing the issue
-        code:
-          type: integer
-          description: The HTTP status code associated with the error
     SimilarStocksResponse:
       type: object
       description: Response containing a list of stocks similar to the requested ticker.
@@ -155,22 +145,32 @@ components:
           type: string
           format: uri
           description: The company website URL
-  parameters:
-    ticker:
-      name: ticker
-      in: path
-      required: true
-      description: The stock ticker symbol to query (e.g., AAPL, MSFT, TSLA). Level2 supports over 200,000 instruments from 75 global exchanges.
-      schema:
-        type: string
-        example: AAPL
-    apiKey:
-      name: api_key
-      in: path
-      required: true
-      description: Your Level2 API key used to authenticate requests. Obtain this from your Level2 account dashboard.
-      schema:
-        type: string
+    ErrorResponse:
+      type: object
+      description: Standard error response returned when a request fails.
+      properties:
+        error:
+          type: string
+          description: A human-readable error message describing the issue
+        code:
+          type: integer
+          description: The HTTP status code associated with the error
+    SimilarStock:
+      type: object
+      description: A stock that is similar to the queried ticker.
+      properties:
+        ticker:
+          type: string
+          description: The ticker symbol of the similar stock
+        name:
+          type: string
+          description: The company name of the similar stock
+        similarity:
+          type: number
+          format: float
+          description: Similarity score between 0 and 1
+          minimum: 0
+          maximum: 1
   securitySchemes:
     apiKeyPath:
       type: apiKey

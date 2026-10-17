@@ -39,6 +39,71 @@ paths:
       - Unlike Strategy
 components:
   schemas:
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
+    UserOut:
+      title: UserOut
+      required:
+      - email
+      - first_name
+      - last_name
+      - unique_key
+      - is_active
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+        unique_key:
+          title: Unique Key
+          type: string
+        profile_image:
+          title: Profile Image
+          type: string
+        trading_challenge:
+          title: Trading Challenge
+          type: string
+        description:
+          title: Description
+          type: string
+        is_active:
+          title: Is Active
+          type: boolean
+        user_type:
+          title: User Type
+          type: string
+        meta_data:
+          title: Meta Data
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
     StrategyOut:
       title: StrategyOut
       required:
@@ -98,19 +163,27 @@ components:
           title: Created At
           type: string
           format: date-time
-    ExploreStrategyFavouriteOut:
-      title: ExploreStrategyFavouriteOut
+    ValidationError:
+      title: ValidationError
       required:
-      - id
+      - loc
+      - msg
+      - type
       type: object
       properties:
-        id:
-          title: Id
-          type: integer
-        user:
-          $ref: '#/components/schemas/UserOut'
-        explore_strategy:
-          $ref: '#/components/schemas/ExploreStrategyOut'
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
     HTTPValidationError:
       title: HTTPValidationError
       type: object
@@ -133,89 +206,16 @@ components:
           $ref: '#/components/schemas/UserOut'
         strategy:
           $ref: '#/components/schemas/StrategyOut'
-    UserOut:
-      title: UserOut
-      required:
-      - email
-      - first_name
-      - last_name
-      - unique_key
-      - is_active
-      type: object
-      properties:
-        email:
-          title: Email
-          type: string
-        first_name:
-          title: First Name
-          type: string
-        last_name:
-          title: Last Name
-          type: string
-        unique_key:
-          title: Unique Key
-          type: string
-        profile_image:
-          title: Profile Image
-          type: string
-        trading_challenge:
-          title: Trading Challenge
-          type: string
-        description:
-          title: Description
-          type: string
-        is_active:
-          title: Is Active
-          type: boolean
-        user_type:
-          title: User Type
-          type: string
-        meta_data:
-          title: Meta Data
-          type: string
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
-      type: object
-      properties:
-        loc:
-          title: Location
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
+    ExploreStrategyFavouriteOut:
+      title: ExploreStrategyFavouriteOut
       required:
       - id
-      - label
-      - description
-      - is_valid
       type: object
       properties:
         id:
           title: Id
           type: integer
-        label:
-          title: Label
-          type: string
-        description:
-          title: Description
-          type: string
-        is_valid:
-          title: Is Valid
-          type: string
+        user:
+          $ref: '#/components/schemas/UserOut'
+        explore_strategy:
+          $ref: '#/components/schemas/ExploreStrategyOut'

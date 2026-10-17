@@ -74,59 +74,6 @@ paths:
       - Filter Broker User Stats Via Date
 components:
   schemas:
-    UserSelectedCustomOut:
-      title: UserSelectedCustomOut
-      required:
-      - email
-      type: object
-      properties:
-        email:
-          title: Email
-          type: string
-        degree:
-          title: Degree
-          type: string
-    LiveDeploymentBrokerStatsOut:
-      title: LiveDeploymentBrokerStatsOut
-      required:
-      - created_at
-      - last_updated_at
-      - broker
-      - strategy
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        user_id:
-          title: User Id
-          type: string
-        meta_data:
-          title: Meta Data
-          type: string
-        dep_flag:
-          title: Dep Flag
-          type: string
-        is_valid:
-          title: Is Valid
-          type: string
-        order_trade_type:
-          title: Order Trade Type
-          type: string
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
-        last_updated_at:
-          title: Last Updated At
-          type: string
-          format: date-time
-        broker:
-          $ref: '#/components/schemas/B2cBrokersOut'
-        user:
-          $ref: '#/components/schemas/UserSelectedCustomOut'
-        strategy:
-          $ref: '#/components/schemas/BrokerStrategyOut'
     BrokerStrategyOut:
       title: BrokerStrategyOut
       required:
@@ -176,15 +123,27 @@ components:
           title: Created At
           type: string
           format: date-time
-    HTTPValidationError:
-      title: HTTPValidationError
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
       type: object
       properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
     B2cBrokersOut:
       title: B2cBrokersOut
       type: object
@@ -256,24 +215,65 @@ components:
           title: Pages
           minimum: 0.0
           type: integer
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    UserSelectedCustomOut:
+      title: UserSelectedCustomOut
       required:
-      - id
-      - label
-      - description
-      - is_valid
+      - email
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        degree:
+          title: Degree
+          type: string
+    LiveDeploymentBrokerStatsOut:
+      title: LiveDeploymentBrokerStatsOut
+      required:
+      - created_at
+      - last_updated_at
+      - broker
+      - strategy
       type: object
       properties:
         id:
           title: Id
           type: integer
-        label:
-          title: Label
+        user_id:
+          title: User Id
           type: string
-        description:
-          title: Description
+        meta_data:
+          title: Meta Data
+          type: string
+        dep_flag:
+          title: Dep Flag
           type: string
         is_valid:
           title: Is Valid
           type: string
+        order_trade_type:
+          title: Order Trade Type
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        last_updated_at:
+          title: Last Updated At
+          type: string
+          format: date-time
+        broker:
+          $ref: '#/components/schemas/B2cBrokersOut'
+        user:
+          $ref: '#/components/schemas/UserSelectedCustomOut'
+        strategy:
+          $ref: '#/components/schemas/BrokerStrategyOut'

@@ -625,6 +625,34 @@ paths:
       - Broker
 components:
   schemas:
+    Page_BrokerCustomLiveDeploymentOrderBookOut_:
+      title: Page[BrokerCustomLiveDeploymentOrderBookOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/BrokerCustomLiveDeploymentOrderBookOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
     StrategyCategoryOut:
       title: StrategyCategoryOut
       required:
@@ -646,43 +674,6 @@ components:
         is_valid:
           title: Is Valid
           type: string
-    Page_BrokerCustomLiveDeploymentOut_:
-      title: Page[BrokerCustomLiveDeploymentOut]
-      required:
-      - items
-      - total
-      type: object
-      properties:
-        items:
-          title: Items
-          type: array
-          items:
-            $ref: '#/components/schemas/BrokerCustomLiveDeploymentOut'
-        total:
-          title: Total
-          minimum: 0.0
-          type: integer
-        page:
-          title: Page
-          minimum: 1.0
-          type: integer
-        size:
-          title: Size
-          minimum: 1.0
-          type: integer
-        pages:
-          title: Pages
-          minimum: 0.0
-          type: integer
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     BrokerStrategyCustomOut:
       title: BrokerStrategyCustomOut
       required:
@@ -730,8 +721,8 @@ components:
           title: Created At
           type: string
           format: date-time
-    Page_BrokerStrategyCustomOut_:
-      title: Page[BrokerStrategyCustomOut]
+    Page_BrokerMarketScannerStrategyOut_:
+      title: Page[BrokerMarketScannerStrategyOut]
       required:
       - items
       - total
@@ -741,7 +732,7 @@ components:
           title: Items
           type: array
           items:
-            $ref: '#/components/schemas/BrokerStrategyCustomOut'
+            $ref: '#/components/schemas/BrokerMarketScannerStrategyOut'
         total:
           title: Total
           minimum: 0.0
@@ -819,57 +810,6 @@ components:
           title: Pages
           minimum: 0.0
           type: integer
-    Page_BrokerMarketScannerStrategyOut_:
-      title: Page[BrokerMarketScannerStrategyOut]
-      required:
-      - items
-      - total
-      type: object
-      properties:
-        items:
-          title: Items
-          type: array
-          items:
-            $ref: '#/components/schemas/BrokerMarketScannerStrategyOut'
-        total:
-          title: Total
-          minimum: 0.0
-          type: integer
-        page:
-          title: Page
-          minimum: 1.0
-          type: integer
-        size:
-          title: Size
-          minimum: 1.0
-          type: integer
-        pages:
-          title: Pages
-          minimum: 0.0
-          type: integer
-    BrokerUserCustomOut:
-      title: BrokerUserCustomOut
-      required:
-      - unique_key
-      - email
-      type: object
-      properties:
-        unique_key:
-          title: Unique Key
-          type: string
-        first_name:
-          title: First Name
-          type: string
-        last_name:
-          title: Last Name
-          type: string
-        email:
-          title: Email
-          type: string
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
     ValidationError:
       title: ValidationError
       required:
@@ -891,6 +831,15 @@ components:
         type:
           title: Error Type
           type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
     BrokerCustomLiveDeploymentOrderBookOut:
       title: BrokerCustomLiveDeploymentOrderBookOut
       required:
@@ -954,55 +903,6 @@ components:
           title: Created At
           type: string
           format: date-time
-    Body_register_broker_user_broker_register_user_post:
-      title: Body_register_broker_user_broker_register_user_post
-      required:
-      - email
-      - first_name
-      - last_name
-      - country
-      type: object
-      properties:
-        email:
-          title: Email
-          type: string
-        first_name:
-          title: First Name
-          type: string
-        last_name:
-          title: Last Name
-          type: string
-        country:
-          title: Country
-          type: string
-    Page_BrokerCustomLiveDeploymentOrderBookOut_:
-      title: Page[BrokerCustomLiveDeploymentOrderBookOut]
-      required:
-      - items
-      - total
-      type: object
-      properties:
-        items:
-          title: Items
-          type: array
-          items:
-            $ref: '#/components/schemas/BrokerCustomLiveDeploymentOrderBookOut'
-        total:
-          title: Total
-          minimum: 0.0
-          type: integer
-        page:
-          title: Page
-          minimum: 1.0
-          type: integer
-        size:
-          title: Size
-          minimum: 1.0
-          type: integer
-        pages:
-          title: Pages
-          minimum: 0.0
-          type: integer
     BrokerMarketScannerStrategyOut:
       title: BrokerMarketScannerStrategyOut
       required:
@@ -1032,3 +932,103 @@ components:
           title: Last Updated At
           type: string
           format: date-time
+    BrokerUserCustomOut:
+      title: BrokerUserCustomOut
+      required:
+      - unique_key
+      - email
+      type: object
+      properties:
+        unique_key:
+          title: Unique Key
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+        email:
+          title: Email
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+    Page_BrokerStrategyCustomOut_:
+      title: Page[BrokerStrategyCustomOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/BrokerStrategyCustomOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer
+    Body_register_broker_user_broker_register_user_post:
+      title: Body_register_broker_user_broker_register_user_post
+      required:
+      - email
+      - first_name
+      - last_name
+      - country
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+        country:
+          title: Country
+          type: string
+    Page_BrokerCustomLiveDeploymentOut_:
+      title: Page[BrokerCustomLiveDeploymentOut]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/BrokerCustomLiveDeploymentOut'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer

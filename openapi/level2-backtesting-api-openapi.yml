@@ -59,6 +59,33 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    BacktestRequest:
+      type: object
+      description: Request body specifying the parameters for a strategy backtest run.
+      required:
+      - startDate
+      - endDate
+      properties:
+        startDate:
+          type: string
+          format: date
+          description: The start date for the backtest period
+        endDate:
+          type: string
+          format: date
+          description: The end date for the backtest period
+        initialCapital:
+          type: number
+          format: float
+          description: The starting capital amount for the backtest in USD
+          default: 100000
+          minimum: 0
+        commissionPerTrade:
+          type: number
+          format: float
+          description: Commission cost per trade in USD
+          default: 0
+          minimum: 0
     ErrorResponse:
       type: object
       description: Standard error response for broker API requests.
@@ -179,46 +206,19 @@ components:
           - trailing_stop
           - exit_condition
           - end_of_backtest
-    BacktestRequest:
-      type: object
-      description: Request body specifying the parameters for a strategy backtest run.
-      required:
-      - startDate
-      - endDate
-      properties:
-        startDate:
-          type: string
-          format: date
-          description: The start date for the backtest period
-        endDate:
-          type: string
-          format: date
-          description: The end date for the backtest period
-        initialCapital:
-          type: number
-          format: float
-          description: The starting capital amount for the backtest in USD
-          default: 100000
-          minimum: 0
-        commissionPerTrade:
-          type: number
-          format: float
-          description: Commission cost per trade in USD
-          default: 0
-          minimum: 0
   parameters:
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: The unique identifier of the broker user on the Level2 platform.
-      schema:
-        type: string
     strategyId:
       name: strategyId
       in: path
       required: true
       description: The unique identifier of the trading strategy.
+      schema:
+        type: string
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: The unique identifier of the broker user on the Level2 platform.
       schema:
         type: string
   securitySchemes:

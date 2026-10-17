@@ -32,15 +32,6 @@ paths:
       - Auth
 components:
   schemas:
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     UserCustomOut:
       title: UserCustomOut
       required:
@@ -85,15 +76,6 @@ components:
           title: Is Admin
           type: boolean
           default: false
-    GoogleAuthRequest:
-      title: GoogleAuthRequest
-      required:
-      - idToken
-      type: object
-      properties:
-        idToken:
-          title: Idtoken
-          type: string
     UserOut:
       title: UserOut
       required:
@@ -138,6 +120,27 @@ components:
           title: Created At
           type: string
           format: date-time
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
     UserPreferenceOut:
       title: UserPreferenceOut
       type: object
@@ -175,24 +178,21 @@ components:
         socials:
           title: Socials
           type: string
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
+    HTTPValidationError:
+      title: HTTPValidationError
       type: object
       properties:
-        loc:
-          title: Location
+        detail:
+          title: Detail
           type: array
           items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
+            $ref: '#/components/schemas/ValidationError'
+    GoogleAuthRequest:
+      title: GoogleAuthRequest
+      required:
+      - idToken
+      type: object
+      properties:
+        idToken:
+          title: Idtoken
           type: string

@@ -42,6 +42,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
+    LeaderboardOut:
+      title: LeaderboardOut
+      required:
+      - data
+      - trading_challenge
+      - last_updated_at
+      type: object
+      properties:
+        data:
+          title: Data
+          type: string
+        trading_challenge:
+          title: Trading Challenge
+          type: string
+        last_updated_at:
+          title: Last Updated At
+          type: string
+          format: date-time
     ValidationError:
       title: ValidationError
       required:
@@ -63,21 +81,3 @@ components:
         type:
           title: Error Type
           type: string
-    LeaderboardOut:
-      title: LeaderboardOut
-      required:
-      - data
-      - trading_challenge
-      - last_updated_at
-      type: object
-      properties:
-        data:
-          title: Data
-          type: string
-        trading_challenge:
-          title: Trading Challenge
-          type: string
-        last_updated_at:
-          title: Last Updated At
-          type: string
-          format: date-time

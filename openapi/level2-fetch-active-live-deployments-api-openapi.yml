@@ -23,43 +23,27 @@ paths:
       - Fetch Active Live Deployments
 components:
   schemas:
-    LiveActiveDeploymentsOut:
-      title: LiveActiveDeploymentsOut
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
       required:
-      - deployment_meta
-      - deployment_id
-      - strategy_key
-      - strategy_name
-      - strategy_data
-      - user_id
+      - id
+      - label
+      - description
+      - is_valid
       type: object
       properties:
-        deployment_meta:
-          $ref: '#/components/schemas/LiveDeploymentOut'
-        deployment_id:
-          title: Deployment Id
+        id:
+          title: Id
           type: integer
-        strategy_key:
-          title: Strategy Key
+        label:
+          title: Label
           type: string
-        strategy_name:
-          title: Strategy Name
+        description:
+          title: Description
           type: string
-        strategy_data:
-          title: Strategy Data
+        is_valid:
+          title: Is Valid
           type: string
-        depl_flag:
-          title: Depl Flag
-          type: string
-        order_trade_type:
-          title: Order Trade Type
-          type: string
-        meta_data:
-          title: Meta Data
-          type: string
-        user_id:
-          title: User Id
-          type: integer
     StrategyOut:
       title: StrategyOut
       required:
@@ -180,24 +164,40 @@ components:
           $ref: '#/components/schemas/B2cBrokersOut'
         strategy:
           $ref: '#/components/schemas/StrategyOut'
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
+    LiveActiveDeploymentsOut:
+      title: LiveActiveDeploymentsOut
       required:
-      - id
-      - label
-      - description
-      - is_valid
+      - deployment_meta
+      - deployment_id
+      - strategy_key
+      - strategy_name
+      - strategy_data
+      - user_id
       type: object
       properties:
-        id:
-          title: Id
+        deployment_meta:
+          $ref: '#/components/schemas/LiveDeploymentOut'
+        deployment_id:
+          title: Deployment Id
           type: integer
-        label:
-          title: Label
+        strategy_key:
+          title: Strategy Key
           type: string
-        description:
-          title: Description
+        strategy_name:
+          title: Strategy Name
           type: string
-        is_valid:
-          title: Is Valid
+        strategy_data:
+          title: Strategy Data
           type: string
+        depl_flag:
+          title: Depl Flag
+          type: string
+        order_trade_type:
+          title: Order Trade Type
+          type: string
+        meta_data:
+          title: Meta Data
+          type: string
+        user_id:
+          title: User Id
+          type: integer

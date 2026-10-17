@@ -23,28 +23,6 @@ paths:
       - Canvas Get Chart Patterns
 components:
   schemas:
-    CanvasChartPatternParamsOut:
-      title: CanvasChartPatternParamsOut
-      type: object
-      properties:
-        box_type:
-          title: Box Type
-          type: string
-        max_value:
-          title: Max Value
-          type: number
-        min_value:
-          title: Min Value
-          type: number
-        name:
-          title: Name
-          type: string
-        type:
-          title: Type
-          type: string
-        default_value:
-          title: Default Value
-          type: string
     CanvasChartPatternsOut:
       title: CanvasChartPatternsOut
       required:
@@ -82,4 +60,26 @@ components:
           type: string
         unique_key:
           title: Unique Key
+          type: string
+    CanvasChartPatternParamsOut:
+      title: CanvasChartPatternParamsOut
+      type: object
+      properties:
+        box_type:
+          title: Box Type
+          type: string
+        max_value:
+          title: Max Value
+          type: number
+        min_value:
+          title: Min Value
+          type: number
+        name:
+          title: Name
+          type: string
+        type:
+          title: Type
+          type: string
+        default_value:
+          title: Default Value
           type: string

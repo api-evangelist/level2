@@ -49,52 +49,6 @@ paths:
       - Marketplace Filter Authors
 components:
   schemas:
-    ConsumerMarketplaceAuthors:
-      title: ConsumerMarketplaceAuthors
-      type: object
-      properties:
-        user:
-          $ref: '#/components/schemas/UserOut'
-        meta_data:
-          title: Meta Data
-          type: object
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-    Page_ConsumerMarketplaceAuthors_:
-      title: Page[ConsumerMarketplaceAuthors]
-      required:
-      - items
-      - total
-      type: object
-      properties:
-        items:
-          title: Items
-          type: array
-          items:
-            $ref: '#/components/schemas/ConsumerMarketplaceAuthors'
-        total:
-          title: Total
-          minimum: 0.0
-          type: integer
-        page:
-          title: Page
-          minimum: 1.0
-          type: integer
-        size:
-          title: Size
-          minimum: 1.0
-          type: integer
-        pages:
-          title: Pages
-          minimum: 0.0
-          type: integer
     UserOut:
       title: UserOut
       required:
@@ -139,27 +93,6 @@ components:
           title: Created At
           type: string
           format: date-time
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
-      type: object
-      properties:
-        loc:
-          title: Location
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
     Body_marketplace_filter_authors_marketplace_filter_authors_post:
       title: Body_marketplace_filter_authors_marketplace_filter_authors_post
       type: object
@@ -185,3 +118,70 @@ components:
         total_strategies:
           title: Total Strategies
           type: string
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    ConsumerMarketplaceAuthors:
+      title: ConsumerMarketplaceAuthors
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserOut'
+        meta_data:
+          title: Meta Data
+          type: object
+    Page_ConsumerMarketplaceAuthors_:
+      title: Page[ConsumerMarketplaceAuthors]
+      required:
+      - items
+      - total
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsumerMarketplaceAuthors'
+        total:
+          title: Total
+          minimum: 0.0
+          type: integer
+        page:
+          title: Page
+          minimum: 1.0
+          type: integer
+        size:
+          title: Size
+          minimum: 1.0
+          type: integer
+        pages:
+          title: Pages
+          minimum: 0.0
+          type: integer

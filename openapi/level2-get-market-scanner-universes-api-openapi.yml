@@ -51,20 +51,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-    MarketScannerUniverseOut:
-      title: MarketScannerUniverseOut
-      type: object
-      properties:
-        meta:
-          title: Meta
-          type: object
-        keygen:
-          title: Keygen
-          type: string
-        universe_list:
-          title: Universe List
-          type: array
-          items: {}
     ValidationError:
       title: ValidationError
       required:
@@ -86,3 +72,17 @@ components:
         type:
           title: Error Type
           type: string
+    MarketScannerUniverseOut:
+      title: MarketScannerUniverseOut
+      type: object
+      properties:
+        meta:
+          title: Meta
+          type: object
+        keygen:
+          title: Keygen
+          type: string
+        universe_list:
+          title: Universe List
+          type: array
+          items: {}

@@ -32,15 +32,6 @@ paths:
       - Login
 components:
   schemas:
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     UserCustomOut:
       title: UserCustomOut
       required:
@@ -85,19 +76,6 @@ components:
           title: Is Admin
           type: boolean
           default: false
-    Body_login_login_post:
-      title: Body_login_login_post
-      required:
-      - email
-      - password
-      type: object
-      properties:
-        email:
-          title: Email
-          type: string
-        password:
-          title: Password
-          type: string
     UserOut:
       title: UserOut
       required:
@@ -142,6 +120,36 @@ components:
           title: Created At
           type: string
           format: date-time
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
     UserPreferenceOut:
       title: UserPreferenceOut
       type: object
@@ -179,24 +187,16 @@ components:
         socials:
           title: Socials
           type: string
-    ValidationError:
-      title: ValidationError
+    Body_login_login_post:
+      title: Body_login_login_post
       required:
-      - loc
-      - msg
-      - type
+      - email
+      - password
       type: object
       properties:
-        loc:
-          title: Location
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
+        email:
+          title: Email
           type: string
-        type:
-          title: Error Type
+        password:
+          title: Password
           type: string

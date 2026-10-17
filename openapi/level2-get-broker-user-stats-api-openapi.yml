@@ -50,67 +50,6 @@ paths:
       - Get Broker User Stats
 components:
   schemas:
-    UserSelectedCustomOut:
-      title: UserSelectedCustomOut
-      required:
-      - email
-      type: object
-      properties:
-        email:
-          title: Email
-          type: string
-        degree:
-          title: Degree
-          type: string
-    LiveDeploymentOrderBookBrokerUserStats:
-      title: LiveDeploymentOrderBookBrokerUserStats
-      required:
-      - user
-      - quantity
-      - trade_taken_at
-      - decision
-      - strategy
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        meta_data:
-          title: Meta Data
-          type: string
-        user:
-          $ref: '#/components/schemas/UserSelectedCustomOut'
-        quantity:
-          title: Quantity
-          type: string
-        trade_taken_at:
-          title: Trade Taken At
-          type: string
-        decision:
-          title: Decision
-          type: string
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
-        trade_closed_at_ts:
-          title: Trade Closed At Ts
-          type: string
-          format: date-time
-        trade_closed_at:
-          title: Trade Closed At
-          type: string
-        strategy:
-          $ref: '#/components/schemas/StrategySelectedCustomOut'
-    HTTPValidationError:
-      title: HTTPValidationError
-      type: object
-      properties:
-        detail:
-          title: Detail
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     Page_LiveDeploymentOrderBookBrokerUserStats_:
       title: Page[LiveDeploymentOrderBookBrokerUserStats]
       required:
@@ -160,6 +99,15 @@ components:
         type:
           title: Error Type
           type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
     StrategySelectedCustomOut:
       title: StrategySelectedCustomOut
       required:
@@ -202,3 +150,55 @@ components:
           title: Created At
           type: string
           format: date-time
+    LiveDeploymentOrderBookBrokerUserStats:
+      title: LiveDeploymentOrderBookBrokerUserStats
+      required:
+      - user
+      - quantity
+      - trade_taken_at
+      - decision
+      - strategy
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        meta_data:
+          title: Meta Data
+          type: string
+        user:
+          $ref: '#/components/schemas/UserSelectedCustomOut'
+        quantity:
+          title: Quantity
+          type: string
+        trade_taken_at:
+          title: Trade Taken At
+          type: string
+        decision:
+          title: Decision
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        trade_closed_at_ts:
+          title: Trade Closed At Ts
+          type: string
+          format: date-time
+        trade_closed_at:
+          title: Trade Closed At
+          type: string
+        strategy:
+          $ref: '#/components/schemas/StrategySelectedCustomOut'
+    UserSelectedCustomOut:
+      title: UserSelectedCustomOut
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        degree:
+          title: Degree
+          type: string

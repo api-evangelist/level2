@@ -50,6 +50,27 @@ paths:
       - Get Scanner Deployments
 components:
   schemas:
+    StrategyCategoryOut:
+      title: StrategyCategoryOut
+      required:
+      - id
+      - label
+      - description
+      - is_valid
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        label:
+          title: Label
+          type: string
+        description:
+          title: Description
+          type: string
+        is_valid:
+          title: Is Valid
+          type: string
     StrategyOut:
       title: StrategyOut
       required:
@@ -109,6 +130,27 @@ components:
           title: Created At
           type: string
           format: date-time
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
     HTTPValidationError:
       title: HTTPValidationError
       type: object
@@ -118,28 +160,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-    ScannerDeploymentsOut:
-      title: ScannerDeploymentsOut
-      required:
-      - created_at
-      - last_updated_at
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        universe:
-          $ref: '#/components/schemas/MarketScannerUniverseOut'
-        strategy:
-          $ref: '#/components/schemas/StrategyOut'
-        created_at:
-          title: Created At
-          type: string
-          format: date-time
-        last_updated_at:
-          title: Last Updated At
-          type: string
-          format: date-time
     Page_ScannerDeploymentsOut_:
       title: Page[ScannerDeploymentsOut]
       required:
@@ -168,6 +188,28 @@ components:
           title: Pages
           minimum: 0.0
           type: integer
+    ScannerDeploymentsOut:
+      title: ScannerDeploymentsOut
+      required:
+      - created_at
+      - last_updated_at
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        universe:
+          $ref: '#/components/schemas/MarketScannerUniverseOut'
+        strategy:
+          $ref: '#/components/schemas/StrategyOut'
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        last_updated_at:
+          title: Last Updated At
+          type: string
+          format: date-time
     MarketScannerUniverseOut:
       title: MarketScannerUniverseOut
       type: object
@@ -182,45 +224,3 @@ components:
           title: Universe List
           type: array
           items: {}
-    ValidationError:
-      title: ValidationError
-      required:
-      - loc
-      - msg
-      - type
-      type: object
-      properties:
-        loc:
-          title: Location
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-    StrategyCategoryOut:
-      title: StrategyCategoryOut
-      required:
-      - id
-      - label
-      - description
-      - is_valid
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        label:
-          title: Label
-          type: string
-        description:
-          title: Description
-          type: string
-        is_valid:
-          title: Is Valid
-          type: string
