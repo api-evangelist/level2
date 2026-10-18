@@ -304,9 +304,10 @@ apis:
   humanURL: https://learn.trylevel2.com/docs/Broker/API/broker-api
   baseURL: https://hub2.trylevel2.com
   tags:
-  - Brokers
+  - Brokerage
   tags_raw:
   - Broker
+  - Brokers
   properties:
   - type: OpenAPI
     url: openapi/level2-broker-api-openapi.yml
