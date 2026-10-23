@@ -17,3 +17,9 @@ paths:
               schema: {}
       tags:
       - Create Stripe Checkout Session
+x-provenance:
+  method: harvested
+  publisher: Level2
+  source: https://hub2.trylevel2.com/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
