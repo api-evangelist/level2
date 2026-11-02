@@ -1,0 +1,69 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://www.trylevel2.com/pricing
+sources:
+- https://www.trylevel2.com/pricing
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T141238
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+published: true
+note: Consumer/trader subscription tiers; no API-specific pricing stated.
+plan_count: 3
+currency: USD
+plans:
+- name: Free
+  price_text: $0
+  price: 0
+  currency: USD
+  period: month
+  included_quota: For traders looking to explore advanced features and make informed decisions with virtual
+    trading — risk-free.
+- name: Pro
+  price_text: $19.99
+  price: 19.99
+  currency: USD
+  period: month
+  included_quota: all features, live market data, and complete control
+- name: Elite
+  price_text: $49.99
+  price: 49.99
+  currency: USD
+  period: month
+  included_quota: seamless integration, low-latency execution and dedicated support
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units: []
+  plans:
+  - name: Free
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Pro
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Elite
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
